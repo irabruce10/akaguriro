@@ -3,6 +3,8 @@ import { SplashScreen, Stack } from 'expo-router'
 import {useFonts} from 'expo-font'
 import "../global.css";
 
+SplashScreen.preventAutoHideAsync()
+
 
 const RootLayout= () => {
 
@@ -33,9 +35,12 @@ const RootLayout= () => {
   if (!fontsLoaded && !error) {
     return null;
   }
+
+
   return (
    <Stack>
     <Stack.Screen name="index" options={{headerShown:false}} />
+ 
    </Stack>
   )
 }

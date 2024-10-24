@@ -1,39 +1,44 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { Tabs } from 'expo-router'
+import { Image, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Tabs } from 'expo-router';
+import { icons } from '../../constants';
 
- import icon from '../../constants'
-import { Image } from 'react-native-web'
-
-const TabIcon = ({ color }) => {
-    return <View>
-        <Image source={icon} resizeMode='contain'
+const TabIcon = ({ color, icon, name, focused }) => {
+  return (
+    <View>
+      <Image
+        source={icon}
+        resizeMode="contain"
         tintColor={color}
-        className='w-6 h-6'/>
+        className="w-8 h-9"
+      />
+      <Text className={`${focused}?'font-psemibold':'font-pregular'`}>
+        {name}
+      </Text>
     </View>
-}
+  );
+};
 
-export default function Tabslayout() {
+export default function TabsLayout() {
   return (
     <>
-
-    <Tabs>
-        <Tabs.Screen 
-        name="home"
-        options={{
+      <Tabs screenOptions={{ tabBarShowLabel: false }}>
+        <Tabs.Screen
+          name="home"
+          options={{
             title: 'Home',
-            headerShown:false,
-            tabBarIcon: ({ color,focused }) => <TabIcon icon={icon.home} 
-            color={color}
-            name='Home'
-            focused={focused} 
-            />
-            
-        }} />
-       
-    </Tabs>
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.home}
+                color={color}
+                name="Home"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+      </Tabs>
     </>
-  )
+  );
 }
-
-const styles = StyleSheet.create({})
