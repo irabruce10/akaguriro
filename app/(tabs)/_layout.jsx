@@ -24,7 +24,19 @@ const TabIcon = ({ color, icon, name, focused }) => {
 export default function TabsLayout() {
   return (
     <>
-      <Tabs screenOptions={{ tabBarShowLabel: false }}>
+      <Tabs
+        screenOptions={{
+          tabBarShowLabel: false,
+          tabBarActiveTintColor: '#FFA001',
+          tabBarInactiveTintColor: '#9B9B9B',
+          tabBarStyle: {
+            backgroundColor: '#161622',
+            borderTopWidth: 1,
+            borderTopColor: '#F2F2F2',
+            height: 84,
+          },
+        }}
+      >
         <Tabs.Screen
           name="home"
           options={{
@@ -64,7 +76,7 @@ export default function TabsLayout() {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.upload}
+                icon={icons.bookmark}
                 color={color}
                 name="About"
                 focused={focused}
