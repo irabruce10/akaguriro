@@ -44,28 +44,28 @@ export const createProductInsecure = async (
   return product;
 };
 
-// export const updateGuestInsecure = async (updatedGuest: Guest) => {
-//   const [guest] = await sql<Guest[]>`
-//     UPDATE guests
-//     SET
-//       first_name = ${updatedGuest.firstName},
-//       last_name = ${updatedGuest.lastName},
-//       attending = ${updatedGuest.attending}
-//     WHERE
-//       id = ${updatedGuest.id}
-//     RETURNING
-//       guests.*
-//   `;
-//   return guest;
-// };
+export const updateProductInsecure = async (updatedProduct: Product) => {
+  const [product] = await sql<Product[]>`
+    UPDATE guests
+    SET
+      first_name = ${updatedProduct.name},
+      last_name = ${updatedProduct.price},
+      attending = ${updatedProduct.address}
+    WHERE
+      id = ${updatedProduct.id}
+    RETURNING
+      guests.*
+  `;
+  return product;
+};
 
-// export const deleteGuestInsecure = async (guestId: Guest['id']) => {
-//   const [guest] = await sql<Guest[]>`
-//     DELETE FROM guests
-//     WHERE
-//       id = ${guestId}
-//     RETURNING
-//       guests.*
-//   `;
-//   return guest;
-// };
+export const deleteProductInsecure = async (productId: Product['id']) => {
+  const [product] = await sql<Product[]>`
+    DELETE FROM products
+    WHERE
+      id = ${productId}
+    RETURNING
+      products.*
+  `;
+  return product;
+};
