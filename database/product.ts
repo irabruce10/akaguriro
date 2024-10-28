@@ -41,26 +41,12 @@ export const createProductInsecure = async (
 ) => {
   const [product] = await sql<Product[]>`
     INSERT INTO
-      products (
-        name,
-        price,
-        address,
-        description,
-        category,
-        image,
-        quantity,
-        owner,
-      )
+      products (name, price, address)
     VALUES
       (
-        name,
-        price,
-        address,
-        description,
-        category,
-        image,
-        quantity,
-        owner,
+        ${newProduct.name},
+        ${newProduct.price},
+        ${newProduct.address}
       )
     RETURNING
       products.*

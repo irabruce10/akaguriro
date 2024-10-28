@@ -64,42 +64,53 @@ const styles = StyleSheet.create({
 });
 
 export default function NewGuest() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [address, setAddress] = useState('');
   const [focusedInput, setFocusedInput] = useState<string | undefined>();
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.addGuestContainer}>
-        <Text style={styles.label}>First Name</Text>
+        <Text style={styles.label}>Name</Text>
         <TextInput
-          style={[
-            styles.input,
-            focusedInput === 'firstName' && styles.inputFocused,
-          ]}
-          value={firstName}
-          onChangeText={setFirstName}
-          onFocus={() => setFocusedInput('firstName')}
+          style={[styles.input, focusedInput === 'name' && styles.inputFocused]}
+          value={name}
+          onChangeText={setName}
+          onFocus={() => setFocusedInput('name')}
           onBlur={() => setFocusedInput(undefined)}
         />
-        <Text style={styles.label}>Last Name</Text>
+        <Text style={styles.label}>price</Text>
         <TextInput
           style={[
             styles.input,
-            focusedInput === 'lastName' && styles.inputFocused,
+            focusedInput === 'price' && styles.inputFocused,
           ]}
-          value={lastName}
-          onChangeText={setLastName}
-          onFocus={() => setFocusedInput('lastName')}
+          value={price}
+          onChangeText={setPrice}
+          onFocus={() => setFocusedInput('price')}
+          onBlur={() => setFocusedInput(undefined)}
+        />
+
+        <Text style={styles.label}>address</Text>
+
+        <TextInput
+          style={[
+            styles.input,
+            focusedInput === 'address' && styles.inputFocused,
+          ]}
+          value={address}
+          onChangeText={setAddress}
+          onFocus={() => setFocusedInput('price')}
           onBlur={() => setFocusedInput(undefined)}
         />
       </View>
       <Pressable
         style={({ pressed }) => [styles.button, { opacity: pressed ? 0.5 : 1 }]}
         onPress={async () => {
-          const response = await fetch('/api/guests', {
+          const response = await fetch('/api/products', {
             method: 'POST',
-            body: JSON.stringify({ firstName, lastName, attending: false }),
+            body: JSON.stringify({ name, price, address }),
           });
 
           if (!response.ok) {
@@ -114,8 +125,9 @@ export default function NewGuest() {
             return;
           }
 
-          setFirstName('');
-          setLastName('');
+          setName('');
+          setPrice('');
+          setAddress('');
           router.push('/home');
         }}
       >
