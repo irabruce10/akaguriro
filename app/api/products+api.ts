@@ -1,13 +1,12 @@
 import {
-  getProductsInsecure,
   createProductInsecure,
-} from '../../database/product.js';
-
+  getProductsInsecure,
+} from '../../database/products';
 import { ExpoApiResponse } from '../../ExpoApiResponse';
 import {
   type Product,
   productsSchema,
-} from '../../migrations/00000-createTableProducts.js';
+} from '../../migrations/00000-createTableProducts';
 
 export type ProductsResponseBodyGet = {
   products: Product[];
@@ -20,6 +19,9 @@ export async function GET(
   console.log('cookie', cookie);
 
   const products = await getProductsInsecure();
+  if (!products) {
+    alert('Error fetching products');
+  }
 
   return ExpoApiResponse.json(
     {
@@ -65,13 +67,12 @@ export async function POST(
     name: result.data.name,
     price: result.data.price,
     address: result.data.address,
-    // description: result.data.description,
-    // category: result.data.category,
-    // image: result.data.image,
-    // quantity: result.data.quantity,
-    // owner: result.data.owner,
   };
-
+  // description: result.data.description,
+  // category: result.data.category,
+  // image: result.data.image,
+  // quantity: result.data.quantity,
+  // owner: result.data.owner,
   const product = await createProductInsecure(newProduct);
 
   if (!product) {

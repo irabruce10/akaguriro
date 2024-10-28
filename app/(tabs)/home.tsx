@@ -41,19 +41,19 @@ export default function Home() {
       <FlatList
         data={products}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-        ListHeaderComponent={() => (
-          <View className="my-6 px-4 space-y-6 flex">
-            <View className="justify-between items-start flex-row mb-6">
-              <View>
-                <Text className="font-psemibold  text-2xl  text-gray-100 ">
-                  Welcome again!
-                </Text>
-              </View>
-            </View>
-            {/* <SearchInput /> */}
-          </View>
-        )}
+        keyExtractor={(item: Product) => String(item.id)}
+        // ListHeaderComponent={() => (
+        //   <View className="my-6 px-4 space-y-6 flex">
+        //     <View className="justify-between items-start flex-row mb-6">
+        //       <View>
+        //         <Text className="font-psemibold  text-2xl  text-gray-100 ">
+        //           Welcome again!
+        //         </Text>
+        //       </View>
+        //     </View>
+        //     {/* <SearchInput /> */}
+        //   </View>
+        // )}
       />
     </SafeAreaView>
   );

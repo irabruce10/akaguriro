@@ -7,17 +7,13 @@ type Props = {
   setIsStale: (isStale: boolean) => void;
 };
 export default function ProductItem({ product, setIsStale }: Props) {
-  const { id, name, price, address, category, quantity, owner } = product;
+  const { id, name, price, address } = product;
   return (
     <View>
-      <Text>{name}</Text>
-
-      <Text>Price: {price}</Text>
-      <Text>ID: {id}</Text>
-      <Text>Address: {address}</Text>
-      <Text>Category: {category}</Text>
-      <Text>Quantity: {quantity}</Text>
-      <Text>Owner: {owner}</Text>
+      <Text className="text-white">ID: {id}</Text>
+      <Text className="text-white">{name}</Text>
+      <Text className="text-white">Price: {price}</Text>
+      <Text className="text-white">Address: {address}</Text>
     </View>
   );
 }
