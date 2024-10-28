@@ -10,10 +10,10 @@ export default function ProductItem({ product, setIsStale }: Props) {
   const { id, name, price, address } = product;
   return (
     <View>
-      <Text className="text-white">ID: {id}</Text>
-      <Text className="text-white">{name}</Text>
-      <Text className="text-white">Price: {price}</Text>
-      <Text className="text-white">Address: {address}</Text>
+      <Text className="text-red">ID: {id}</Text>
+      <Text className="text-red">{name}</Text>
+      <Text className="text-red">Price: {price}</Text>
+      <Text className="text-red">Address: {address}</Text>
     </View>
   );
 }
