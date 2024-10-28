@@ -17,7 +17,7 @@ export const productsSchema = z.object({
   description: z.string().min(1).max(250),
   image: z.string().min(1).max(250),
   category: z.string().nullable(),
-  price: z.number().min(0),
+  price: z.string().min(0),
   quantity: z.number().min(1),
   countInStock: z.number().nullable(),
 });
