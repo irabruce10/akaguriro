@@ -39,6 +39,16 @@ const RootLayout = () => {
       {/* <StatusBar style="light" /> */}
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="product/[productId]"
+        options={{
+          presentation: 'modal',
+          title: '',
+          animation: 'slide_from_bottom',
+
+          headerStyle: {},
+        }}
+      />
     </Stack>
   );
 };

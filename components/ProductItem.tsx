@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import type { Product } from '../migrations/00000-createTableProducts';
+import { Link } from 'expo-router';
 
 type Props = {
   product: Product;
@@ -9,11 +10,15 @@ type Props = {
 export default function ProductItem({ product, setIsStale }: Props) {
   const { id, name, price, address } = product;
   return (
-    <View>
-      <Text className="text-red">ID: {id}</Text>
-      <Text className="text-red">{name}</Text>
-      <Text className="text-red">Price: {price}</Text>
-      <Text className="text-red">Address: {address}</Text>
-    </View>
+    <Link href={`/product/${id}`} asChild>
+      <Pressable>
+        <View>
+          <Text className="text-red">ID: {id}</Text>
+          <Text className="text-red">{name}</Text>
+          <Text className="text-red">Price: {price}</Text>
+          <Text className="text-red">Address: {address}</Text>
+        </View>
+      </Pressable>
+    </Link>
   );
 }
