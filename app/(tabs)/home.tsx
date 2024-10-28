@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useCallback, useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useCallback, useState } from 'react';
+import { SafeAreaView } from 'react-native';
 import { FlatList } from 'react-native';
-import type { Product } from '../../migrations/00000-createTableProducts.js';
+import type { Product } from '../../migrations/00000-createTableProducts';
 
-import type { ProductsResponseBodyGet } from '../api/products+api.js';
+import type { ProductsResponseBodyGet } from '../api/products+api';
 import ProductItem from '../../components/ProductItem';
 import SearchInput from '../../components/SearchInput.jsx';
 import { useFocusEffect } from 'expo-router';
@@ -42,18 +42,18 @@ export default function Home() {
         data={products}
         renderItem={renderItem}
         keyExtractor={(item: Product) => String(item.id)}
-        // ListHeaderComponent={() => (
-        //   <View className="my-6 px-4 space-y-6 flex">
-        //     <View className="justify-between items-start flex-row mb-6">
-        //       <View>
-        //         <Text className="font-psemibold  text-2xl  text-gray-100 ">
-        //           Welcome again!
-        //         </Text>
-        //       </View>
-        //     </View>
-        //     {/* <SearchInput /> */}
-        //   </View>
-        // )}
+        ListHeaderComponent={() => (
+          <View className="my-6 px-4 space-y-6 flex">
+            <View className="justify-between items-start flex-row mb-6">
+              <View>
+                <Text className="font-psemibold  text-2xl  text-gray-100 ">
+                  Welcome again!
+                </Text>
+              </View>
+            </View>
+            {/* <SearchInput /> */}
+          </View>
+        )}
       />
     </SafeAreaView>
   );
