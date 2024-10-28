@@ -44,21 +44,23 @@ export const createProductInsecure = async (
       products (
         name,
         price,
+        address,
         description,
         category,
         image,
         quantity,
-        countinstock
+        owner,
       )
     VALUES
       (
         name,
         price,
+        address,
         description,
         category,
         image,
         quantity,
-        countinstock
+        owner,
       )
     RETURNING
       products.*

@@ -43,6 +43,12 @@
             "newArchEnabled": true
           }
         }
+      ],
+      [
+        "expo-router",
+        {
+          "origin": "https://evanbacon.dev/"
+        }
       ]
     ]
   }

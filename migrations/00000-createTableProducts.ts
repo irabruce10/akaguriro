@@ -5,21 +5,23 @@ export type Product = {
   id: number;
   name: string;
   price: string;
+  address: string;
   description: string;
   category: string | null;
   image: string;
   quantity: number;
-  countInStock: number | null;
+  owner: string;
 };
 
 export const productsSchema = z.object({
   name: z.string().min(1).max(50),
-  description: z.string().min(1).max(250),
-  image: z.string().min(1).max(250),
-  category: z.string().nullable(),
   price: z.string().min(0),
+  address: z.string().min(1).max(100),
+  description: z.string().min(1).max(250),
+  category: z.string().nullable(),
+  image: z.string().min(1).max(250),
   quantity: z.number().min(1),
-  countInStock: z.number().nullable(),
+  owner: z.string().min(1).max(50),
 });
 
 export async function up(sql: Sql) {
@@ -28,11 +30,12 @@ export async function up(sql: Sql) {
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
       name varchar(50) NOT NULL,
       price numeric CHECK (price > 0) NOT NULL,
+      address varchar(100) NOT NULL,
       description varchar(250) NOT NULL,
       category varchar(250),
       image varchar(250) NOT NULL,
       quantity integer NOT NULL,
-      count_in_stock integer
+      owner varchar(50) NOT NULL
     );
   `;
 }

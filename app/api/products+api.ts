@@ -64,11 +64,12 @@ export async function POST(
   const newProduct = {
     name: result.data.name,
     price: result.data.price,
+    address: result.data.address,
     description: result.data.description,
     category: result.data.category,
     image: result.data.image,
     quantity: result.data.quantity,
-    countInStock: result.data.countInStock,
+    owner: result.data.owner,
   };
 
   const product = await createProductInsecure(newProduct);
