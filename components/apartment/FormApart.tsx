@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   TextInput,
   Pressable,
+  Alert,
 } from 'react-native';
 import React, { useState } from 'react';
 import { router } from 'expo-router';
@@ -63,8 +64,10 @@ const styles = StyleSheet.create({
 
 const FormApart = () => {
   const [name, setName] = useState('gast');
-  const [maxCapacity, setMaxCapacity] = useState('2');
-  const [regularPrice, setRegularPrice] = useState('300');
+  const [rooms, setRooms] = useState('');
+  const [maxCapacity, setMaxCapacity] = useState('');
+
+  const [regularPrice, setRegularPrice] = useState('');
   const [discount, setDiscount] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
@@ -80,20 +83,18 @@ const FormApart = () => {
           onFocus={() => setFocusedInput('name')}
           onBlur={() => setFocusedInput(undefined)}
         />
+        <Text style={styles.label}>rooms</Text>
+        <TextInput
+          value={rooms}
+          onChangeText={setRooms}
+          onFocus={() => setFocusedInput('rooms')}
+          onBlur={() => setFocusedInput(undefined)}
+        />
         <Text style={styles.label}>maxCapacity</Text>
         <TextInput
           value={maxCapacity}
           onChangeText={setMaxCapacity}
           onFocus={() => setFocusedInput('maxCapacity')}
-          onBlur={() => setFocusedInput(undefined)}
-        />
-
-        <Text style={styles.label}>regularPrice</Text>
-
-        <TextInput
-          value={regularPrice}
-          onChangeText={setRegularPrice}
-          onFocus={() => setFocusedInput('regularPrice')}
           onBlur={() => setFocusedInput(undefined)}
         />
         {/* <Text style={styles.label}>discount</Text>
@@ -128,26 +129,26 @@ const FormApart = () => {
       <Pressable
         style={({ pressed }) => [styles.button, { opacity: pressed ? 0.5 : 1 }]}
         onPress={async () => {
-          // const response = await fetch('/api/products', {
-          //   method: 'POST',
-          //   body: JSON.stringify({ name, price, address }),
-          // });
+          const response = await fetch('/api/apartments', {
+            method: 'POST',
+            body: JSON.stringify({ name, rooms, maxCapacity }),
+          });
 
-          // if (!response.ok) {
-          //   let errorMessage = 'Error creating guest';
-          //   const body = await response.json();
+          if (!response.ok) {
+            let errorMessage = 'Error creating Apartment';
+            const body = await response.json();
 
-          //   if ('error' in body) {
-          //     errorMessage = body.error;
-          //   }
+            if ('error' in body) {
+              errorMessage = body.error;
+            }
 
-          //   Alert.alert('Error', errorMessage, [{ text: 'OK' }]);
-          //   return;
-          // }
+            Alert.alert('Error', errorMessage, [{ text: 'OK' }]);
+            return;
+          }
 
-          // setName('');
-          // setPrice('');
-          // setAddress('');
+          setName('');
+          setMaxCapacity('');
+          setRegularPrice('');
           router.push('/(tabs)/apartments');
         }}
       >

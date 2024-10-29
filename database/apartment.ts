@@ -30,12 +30,12 @@ export const createApartmentInsecure = async (
 ) => {
   const [apartment] = await sql<Apartment[]>`
     INSERT INTO
-      apartments (name, price, address)
+      apartments (name, rooms, max_capacity)
     VALUES
       (
         ${newApartment.name},
         ${newApartment.rooms},
-        ${newApartment.regular_price}
+        ${newApartment.max_capacity}
       )
     RETURNING
       apartments.*
@@ -45,15 +45,15 @@ export const createApartmentInsecure = async (
 
 export const updateApartmentInsecure = async (updatedApartment: Apartment) => {
   const [apartment] = await sql<Apartment[]>`
-    UPDATE guests
+    UPDATE apartments
     SET
       name = ${updatedApartment.name},
-      price = ${updatedApartment.rooms},
-      address = ${updatedApartment.regular_price}
+      rooms = ${updatedApartment.rooms},
+      max_capacity = ${updatedApartment.max_capacity}
     WHERE
       id = ${updatedApartment.id}
     RETURNING
-      guests.*
+      apartments.*
   `;
   return apartment;
 };
