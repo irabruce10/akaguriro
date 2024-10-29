@@ -56,7 +56,7 @@ const RootLayout = () => {
           title: '',
           animation: 'slide_from_bottom',
 
-          headerStyle: {},
+          headerStyle: { backgroundColor: 'black' },
         }}
       />
 
