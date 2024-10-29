@@ -37,7 +37,7 @@ export default function About() {
   );
 
   return (
-    <SafeAreaView className="bg-primary">
+    <SafeAreaView className="bg-primary w-full">
       <FlatList
         data={apartments}
         renderItem={renderItem}

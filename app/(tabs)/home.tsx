@@ -6,8 +6,9 @@ import type { Product } from '../../migrations/00000-createTableProducts';
 
 import type { ProductsResponseBodyGet } from '../api/products+api';
 import ProductItem from '../../components/ProductItem';
-import SearchInput from '../../components/SearchInput.jsx';
+import SearchInput from '../../components/SearchInput';
 import { useFocusEffect } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -38,22 +39,26 @@ export default function Home() {
 
   return (
     <SafeAreaView className="bg-primary h-full">
+      <StatusBar style="light" />
       <FlatList
         data={products}
         renderItem={renderItem}
         keyExtractor={(item: Product) => String(item.id)}
-        // ListHeaderComponent={() => (
-        //   <View className="my-6 px-4 space-y-6 flex">
-        //     <View className="justify-between items-start flex-row mb-6">
-        //       <View>
-        //         <Text className="font-psemibold  text-2xl  text-gray-100 ">
-        //           Welcome again!
-        //         </Text>
-        //       </View>
-        //     </View>
-        //     {/* <SearchInput /> */}
-        //   </View>
-        // )}
+        ListHeaderComponent={() => (
+          <View className="my-6 px-4 space-y-6">
+            <View className="flex-row justify-between items-start mb-6">
+              <Text className="font-pmedium text-sm text-gray-100 mt-12">
+                Store
+              </Text>
+            </View>
+            <SearchInput
+              handleChangeText={function (text: string): void {
+                throw new Error('Function not implemented.');
+              }}
+              value={''}
+            />
+          </View>
+        )}
       />
     </SafeAreaView>
   );
