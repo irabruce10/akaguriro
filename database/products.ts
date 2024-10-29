@@ -1,4 +1,3 @@
-// import type { Products } from '../migrations/00000-createTableProducts';
 import type { Product } from '../migrations/00000-createTableProducts';
 import { sql } from './connect';
 
@@ -48,9 +47,9 @@ export const updateProductInsecure = async (updatedProduct: Product) => {
   const [product] = await sql<Product[]>`
     UPDATE guests
     SET
-      first_name = ${updatedProduct.name},
-      last_name = ${updatedProduct.price},
-      attending = ${updatedProduct.address}
+      name = ${updatedProduct.name},
+      price = ${updatedProduct.price},
+      address = ${updatedProduct.address}
     WHERE
       id = ${updatedProduct.id}
     RETURNING
