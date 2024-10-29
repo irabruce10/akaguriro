@@ -6,25 +6,22 @@ export type Apartment = {
   name: string;
   rooms: number;
   max_capacity: number;
-
-  // regular_price: number;
-  // discount_price: number;
-  // description: string;
-  // image: string;
-  // place: string;
 };
-
+// regular_price: number;
+// discount_price: number;
+// description: string;
+// image: string;
+// place: string;
 export const apartmentsSchema = z.object({
   name: z.string().min(1).max(50),
   rooms: z.number().min(1),
   max_capacity: z.number().min(1),
-  // regular_price: z.number().min(2),
-  // discount_price: z.number().min(2),
-  // description: z.string().max(250),
-  // image: z.string().max(250),
-  // place: z.string().min(1).max(100),
 });
-
+// regular_price: z.number().min(2),
+// discount_price: z.number().min(2),
+// description: z.string().max(250),
+// image: z.string().max(250),
+// place: z.string().min(1).max(100),
 export async function up(sql: Sql) {
   await sql`
     CREATE TABLE apartments (

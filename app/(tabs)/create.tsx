@@ -67,6 +67,7 @@ export default function NewGuest() {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [address, setAddress] = useState('');
+
   const [focusedInput, setFocusedInput] = useState<string | undefined>();
 
   return (

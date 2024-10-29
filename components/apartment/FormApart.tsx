@@ -7,7 +7,7 @@ import {
   Pressable,
   Alert,
 } from 'react-native';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { router } from 'expo-router';
 
 const styles = StyleSheet.create({
@@ -72,6 +72,7 @@ const FormApart = () => {
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
   const [location, setLocation] = useState('');
+
   const [focusedInput, setFocusedInput] = useState<string | undefined>();
   return (
     <SafeAreaView style={styles.container}>
@@ -154,11 +155,6 @@ const FormApart = () => {
       >
         <Text style={styles.text}>Add Apartment</Text>
       </Pressable>
-
-      {/* <Pressable>
-        router.push('/apartments');
-        <Text style={styles.text}>Add Apartment</Text>
-      </Pressable> */}
     </SafeAreaView>
   );
 };

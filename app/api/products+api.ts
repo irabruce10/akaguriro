@@ -2,6 +2,7 @@ import {
   createProductInsecure,
   getProductsInsecure,
 } from '../../database/products';
+
 import { ExpoApiResponse } from '../../ExpoApiResponse';
 import {
   type Product,
