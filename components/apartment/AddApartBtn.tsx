@@ -8,7 +8,7 @@ const add = () => {
       <Link href={`/Apartment/addApart`} asChild>
         <Pressable>
           <View>
-            <Text className="text-red">add</Text>
+            <Text className="text-white">add</Text>
           </View>
         </Pressable>
       </Link>

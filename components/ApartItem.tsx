@@ -10,10 +10,10 @@ const ApartItem = ({ apartment }: Props) => {
   const { id, name, rooms, maxCapacity } = apartment;
   return (
     <View>
-      <Text className="text-red">ID: {id}</Text>
-      <Text className="text-red">name:{name}</Text>
-      <Text className="text-red">Rooms: {rooms}</Text>
-      <Text className="text-red">guests: {maxCapacity}</Text>
+      <Text className="text-white">ID: {id}</Text>
+      <Text className="text-white">name:{name}</Text>
+      <Text className="text-white">Rooms: {rooms}</Text>
+      <Text className="text-white">guests: {maxCapacity}</Text>
     </View>
   );
 };

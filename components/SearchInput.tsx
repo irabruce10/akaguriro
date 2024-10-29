@@ -1,8 +1,19 @@
-import { View, Image, TextInput, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  type ImageSourcePropType,
+} from 'react-native';
 import React from 'react';
 import { icons } from '../constants';
+type Props = {
+  handleChangeText: (text: string) => void;
+  value: string;
 
-const SearchInput = ({ handleChangeText, value, placeholder }) => {
+  source?: ImageSourcePropType | undefined; // optional prop for icon source
+};
+const SearchInput = ({ handleChangeText, value, source }: Props) => {
   return (
     <View className="border-2 border-black-200 w-full h-16 px-4 bg-black-100 rounded-2xl focus:border-secondary items-center flex flex-row space-x-4 ">
       <TextInput

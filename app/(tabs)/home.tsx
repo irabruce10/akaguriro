@@ -37,7 +37,7 @@ export default function Home() {
   );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={products}
         renderItem={renderItem}
