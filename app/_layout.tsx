@@ -49,6 +49,17 @@ const RootLayout = () => {
           headerStyle: {},
         }}
       />
+
+      <Stack.Screen
+        name="Apartment/addApart"
+        options={{
+          presentation: 'modal',
+          title: '',
+          animation: 'slide_from_bottom',
+
+          headerStyle: {},
+        }}
+      />
     </Stack>
   );
 };
