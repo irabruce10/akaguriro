@@ -2,10 +2,17 @@ import { Ionicons } from '@expo/vector-icons';
 // import { Image } from 'expo-image';
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-
+import {
+  Pressable,
+  StyleSheet,
+  Switch,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import placeholder from '../../assets/candidate-default.avif';
 // import { colors } from '../../constants/colors';
-// import type { ApartmentResponseBodyGet } from '../api/[apartmentId]+api';
+import type { ApartmentResponseBodyGet } from '../api/[apartmentId]+api';
 
 const styles = StyleSheet.create({
   container: {
@@ -119,12 +126,12 @@ export default function ApartmentPage() {
         }
 
         const response = await fetch(`/api/${apartmentId}`);
-        const body = await response.json();
+        const body: ApartmentResponseBodyGet = await response.json();
 
         if ('apartment' in body) {
           setName(body.apartment.name);
-          setRooms(body.apartment.rooms);
-          setMaxCapacity(body.apartment.maxCapacity);
+          setRooms(String(body.apartment.rooms));
+          setMaxCapacity(String(body.apartment.maxCapacity));
         }
       }
 
@@ -159,7 +166,7 @@ export default function ApartmentPage() {
       {isEditing ? (
         <>
           <View style={styles.inputContainer}>
-            <Text style={styles.label}> Name</Text>
+            <Text style={styles.label}>First Name</Text>
             <TextInput
               style={[
                 styles.input,
@@ -170,7 +177,7 @@ export default function ApartmentPage() {
               onFocus={() => setFocusedInput('name')}
               onBlur={() => setFocusedInput(undefined)}
             />
-            <Text style={styles.label}>rooms</Text>
+            <Text style={styles.label}>Last Name</Text>
             <TextInput
               style={[
                 styles.input,
@@ -181,19 +188,7 @@ export default function ApartmentPage() {
               onFocus={() => setFocusedInput('rooms')}
               onBlur={() => setFocusedInput(undefined)}
             />
-            <Text style={styles.label}>maxcapacity</Text>
-            <TextInput
-              style={[
-                styles.input,
-                focusedInput === 'rooms' && styles.inputFocused,
-              ]}
-              value={maxCapacity}
-              onChangeText={setMaxCapacity}
-              onFocus={() => setFocusedInput('rooms')}
-              onBlur={() => setFocusedInput(undefined)}
-            />
           </View>
-
           <Pressable
             style={({ pressed }) => [
               styles.button,
@@ -210,7 +205,7 @@ export default function ApartmentPage() {
               });
 
               setIsEditing(false);
-              router.replace('/home');
+              router.replace('/');
             }}
           >
             <Text style={styles.buttonText}>Save</Text>
@@ -220,13 +215,12 @@ export default function ApartmentPage() {
         <>
           <View style={styles.textContainer}>
             <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
-              name: {name}
-            </Text>
-            <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
-              rooms: {rooms}
+              {name} {rooms}
             </Text>
 
-            <Text style={styles.textSecondary}>maxCapacity: {maxCapacity}</Text>
+            <Text style={styles.textSecondary}>
+              {maxCapacity ? 'MaxCapacity' : 'Not maxCapacity'}
+            </Text>
           </View>
           <View style={styles.iconContainer}>
             <Pressable
