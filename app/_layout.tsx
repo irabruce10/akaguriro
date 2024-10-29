@@ -50,7 +50,18 @@ const RootLayout = () => {
       />
 
       <Stack.Screen
-        name="Apartment/addApart"
+        name="apartment/addApart"
+        options={{
+          presentation: 'modal',
+          title: '',
+          animation: 'slide_from_bottom',
+
+          headerStyle: {},
+        }}
+      />
+
+      <Stack.Screen
+        name="apartment/[apartmentId]"
         options={{
           presentation: 'modal',
           title: '',
