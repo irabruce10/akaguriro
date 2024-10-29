@@ -1,5 +1,13 @@
-import { StyleSheet, View, Text, SafeAreaView, TextInput } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  SafeAreaView,
+  TextInput,
+  Pressable,
+} from 'react-native';
 import React, { useState } from 'react';
+import { router } from 'expo-router';
 
 const styles = StyleSheet.create({
   container: {
@@ -54,9 +62,9 @@ const styles = StyleSheet.create({
 });
 
 const FormApart = () => {
-  const [name, setName] = useState('');
-  const [maxCapacity, setMaxCapacity] = useState('');
-  const [regularPrice, setRegularPrice] = useState('');
+  const [name, setName] = useState('gast');
+  const [maxCapacity, setMaxCapacity] = useState('2');
+  const [regularPrice, setRegularPrice] = useState('300');
   const [discount, setDiscount] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
@@ -88,58 +96,67 @@ const FormApart = () => {
           onFocus={() => setFocusedInput('regularPrice')}
           onBlur={() => setFocusedInput(undefined)}
         />
+        {/* <Text style={styles.label}>discount</Text>
         <TextInput
           value={discount}
           onChangeText={setDiscount}
           onFocus={() => setFocusedInput('discount')}
           onBlur={() => setFocusedInput(undefined)}
         />
+        <Text style={styles.label}>description</Text>
         <TextInput
           value={description}
           onChangeText={setDescription}
           onFocus={() => setFocusedInput('description')}
           onBlur={() => setFocusedInput(undefined)}
         />
+        <Text style={styles.label}>regularPrice</Text>
         <TextInput
           value={image}
           onChangeText={setImage}
           onFocus={() => setFocusedInput('image')}
           onBlur={() => setFocusedInput(undefined)}
         />
-        <TextInput
+        <Text style={styles.label}>regularPrice</Text> */}
+        {/* <TextInput
           value={location}
           onChangeText={setLocation}
           onFocus={() => setFocusedInput('location')}
           onBlur={() => setFocusedInput(undefined)}
-        />
+        /> */}
       </View>
-      {/* <Pressable
+      <Pressable
         style={({ pressed }) => [styles.button, { opacity: pressed ? 0.5 : 1 }]}
         onPress={async () => {
-          const response = await fetch('/api/products', {
-            method: 'POST',
-            body: JSON.stringify({ name, price, address }),
-          });
+          // const response = await fetch('/api/products', {
+          //   method: 'POST',
+          //   body: JSON.stringify({ name, price, address }),
+          // });
 
-          if (!response.ok) {
-            let errorMessage = 'Error creating guest';
-            const body = await response.json();
+          // if (!response.ok) {
+          //   let errorMessage = 'Error creating guest';
+          //   const body = await response.json();
 
-            if ('error' in body) {
-              errorMessage = body.error;
-            }
+          //   if ('error' in body) {
+          //     errorMessage = body.error;
+          //   }
 
-            Alert.alert('Error', errorMessage, [{ text: 'OK' }]);
-            return;
-          }
+          //   Alert.alert('Error', errorMessage, [{ text: 'OK' }]);
+          //   return;
+          // }
 
-          setName('');
-          setPrice('');
-          setAddress('');
-          router.push('/home');
+          // setName('');
+          // setPrice('');
+          // setAddress('');
+          router.push('/(tabs)/apartments');
         }}
       >
-        <Text style={styles.text}>Add Guest</Text>
+        <Text style={styles.text}>Add Apartment</Text>
+      </Pressable>
+
+      {/* <Pressable>
+        router.push('/apartments');
+        <Text style={styles.text}>Add Apartment</Text>
       </Pressable> */}
     </SafeAreaView>
   );
