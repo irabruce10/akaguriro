@@ -109,9 +109,14 @@ export default function NewGuest() {
       <Pressable
         style={({ pressed }) => [styles.button, { opacity: pressed ? 0.5 : 1 }]}
         onPress={async () => {
+          const product = {
+            name,
+            price,
+            address,
+          };
           const response = await fetch('/api/products', {
             method: 'POST',
-            body: JSON.stringify({ name, price, address }),
+            body: JSON.stringify(product),
           });
 
           if (!response.ok) {
@@ -129,7 +134,7 @@ export default function NewGuest() {
           setName('');
           setPrice('');
           setAddress('');
-          router.push('/home');
+          router.push('/(tabs)/home');
         }}
       >
         <Text style={styles.text}>Add Guest</Text>

@@ -5,7 +5,7 @@ export type Apartment = {
   id: number;
   name: string;
   rooms: number;
-  max_capacity: number;
+  maxCapacity: number;
 };
 // regular_price: number;
 // discount_price: number;
@@ -15,7 +15,7 @@ export type Apartment = {
 export const apartmentsSchema = z.object({
   name: z.string().min(1).max(50),
   rooms: z.number().min(1),
-  max_capacity: z.number().min(1),
+  maxCapacity: z.number().min(1),
 });
 // regular_price: z.number().min(2),
 // discount_price: z.number().min(2),

@@ -67,7 +67,7 @@ export async function POST(
   const newApartment = {
     name: result.data.name,
     rooms: result.data.rooms,
-    max_capacity: result.data.max_capacity,
+    maxCapacity: result.data.maxCapacity,
   };
 
   const apartment = await createApartmentInsecure(newApartment);

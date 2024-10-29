@@ -98,41 +98,18 @@ const FormApart = () => {
           onFocus={() => setFocusedInput('maxCapacity')}
           onBlur={() => setFocusedInput(undefined)}
         />
-        {/* <Text style={styles.label}>discount</Text>
-        <TextInput
-          value={discount}
-          onChangeText={setDiscount}
-          onFocus={() => setFocusedInput('discount')}
-          onBlur={() => setFocusedInput(undefined)}
-        />
-        <Text style={styles.label}>description</Text>
-        <TextInput
-          value={description}
-          onChangeText={setDescription}
-          onFocus={() => setFocusedInput('description')}
-          onBlur={() => setFocusedInput(undefined)}
-        />
-        <Text style={styles.label}>regularPrice</Text>
-        <TextInput
-          value={image}
-          onChangeText={setImage}
-          onFocus={() => setFocusedInput('image')}
-          onBlur={() => setFocusedInput(undefined)}
-        />
-        <Text style={styles.label}>regularPrice</Text> */}
-        {/* <TextInput
-          value={location}
-          onChangeText={setLocation}
-          onFocus={() => setFocusedInput('location')}
-          onBlur={() => setFocusedInput(undefined)}
-        /> */}
       </View>
       <Pressable
         style={({ pressed }) => [styles.button, { opacity: pressed ? 0.5 : 1 }]}
         onPress={async () => {
+          const apartment = {
+            name,
+            rooms: parseInt(rooms),
+            maxCapacity: parseInt(maxCapacity),
+          };
           const response = await fetch('/api/apartments', {
             method: 'POST',
-            body: JSON.stringify({ name, rooms, maxCapacity }),
+            body: JSON.stringify(apartment),
           });
 
           if (!response.ok) {
@@ -160,3 +137,36 @@ const FormApart = () => {
 };
 
 export default FormApart;
+
+{
+  /* <Text style={styles.label}>discount</Text>
+        <TextInput
+          value={discount}
+          onChangeText={setDiscount}
+          onFocus={() => setFocusedInput('discount')}
+          onBlur={() => setFocusedInput(undefined)}
+        />
+        <Text style={styles.label}>description</Text>
+        <TextInput
+          value={description}
+          onChangeText={setDescription}
+          onFocus={() => setFocusedInput('description')}
+          onBlur={() => setFocusedInput(undefined)}
+        />
+        <Text style={styles.label}>regularPrice</Text>
+        <TextInput
+          value={image}
+          onChangeText={setImage}
+          onFocus={() => setFocusedInput('image')}
+          onBlur={() => setFocusedInput(undefined)}
+        />
+        <Text style={styles.label}>regularPrice</Text> */
+}
+{
+  /* <TextInput
+          value={location}
+          onChangeText={setLocation}
+          onFocus={() => setFocusedInput('location')}
+          onBlur={() => setFocusedInput(undefined)}
+        /> */
+}
