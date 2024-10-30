@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import type { ApartmentsResponseBodyPost } from '../../app/api_apartments/apartments+api';
+import CustomButton from '../CustomButton';
 
 export default function FormApart() {
   const [name, setName] = useState('');
@@ -42,8 +43,11 @@ export default function FormApart() {
           onBlur={() => setFocusedInput(undefined)}
         />
       </View>
-      <Pressable
-        onPress={async () => {
+      <CustomButton
+        title="Add apartment"
+        containerStyles="w-full my-7 px-28 text-center"
+        textStyles="text-white font-bold"
+        handlePress={async () => {
           const response = await fetch('/api_apartments/apartments', {
             method: 'POST',
             body: JSON.stringify({
@@ -70,9 +74,7 @@ export default function FormApart() {
           setMaxCapacity('');
           router.push('/(tabs)/apartments');
         }}
-      >
-        <Text>Add apart</Text>
-      </Pressable>
+      />
     </SafeAreaView>
   );
 }
