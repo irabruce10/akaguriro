@@ -5,7 +5,7 @@ import { FlatList } from 'react-native';
 import type { Product } from '../../migrations/00000-createTableProducts';
 
 import type { ProductsResponseBodyGet } from '../api/products+api';
-import ProductItem from '../../components/ProductItem';
+import ProductItem from '../../components/product/ProductItem';
 import SearchInput from '../../components/SearchInput';
 import { useFocusEffect } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
