@@ -281,7 +281,7 @@ export default function FormApart() {
           //   rooms: parseInt(rooms),
           //   maxCapacity: parseInt(maxCapacity),
           // };
-          const response = await fetch('/api/apartments', {
+          const response = await fetch('/api_apartments/apartments', {
             method: 'POST',
             body: JSON.stringify({
               name,
