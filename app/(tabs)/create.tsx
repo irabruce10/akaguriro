@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function NewGuest() {
+export default function NewProduct() {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [address, setAddress] = useState('');
@@ -137,7 +137,7 @@ export default function NewGuest() {
           router.push('/(tabs)/home');
         }}
       >
-        <Text style={styles.text}>Add Guest</Text>
+        <Text style={styles.text}>Add product</Text>
       </Pressable>
     </SafeAreaView>
   );

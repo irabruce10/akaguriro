@@ -10,7 +10,7 @@ type Props = {
 export default function ProductItem({ product, setIsStale }: Props) {
   const { id, name, price, address } = product;
   return (
-    <Link href={`/product/${id}`} asChild>
+    <Link href={`/productModal/${id}`} asChild>
       <Pressable>
         <View>
           <Text className="text-white">ID: {id}</Text>

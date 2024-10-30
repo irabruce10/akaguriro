@@ -1,5 +1,4 @@
 import { Ionicons } from '@expo/vector-icons';
-// import { Image } from 'expo-image';
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
 import {
@@ -10,9 +9,8 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import placeholder from '../../assets/candidate-default.avif';
-// import { colors } from '../../constants/colors';
-import type { ProductResponseBodyGet } from '../api/[productId]+api';
+
+import type { ApartmentResponseBodyGet } from '../api_apartments/[apartmentId]+api';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,7 +35,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontSize: 24,
-    fontFamily: 'Poppins_700Bold',
+
     // color: colors.text,
   },
   textContainer: {
@@ -47,7 +45,7 @@ const styles = StyleSheet.create({
   textSecondary: {
     textAlign: 'center',
     fontSize: 14,
-    fontFamily: 'Poppins_400Regular',
+
     // color: colors.textSecondary,
   },
   iconContainer: {
@@ -72,14 +70,13 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   buttonText: {
-    fontFamily: 'Poppins_400Regular',
     // color: colors.cardBackground,
     textAlign: 'center',
     fontSize: 18,
   },
   label: {
     fontSize: 18,
-    fontFamily: 'Poppins_400Regular',
+
     // color: colors.text,
     marginBottom: 8,
   },
@@ -92,7 +89,6 @@ const styles = StyleSheet.create({
     padding: 8,
     marginBottom: 16,
     fontSize: 16,
-    fontFamily: 'Poppins_400Regular',
   },
   inputFocused: {
     // borderColor: colors.white,
@@ -106,67 +102,49 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ProductPage() {
-  const { productId } = useLocalSearchParams();
+export default function Apartment() {
+  const { apartmentId } = useLocalSearchParams();
 
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [address, setAddress] = useState('');
+  const [rooms, setRooms] = useState('');
+  const [maxCapacity, setMaxCapacity] = useState('');
   const [focusedInput, setFocusedInput] = useState<string | undefined>();
-
-  // Dynamic import of images
-  // const imageContext = require.context('../../assets', false, /\.(avif)$/);
 
   useFocusEffect(
     useCallback(() => {
-      async function loadProduct() {
-        if (typeof productId !== 'string') {
+      async function loadApartme() {
+        if (typeof apartmentId !== 'string') {
           return;
         }
 
-        const response = await fetch(`/api/${productId}`);
-        const body: ProductResponseBodyGet = await response.json();
+        const response = await fetch(`/api_apartments/${apartmentId}`);
+        const body = await response.json();
 
-        if ('product' in body) {
-          setName(body.product.name);
-          setPrice(body.product.price);
-          setAddress(body.product.address);
+        if ('apartment' in body) {
+          setName(body.apartment.name);
+          setRooms(body.apartment.rooms);
+          setMaxCapacity(body.apartment.maxCapacity);
         }
       }
 
-      loadProduct().catch((error) => {
+      loadApartme().catch((error) => {
         console.error(error);
       });
-    }, [productId]),
+    }, [apartmentId]),
   );
 
-  if (typeof productId !== 'string') {
+  if (typeof apartmentId !== 'string') {
     return null;
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.avatar}>
-        {/* Use dynamic import of images */}
-        {/* <Image
-          style={styles.avatar}
-          source={imageContext(`./product-${productId}.avif`)}
-          alt="profile picture"
-        /> */}
-        {/* <Image
-          style={styles.avatarImage}
-          source={{
-            uri: `https://res.cloudinary.com/trueque-image/image/upload/v1713269496/product-${productId}.webp`,
-          }}
-          placeholder={placeholder}
-          placeholderContentFit="cover"
-        /> */}
-      </View>
+      <View style={styles.avatar}></View>
       {isEditing ? (
         <>
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>First Name</Text>
+            <Text style={styles.label}> Name</Text>
             <TextInput
               style={[
                 styles.input,
@@ -177,16 +155,26 @@ export default function ProductPage() {
               onFocus={() => setFocusedInput('name')}
               onBlur={() => setFocusedInput(undefined)}
             />
-            <Text style={styles.label}>Last Name</Text>
+            <Text style={styles.label}>rooms</Text>
             <TextInput
               style={[
                 styles.input,
-                focusedInput === 'price' && styles.inputFocused,
+                focusedInput === 'rooms' && styles.inputFocused,
               ]}
-              value={price}
-              onChangeText={setPrice}
-              onFocus={() => setFocusedInput('price')}
+              value={rooms.toString()}
+              onChangeText={setRooms}
+              onFocus={() => setFocusedInput('rooms')}
               onBlur={() => setFocusedInput(undefined)}
+            />
+
+            <Text style={styles.label}>maxCapacity</Text>
+            <TextInput
+              style={[
+                styles.input,
+                focusedInput === 'rooms' && styles.inputFocused,
+              ]}
+              value={maxCapacity.toString()}
+              onChangeText={setMaxCapacity}
             />
           </View>
           <Pressable
@@ -195,17 +183,17 @@ export default function ProductPage() {
               { opacity: pressed ? 0.5 : 1 },
             ]}
             onPress={async () => {
-              await fetch(`/api/${productId}`, {
+              await fetch(`/api_apartments/${apartmentId}`, {
                 method: 'PUT',
                 body: JSON.stringify({
                   name,
-                  price,
-                  address,
+                  rooms: parseInt(rooms),
+                  maxCapacity: parseInt(maxCapacity),
                 }),
               });
 
               setIsEditing(false);
-              router.replace('/home');
+              router.replace('/(tabs)/apartments');
             }}
           >
             <Text style={styles.buttonText}>Save</Text>
@@ -215,27 +203,10 @@ export default function ProductPage() {
         <>
           <View style={styles.textContainer}>
             <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
-              {name} {price}
+              name: {name} {rooms} rooms, {maxCapacity} guests
             </Text>
 
-            <Text style={styles.textSecondary}>
-              {address ? 'Address' : 'Not address'}
-            </Text>
-            {/* <Switch
-              value={address}
-              onValueChange={async () => {
-                await fetch(`/api/${productId}`, {
-                  method: 'PUT',
-                  body: JSON.stringify({
-                    name: name,
-                    price: price,
-                    address: address,
-                  }),
-                });
-                setIsEditing(false);
-                router.replace('/');
-              }}
-            /> */}
+            <Text style={styles.textSecondary}>{maxCapacity}</Text>
           </View>
           <View style={styles.iconContainer}>
             <Pressable
@@ -249,11 +220,11 @@ export default function ProductPage() {
             <Pressable
               style={styles.icon}
               onPress={async () => {
-                await fetch(`/api/${productId}`, {
+                await fetch(`/api_apartments/${apartmentId}`, {
                   method: 'DELETE',
                 });
                 setIsEditing(false);
-                router.replace('/home');
+                router.replace('/(tabs)/apartments');
               }}
             >
               <Ionicons name="trash-outline" size={36} />

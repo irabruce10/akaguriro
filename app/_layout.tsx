@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { SplashScreen, Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import '../global.css';
-import { StatusBar } from 'expo-status-bar';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -40,7 +39,7 @@ const RootLayout = () => {
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen
-        name="product/[productId]"
+        name="productModal/[productId]"
         options={{
           presentation: 'modal',
           title: '',
@@ -51,7 +50,7 @@ const RootLayout = () => {
       />
 
       <Stack.Screen
-        name="apartment/addApart"
+        name="apartmentModal/addApart"
         options={{
           presentation: 'modal',
           title: '',
@@ -62,7 +61,7 @@ const RootLayout = () => {
       />
 
       <Stack.Screen
-        name="apartment/[apartmentId]"
+        name="apartmentModal/[apartmentId]"
         options={{
           presentation: 'modal',
           title: '',
