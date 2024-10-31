@@ -5,7 +5,7 @@ import FormApart from '../../components/apartment/FormApart';
 const addApart = () => {
   return (
     <View>
-      <Text>Add Apart</Text>
+      <Text>Add Apartment</Text>
       <Text>
         <FormApart />
       </Text>

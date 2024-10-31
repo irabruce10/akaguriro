@@ -99,7 +99,7 @@ export default function Apartment() {
         </>
       ) : (
         <>
-          <View>
+          <View className="my-6 px-4 space-y-6">
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
@@ -109,7 +109,7 @@ export default function Apartment() {
             </Text>
             <Text className="text-black">{rooms} rooms </Text>
 
-            <Text className="text-black">min Guest {maxCapacity}</Text>
+            <Text className="text-black">max Guest {maxCapacity}</Text>
           </View>
           <View>
             {/* <Pressable
@@ -134,8 +134,8 @@ export default function Apartment() {
         </>
       )}
 
-      <View>
-        <Text>Reserve {name} today. Pay on arrival.</Text>
+      <View className="my-6 px-4 space-y-6">
+        <Text className="text-xl">Reserve {name} today. Pay on arrival.</Text>
         {/* <StartDatePicker /> */}
 
         <CalenderPicker />

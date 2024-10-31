@@ -1,13 +1,7 @@
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Pressable, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import CalendarPicker from 'react-native-calendar-picker';
+import CustomButton from './CustomButton';
 
 export default function Calender() {
   const [selectedStartDate, setSelectedStartDate] = useState('DD/MM/YYYY');
@@ -45,13 +39,15 @@ export default function Calender() {
   };
 
   return (
-    <View>
+    <View className="my-6 px-4 space-y-6">
       <View>
-        {/* ...existing code... */}
-
         {!showPicker && (
           <Pressable onPress={togglePicker}>
-            <Text editable={false} onPressIn={togglePicker}>
+            <Text
+              className="text-xl  font-psemibold text-black mt-4 mb-4"
+              editable={false}
+              onPressIn={togglePicker}
+            >
               Choose the date
             </Text>
           </Pressable>
@@ -72,12 +68,17 @@ export default function Calender() {
           )}
           {showPicker && (
             <View>
-              {/* style={{ flexDirection: 'row', justifyContent: 'space-between' }} */}
               {/* <TouchableOpacity onPress={cancelDate}>
                 <Text>Cancel</Text>
               </TouchableOpacity> */}
-              <TouchableOpacity onPress={confirmDate}>
-                <Text>Confirm</Text>
+              <TouchableOpacity
+                className="bg-secondary rounded-xl mt-4 min-h-[62px] justify-center  "
+                activeOpacity={0.7}
+                onPress={confirmDate}
+              >
+                <Text className="text-primary font-psemibold text-lg text-center">
+                  Confirm
+                </Text>
               </TouchableOpacity>
             </View>
           )}

@@ -41,7 +41,7 @@ const apartments = () => {
   );
 
   return (
-    <SafeAreaView className="bg-primary w-full">
+    <SafeAreaView className="bg-primary w-full h-full">
       <FlatList
         data={apartments}
         renderItem={renderItem}
@@ -50,7 +50,7 @@ const apartments = () => {
           <View className="my-6 px-4 space-y-6">
             <View className="flex-row justify-between items-start mb-6">
               <Text className="font-pmedium text-sm text-gray-100">
-                Apartments
+                User Profile
               </Text>
               <Text className="">
                 <Add />
