@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import type { ApartmentsResponseBodyPost } from '../../app/api_apartments/apartments+api';
 import CustomButton from '../CustomButton';
+import ImagePicker from '../ImagePicker';
 
 export default function FormApart() {
   const [name, setName] = useState('');
@@ -42,6 +43,8 @@ export default function FormApart() {
           onFocus={() => setFocusedInput('maxCapacity')}
           onBlur={() => setFocusedInput(undefined)}
         />
+
+        <ImagePicker />
       </View>
       <CustomButton
         title="Add apartment"
