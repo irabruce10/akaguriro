@@ -20,7 +20,7 @@ export default function FormApart() {
 
   return (
     <SafeAreaView>
-      <View>
+      <View className="justify-center items-center px-4 pt-5 ">
         <Text>name</Text>
         <TextInput
           value={name}
@@ -45,7 +45,7 @@ export default function FormApart() {
       </View>
       <CustomButton
         title="Add apartment"
-        containerStyles="w-full my-7 px-28 text-center"
+        containerStyles="w-full my-7 px-28  "
         textStyles="text-white font-bold"
         handlePress={async () => {
           const response = await fetch('/api_apartments/apartments', {
