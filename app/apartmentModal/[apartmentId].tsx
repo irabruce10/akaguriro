@@ -12,6 +12,11 @@ import {
 
 import type { ApartmentResponseBodyGet } from '../api_apartments/[apartmentId]+api';
 
+import Reservation from '../../components/Reservation';
+import StartDatePicker from '../../components/DatetimePicker';
+
+import CalenderPicker from '../../components/CalenderPicker';
+
 export default function Apartment() {
   const { apartmentId } = useLocalSearchParams();
 
@@ -50,7 +55,6 @@ export default function Apartment() {
 
   return (
     <View>
-      <View></View>
       {isEditing ? (
         <>
           <View>
@@ -96,14 +100,19 @@ export default function Apartment() {
       ) : (
         <>
           <View>
-            <Text numberOfLines={1} ellipsizeMode="tail">
-              name: {name} {rooms} rooms, {maxCapacity} guests
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              className="text-black font-pregular "
+            >
+              name: {name}
             </Text>
+            <Text className="text-black">{rooms} rooms </Text>
 
-            <Text>{maxCapacity}</Text>
+            <Text className="text-black">min Guest {maxCapacity}</Text>
           </View>
           <View>
-            <Pressable
+            {/* <Pressable
               onPress={() => {
                 setIsEditing(true);
               }}
@@ -120,10 +129,17 @@ export default function Apartment() {
               }}
             >
               <Ionicons name="trash-outline" size={36} />
-            </Pressable>
+            </Pressable> */}
           </View>
         </>
       )}
+
+      <View>
+        <Text>Reserve {name} today. Pay on arrival.</Text>
+        {/* <StartDatePicker /> */}
+
+        <CalenderPicker />
+      </View>
     </View>
   );
 }
