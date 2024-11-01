@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 export default function ImagePickerExample() {
   // const [image, setImage] = useState<string | undefined>(undefined);
-  const [image, setImage] = useState<string[]>([]);
+  const [images, setImages] = useState<string[]>([]);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -16,12 +16,12 @@ export default function ImagePickerExample() {
       orderedSelection: true,
     });
 
-    console.log(result);
+    // console.log(result);
 
     if (!result.canceled) {
       // setImage(result.assets[0]?.uri);
       const imageUris = result.assets.map((asset) => asset.uri);
-      setImage(imageUris);
+      setImages(imageUris);
     } else {
       alert('No image selected');
     }
@@ -32,8 +32,8 @@ export default function ImagePickerExample() {
       <View style={styles.container}>
         {/* {image && <Image source={{ uri: image }} style={styles.image} />} */}
 
-        {image.map((image, index) => (
-          <Image key={index} source={{ uri: image }} style={styles.image} />
+        {images.map((images, index) => (
+          <Image key={index} source={{ uri: images }} style={styles.image} />
         ))}
 
         <Button title="Pick an image from camera roll" onPress={pickImage} />
