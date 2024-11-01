@@ -35,7 +35,8 @@ export const createApartmentInsecure = async (
       (
         ${newApartment.name},
         ${newApartment.rooms},
-        ${newApartment.maxCapacity}
+        ${newApartment.maxCapacity},
+        ${newApartment.images}
       )
     RETURNING
       apartments.*
@@ -49,7 +50,8 @@ export const updateApartmentInsecure = async (updatedApartment: Apartment) => {
     SET
       name = ${updatedApartment.name},
       rooms = ${updatedApartment.rooms},
-      max_capacity = ${updatedApartment.maxCapacity}
+      max_capacity = ${updatedApartment.maxCapacity},
+      images = ${updatedApartment.images}
     WHERE
       id = ${updatedApartment.id}
     RETURNING

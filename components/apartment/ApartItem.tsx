@@ -1,7 +1,8 @@
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, Image } from 'react-native';
 import React from 'react';
 import type { Apartment } from '../../migrations/00001-createTableApartments';
 import { Link } from 'expo-router';
+import { images } from '../../constants';
 
 type Props = {
   apartment: Apartment;
@@ -14,10 +15,10 @@ const ApartItem = ({ apartment }: Props) => {
     <Link href={`/apartmentModal/${id}`} asChild>
       <Pressable>
         <View className="my-6 px-4 space-y-6">
-          <Text className="text-white">ID: {id}</Text>
           <Text className="text-white">name:{name}</Text>
           <Text className="text-white">Rooms: {rooms}</Text>
           <Text className="text-white">guests: {maxCapacity}</Text>
+          {/* <Image source={require('../../assets/images/yourImage.png')} /> */}
         </View>
       </Pressable>
     </Link>

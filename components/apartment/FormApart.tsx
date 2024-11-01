@@ -17,6 +17,7 @@ export default function FormApart() {
   const [name, setName] = useState('');
   const [rooms, setRooms] = useState('');
   const [maxCapacity, setMaxCapacity] = useState('');
+  const [images, setImages] = useState<string | undefined>();
   const [focusedInput, setFocusedInput] = useState<string | undefined>();
 
   return (
@@ -57,6 +58,7 @@ export default function FormApart() {
               name,
               rooms: parseInt(rooms),
               maxCapacity: parseInt(maxCapacity),
+              images,
             }),
           });
 
@@ -75,6 +77,7 @@ export default function FormApart() {
           setName('');
           setRooms('');
           setMaxCapacity('');
+          setImages('');
           router.push('/(tabs)/apartments');
         }}
       />

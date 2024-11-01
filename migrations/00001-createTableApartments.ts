@@ -1,21 +1,24 @@
 import type { Sql } from 'postgres';
 import { z } from 'zod';
+import type { images } from '../constants';
 
 export type Apartment = {
   id: number;
   name: string;
   rooms: number;
   maxCapacity: number;
+  images: string;
 };
 // regular_price: number;
 // discount_price: number;
 // description: string;
-// image: string;
+
 // place: string;
 export const apartmentsSchema = z.object({
   name: z.string().min(1).max(50),
   rooms: z.number().min(0),
   maxCapacity: z.number().min(0),
+  images: z.string().max(550),
 });
 // regular_price: z.number().min(2),
 // discount_price: z.number().min(2),
@@ -28,7 +31,8 @@ export async function up(sql: Sql) {
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
       name varchar(50) NOT NULL,
       rooms integer NOT NULL,
-      max_capacity integer NOT NULL
+      max_capacity integer NOT NULL,
+      images varchar(550) NOT NULL
     );
   `;
 }
