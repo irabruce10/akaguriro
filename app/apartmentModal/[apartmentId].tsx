@@ -150,7 +150,9 @@ export default function Apartment() {
               ios_backgroundColor="#3e2465"
             />
             <Text>{hasBreakfast}</Text>
-            <Text>Total price: {` ${60 * parseInt(guestsNumber)} `}</Text>
+            {parseInt(guestsNumber) > 0 && hasBreakfast !== false && (
+              <Text>Total price: {` ${60 * parseInt(guestsNumber)} `}</Text>
+            )}
             <Text>You are booking for {guestsNumber} guests.</Text>
           </View>
           <View>
