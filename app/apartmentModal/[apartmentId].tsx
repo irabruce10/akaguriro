@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
 import {
+  Image,
   Pressable,
   StyleSheet,
   Switch,
@@ -12,9 +13,6 @@ import {
 
 import type { ApartmentResponseBodyGet } from '../api_apartments/[apartmentId]+api';
 
-import Reservation from '../../components/Reservation';
-import StartDatePicker from '../../components/DatetimePicker';
-
 import CalenderPicker from '../../components/CalenderPicker';
 
 export default function Apartment() {
@@ -24,6 +22,7 @@ export default function Apartment() {
   const [name, setName] = useState('');
   const [rooms, setRooms] = useState('');
   const [maxCapacity, setMaxCapacity] = useState('');
+  const [imagesUrl, setImagesUrl] = useState<string[]>([]);
   const [focusedInput, setFocusedInput] = useState<string | undefined>();
 
   useFocusEffect(
@@ -40,6 +39,7 @@ export default function Apartment() {
           setName(body.apartment.name);
           setRooms(body.apartment.rooms);
           setMaxCapacity(body.apartment.maxCapacity);
+          setImagesUrl(body.apartment.imagesUrl);
         }
       }
 
@@ -110,6 +110,14 @@ export default function Apartment() {
             <Text className="text-black">{rooms} rooms </Text>
 
             <Text className="text-black">max Guest {maxCapacity}</Text>
+
+            {imagesUrl.map((imageUrl, index) => (
+              <Image
+                key={index}
+                source={{ uri: imageUrl }}
+                style={{ width: 150, height: 150 }}
+              />
+            ))}
           </View>
           <View>
             {/* <Pressable

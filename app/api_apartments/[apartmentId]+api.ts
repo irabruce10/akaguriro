@@ -70,7 +70,7 @@ export async function PUT(
     name: result.data.name,
     rooms: result.data.rooms,
     maxCapacity: result.data.maxCapacity,
-    images: result.data.images,
+    imagesUrl: result.data.imagesUrl,
   });
 
   if (!updatedApartment) {

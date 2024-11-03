@@ -10,7 +10,7 @@ type Props = {
 };
 
 const ApartItem = ({ apartment }: Props) => {
-  const { id, name, rooms, maxCapacity } = apartment;
+  const { id, name, rooms, maxCapacity, imagesUrl } = apartment;
   return (
     <Link href={`/apartmentModal/${id}`} asChild>
       <Pressable>
@@ -18,6 +18,14 @@ const ApartItem = ({ apartment }: Props) => {
           <Text className="text-white">name:{name}</Text>
           <Text className="text-white">Rooms: {rooms}</Text>
           <Text className="text-white">guests: {maxCapacity}</Text>
+
+          {imagesUrl.length > 0 && (
+            <Image
+              source={{ uri: imagesUrl[0] }}
+              style={{ width: 150, height: 150 }}
+            />
+          )}
+
           {/* <Image source={require('../../assets/images/yourImage.png')} /> */}
         </View>
       </Pressable>

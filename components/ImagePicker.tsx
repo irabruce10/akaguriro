@@ -130,3 +130,42 @@
 //     height: 100,
 //   },
 // });
+
+// Deletee image in firestore and firebase storage
+// import { deleteObject } from 'firebase/storage';
+// const deleteImage = async (imageUrl: string) => {
+//   try {
+//     const storageRef = ref(storage, imageUrl.split('/').slice(3).join('/'));
+//     await deleteObject(storageRef);
+
+//     const updatedImagesUrl = imagesUrl.filter((url) => url !== imageUrl);
+//     setImagesUrl(updatedImagesUrl);
+
+//     console.log('Image deleted successfully');
+//   } catch (error) {
+//     console.error('Error deleting image:', error);
+//   }
+// };
+// <View style={styles.container}>
+//   {images.map((image, index) => (
+//     <Text key={index} style={{ position: 'relative' }}>
+//       <Image source={{ uri: image }} style={styles.image} />
+//       <Pressable
+//         style={{
+//           position: 'absolute',
+//           top: -10,
+//           right: -10,
+//           width: 20,
+//           height: 20,
+//           backgroundColor: 'red',
+//           borderRadius: 10,
+//           justifyContent: 'center',
+//           alignItems: 'center',
+//         }}
+//         onPress={() => deleteImage(image)}
+//       >
+//         <Text style={{ color: 'white', fontWeight: 'bold' }}>X</Text>
+//       </Pressable>
+//     </Text>
+//   ))}
+// </View>;

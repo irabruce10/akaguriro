@@ -14,7 +14,12 @@ import CustomButton from '../CustomButton';
 import { addDoc, collection, onSnapshot } from 'firebase/firestore';
 import { Button, Image, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from 'firebase/storage';
 import { db, storage } from '../../firebaseConfig';
 
 export default function FormApart() {
@@ -28,11 +33,11 @@ export default function FormApart() {
   const [imagesUrl, setImagesUrl] = useState<string[]>([]);
 
   const handlePress = async () => {
+    // await uploadImages(images, 'image/jpeg');
+
     const response = await fetch('/api_apartments/apartments', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+
       body: JSON.stringify({
         name,
         rooms: parseInt(rooms),
@@ -57,6 +62,8 @@ export default function FormApart() {
     setName('');
     setRooms('');
     setMaxCapacity('');
+    setImages([]);
+    setImagesUrl([]);
 
     router.push('/(tabs)/apartments');
   };
@@ -85,6 +92,7 @@ export default function FormApart() {
   // Upload images to Firebase Storage
 
   const uploadImages = async (imageUris: string[], fileType: string) => {
+    const urls: string[] = [];
     for (const uri of imageUris) {
       const response = await fetch(uri);
 
@@ -106,23 +114,14 @@ export default function FormApart() {
         },
         async () => {
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          // console.log('File uploaded at:', downloadURL);
+          console.log('File uploaded at:', downloadURL);
+          urls.push(downloadURL);
 
-          let a = [downloadURL];
-          a.map((url: any, index: number) => {
-            setImagesUrl((prevImages) => [...prevImages, url]);
-            console.log('imagesUrl', imagesUrl);
-          });
-
-          // downloadURL.map((url:any) => {
-          //   console.log('image url', url);
-          //   setImagesUrl((prevImages) => [...prevImages, url]);
-          //   console.log('imagesUrl', imagesUrl);
-          //   await saveRecords(fileType, url, new Date());
-
-          // })
-
-          await saveRecords(fileType, downloadURL, new Date());
+          if (urls.length === imageUris.length) {
+            setImagesUrl(urls);
+            urls.forEach((url) => saveRecords(fileType, url, new Date()));
+            console.log('All images uploaded successfully', imagesUrl);
+          }
         },
       );
     }
@@ -142,6 +141,20 @@ export default function FormApart() {
       console.log('Document successfully written!');
     } catch (error) {
       console.error('Error adding document: ', error);
+    }
+  };
+
+  const deleteImage = async (imageUrl: string) => {
+    try {
+      const storageRef = ref(storage, imageUrl.split('/').slice(3).join('/'));
+      await deleteObject(storageRef);
+
+      const updatedImagesUrl = imagesUrl.filter((url) => url !== imageUrl);
+      setImagesUrl(updatedImagesUrl);
+
+      console.log('Image deleted successfully');
+    } catch (error) {
+      console.error('Error deleting image:', error);
     }
   };
 
@@ -172,8 +185,8 @@ export default function FormApart() {
 
         <View style={styles.container}>
           {/* {image && <Image source={{ uri: image }} style={styles.image} />} */}
-          {/*
-          {images.map((images, index) => (
+
+          {/* {images.map((images, index) => (
             <Image key={index} source={{ uri: images }} style={styles.image} />
           ))} */}
 
@@ -189,6 +202,7 @@ export default function FormApart() {
 
         {/* <ImagePickerExample /> */}
       </View>
+
       <CustomButton
         title="Add apartment"
         containerStyles="w-full my-7 px-28  "
