@@ -27,7 +27,8 @@ export default function Apartment() {
   const [imagesUrl, setImagesUrl] = useState<string[]>([]);
   const [focusedInput, setFocusedInput] = useState<string | undefined>();
   const [guestsNumber, setGuestsNumber] = useState('');
-
+  const [hasBreakfast, setHasBreakfast] = useState(false);
+  const [totalPrice, setTotalPrice] = useState('');
   useFocusEffect(
     useCallback(() => {
       async function loadApartme() {
@@ -139,6 +140,18 @@ export default function Apartment() {
                 <Picker.Item key={i} label={`${i} `} value={i} />
               ))}
             </Picker>
+
+            <Text>hasBreakfast: </Text>
+            <Switch
+              value={hasBreakfast}
+              onValueChange={(newValue) => setHasBreakfast(newValue)}
+              trackColor={{ false: '#767577', true: '#8e8b87' }}
+              thumbColor="#fb8f15"
+              ios_backgroundColor="#3e2465"
+            />
+            <Text>{hasBreakfast}</Text>
+            <Text>Total price: {` ${60 * parseInt(guestsNumber)} `}</Text>
+            <Text>You are booking for {guestsNumber} guests.</Text>
           </View>
           <View>
             {/* <Pressable
