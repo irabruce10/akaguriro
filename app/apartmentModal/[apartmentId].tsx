@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react';
 import {
   Image,
   Pressable,
+  ScrollView,
   StyleSheet,
   Switch,
   Text,
@@ -14,6 +15,7 @@ import {
 import type { ApartmentResponseBodyGet } from '../api_apartments/[apartmentId]+api';
 
 import CalenderPicker from '../../components/CalenderPicker';
+import { Picker } from '@react-native-picker/picker';
 
 export default function Apartment() {
   const { apartmentId } = useLocalSearchParams();
@@ -24,6 +26,7 @@ export default function Apartment() {
   const [maxCapacity, setMaxCapacity] = useState('');
   const [imagesUrl, setImagesUrl] = useState<string[]>([]);
   const [focusedInput, setFocusedInput] = useState<string | undefined>();
+  const [guestsNumber, setGuestsNumber] = useState('');
 
   useFocusEffect(
     useCallback(() => {
@@ -54,7 +57,7 @@ export default function Apartment() {
   }
 
   return (
-    <View>
+    <ScrollView>
       {isEditing ? (
         <>
           <View>
@@ -100,6 +103,21 @@ export default function Apartment() {
       ) : (
         <>
           <View className="my-6 px-4 space-y-6">
+            <Text className="font-pmedium text-sm text-black">
+              Apartment Details
+            </Text>
+            <View className="flex-row justify-between items-start mb-6">
+              {imagesUrl.map((imageUrl, index) => (
+                <Image
+                  className="flex-1 flex-row"
+                  key={index}
+                  source={{ uri: imageUrl }}
+                  style={{ width: 150, height: 150 }}
+                  resizeMode="contain"
+                />
+              ))}
+            </View>
+
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
@@ -109,15 +127,18 @@ export default function Apartment() {
             </Text>
             <Text className="text-black">{rooms} rooms </Text>
 
-            <Text className="text-black">max Guest {maxCapacity}</Text>
-
-            {imagesUrl.map((imageUrl, index) => (
-              <Image
-                key={index}
-                source={{ uri: imageUrl }}
-                style={{ width: 150, height: 150 }}
-              />
-            ))}
+            <Text>How many guests?</Text>
+            <Picker
+              selectedValue={guestsNumber}
+              onValueChange={(itemValue) => setGuestsNumber(itemValue)}
+              mode="dropdown"
+              style={{ height: 50, width: 150 }}
+              itemStyle={{ height: 50 }}
+            >
+              {Array.from({ length: parseInt(maxCapacity) + 1 }, (_, i) => (
+                <Picker.Item key={i} label={`${i} `} value={i} />
+              ))}
+            </Picker>
           </View>
           <View>
             {/* <Pressable
@@ -148,6 +169,6 @@ export default function Apartment() {
 
         <CalenderPicker />
       </View>
-    </View>
+    </ScrollView>
   );
 }
