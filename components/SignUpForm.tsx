@@ -106,8 +106,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-
-import type { SignUpResponseBodyPost } from './api/signUp+api';
+import type { SignUpResponseBodyPost } from '../app/(auth)/api/signUp+api';
 
 const styles = StyleSheet.create({
   container: {
@@ -167,7 +166,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Register() {
+export default function SignUpForm() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [focusedInput, setFocusedInput] = useState<string | undefined>();
@@ -175,7 +174,7 @@ export default function Register() {
   useFocusEffect(
     useCallback(() => {
       async function getUser() {
-        const response = await fetch('/api_user/user');
+        const response = await fetch('/api/users');
 
         const responseBody: SignUpResponseBodyPost = await response.json();
 
@@ -219,8 +218,9 @@ export default function Register() {
         </View>
       </View>
       <Pressable
+        style={({ pressed }) => [styles.button, { opacity: pressed ? 0.5 : 1 }]}
         onPress={async () => {
-          const response = await fetch('/api/signUp', {
+          const response = await fetch('/api/signup', {
             method: 'POST',
             body: JSON.stringify({ name, password }),
           });

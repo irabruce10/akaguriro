@@ -10,9 +10,12 @@ export default function App() {
       <ScrollView contentContainerStyle={{ height: '100%' }}>
         <View className=" w-full justify-center items-center h-full px-4">
           <Text className="text-sm font-pblack   text-center">Akaguriro</Text>
-          {/* <Link href="/sign-in" style={{ color: 'blue' }}>
-            go to home page
-          </Link> */}
+
+          <Text>
+            <Link href="/home" style={{ color: 'blue' }}>
+              go to home page
+            </Link>
+          </Text>
           <CustomButton
             title="Continue with Login in"
             handlePress={() => router.push('/sign-in')}
