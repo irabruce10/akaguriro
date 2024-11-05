@@ -6,6 +6,7 @@ export type Product = {
   name: string;
   price: string;
   address: string;
+  userId: number;
 };
 // description: string;
 // category: string | null;
@@ -29,7 +30,8 @@ export async function up(sql: Sql) {
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
       name varchar(50) NOT NULL,
       price varchar(10) NOT NULL,
-      address varchar(100) NOT NULL
+      address varchar(100) NOT NULL,
+      user_id integer NOT NULL REFERENCES users (id) ON DELETE cascade
     );
   `;
 }

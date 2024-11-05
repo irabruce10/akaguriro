@@ -4,10 +4,7 @@ import {
   updateApartmentInsecure,
 } from '../../database/apartment';
 import { ExpoApiResponse } from '../../ExpoApiResponse';
-import {
-  type Apartment,
-  apartmentsSchema,
-} from '../../migrations/00001-createTableApartments';
+import type { Apartment } from '../../migrations/00008-createTableApartments';
 
 export type ApartmentResponseBodyGet =
   | {

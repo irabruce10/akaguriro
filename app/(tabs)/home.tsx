@@ -2,13 +2,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useCallback, useState } from 'react';
 import { SafeAreaView } from 'react-native';
 import { FlatList } from 'react-native';
-import type { Product } from '../../migrations/00000-createTableProducts';
 
 import type { ProductsResponseBodyGet } from '../api/products+api';
 import ProductItem from '../../components/product/ProductItem';
 import SearchInput from '../../components/SearchInput';
 import { useFocusEffect } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import type { Product } from '../../migrations/00007-createTableProducts';
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
 

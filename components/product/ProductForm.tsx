@@ -1,5 +1,3 @@
-import { router } from 'expo-router';
-import { useState } from 'react';
 import {
   Alert,
   Pressable,
@@ -8,40 +6,26 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-export default function NewProduct() {
+import { router } from 'expo-router';
+
+export default function ProductForm() {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [address, setAddress] = useState('');
-
-  const [focusedInput, setFocusedInput] = useState<string | undefined>();
 
   return (
     <SafeAreaView>
       <View>
         <Text>Name</Text>
-        <TextInput
-          value={name}
-          onChangeText={setName}
-          onFocus={() => setFocusedInput('name')}
-          onBlur={() => setFocusedInput(undefined)}
-        />
+        <TextInput value={name} onChangeText={setName} />
         <Text>price</Text>
-        <TextInput
-          value={price}
-          onChangeText={setPrice}
-          onFocus={() => setFocusedInput('price')}
-          onBlur={() => setFocusedInput(undefined)}
-        />
+        <TextInput value={price} onChangeText={setPrice} />
 
         <Text>address</Text>
 
-        <TextInput
-          value={address}
-          onChangeText={setAddress}
-          onFocus={() => setFocusedInput('price')}
-          onBlur={() => setFocusedInput(undefined)}
-        />
+        <TextInput value={address} onChangeText={setAddress} />
       </View>
       <Pressable
         onPress={async () => {
@@ -78,3 +62,5 @@ export default function NewProduct() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({});

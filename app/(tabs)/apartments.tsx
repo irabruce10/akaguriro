@@ -2,12 +2,13 @@ import SearchInput from '../../components/SearchInput';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, Text, FlatList } from 'react-native';
 import React, { useCallback, useState } from 'react';
-import type { Apartment } from '../../migrations/00001-createTableApartments';
+
 import ApartItem from '../../components/apartment/ApartItem';
 import { useFocusEffect } from 'expo-router';
 import type { ApartmentsResponseBodyGet } from '../api_apartments/apartments+api';
 import Add from '../../components/apartment/AddApartBtn';
 import EmptyState from '../../components/EmptyState';
+import type { Apartment } from '../../migrations/00008-createTableApartments';
 
 const apartments = () => {
   const [apartments, setApartments] = useState<Apartment[]>([]);

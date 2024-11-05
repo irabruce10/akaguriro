@@ -1,23 +1,37 @@
-import type { Product } from '../migrations/00000-createTableProducts';
 import { sql } from './connect';
+import type { Session } from '../migrations/00006-createTableSessions.js';
+import type { Product } from '../migrations/00007-createTableProducts';
 
-export const getProductsInsecure = async () => {
+export const getProductsInsecure = async (sessionToken: Session['token']) => {
   const products = await sql<Product[]>`
     SELECT
       *
     FROM
       products
+      INNER JOIN sessions ON (
+        sessions.token = ${sessionToken}
+        AND sessions.user_id = products.user_id
+        AND expiry_timestamp > now()
+      )
   `;
 
   return products;
 };
 
-export const getProductInsecure = async (productId: Product['id']) => {
+export const getProductInsecure = async (
+  sessionToken: Session['token'],
+  productId: Product['id'],
+) => {
   const [product] = await sql<Product[]>`
     SELECT
       *
     FROM
       products
+      INNER JOIN sessions ON (
+        sessions.token = ${sessionToken}
+        AND sessions.user_id = products.user_id
+        AND expiry_timestamp > now()
+      )
     WHERE
       id = ${productId}
   `;
@@ -26,16 +40,24 @@ export const getProductInsecure = async (productId: Product['id']) => {
 };
 
 export const createProductInsecure = async (
-  newProduct: Omit<Product, 'id'>,
+  sessionToken: Session['token'],
+  name: Product['name'],
+  price: Product['price'],
+  address: Product['address'],
 ) => {
   const [product] = await sql<Product[]>`
     INSERT INTO
-      products (name, price, address)
-    VALUES
-      (
-        ${newProduct.name},
-        ${newProduct.price},
-        ${newProduct.address}
+      products (user_id, name, price, address) (
+        SELECT
+          user_id,
+          ${name},
+          ${price},
+          ${address}
+        FROM
+          sessions
+        WHERE
+          token = ${sessionToken}
+          AND sessions.expiry_timestamp > now()
       )
     RETURNING
       products.*
@@ -53,7 +75,7 @@ export const updateProductInsecure = async (updatedProduct: Product) => {
     WHERE
       id = ${updatedProduct.id}
     RETURNING
-      guests.*
+      products.*
   `;
   return product;
 };

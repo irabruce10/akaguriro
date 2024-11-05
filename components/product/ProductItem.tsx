@@ -1,7 +1,8 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import type { Product } from '../migrations/00000-createTableProducts';
+
 import { Link } from 'expo-router';
+import type { Product } from '../../migrations/00007-createTableProducts';
 
 type Props = {
   product: Product;

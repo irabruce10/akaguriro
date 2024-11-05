@@ -2,38 +2,43 @@ import {
   createProductInsecure,
   getProductsInsecure,
 } from '../../database/products';
-
 import { ExpoApiResponse } from '../../ExpoApiResponse';
 import {
-  type Product,
   productsSchema,
-} from '../../migrations/00000-createTableProducts';
+  type Product,
+} from '../../migrations/00007-createTableProducts';
+import { parse } from 'cookie';
 
-export type ProductsResponseBodyGet = {
-  products: Product[];
-};
+export type ProductsResponseBodyGet =
+  | {
+      products: Product[];
+    }
+  | {
+      error: string;
+      errorIssues?: { message: string }[];
+    };
 
 export async function GET(
   request: Request,
 ): Promise<ExpoApiResponse<ProductsResponseBodyGet>> {
-  const cookie = request.headers.get('cookie');
-  console.log('cookie', cookie);
+  const cookie = parse(request.headers.get('cookie') || '');
+  const sessionToken = cookie.sessionToken;
 
-  const products = await getProductsInsecure();
+  if (!sessionToken) {
+    return ExpoApiResponse.json({
+      error: 'No session token found',
+    });
+  }
+  console.log('cookie apartn', cookie);
+
+  const products = await getProductsInsecure(sessionToken);
   if (!products) {
     alert('Error fetching products');
   }
 
-  return ExpoApiResponse.json(
-    {
-      products: products,
-    },
-    {
-      headers: {
-        'Set-Cookie': 'test=123',
-      },
-    },
-  );
+  return ExpoApiResponse.json({
+    products: products,
+  });
 }
 
 export type ProductsResponseBodyPost =
@@ -55,7 +60,7 @@ export async function POST(
   if (!result.success) {
     return ExpoApiResponse.json(
       {
-        error: 'Request does not contain guest object',
+        error: 'Request does not contain product object',
         errorIssues: result.error.issues,
       },
       {
@@ -64,22 +69,34 @@ export async function POST(
     );
   }
 
-  const newProduct = {
-    name: result.data.name,
-    price: result.data.price,
-    address: result.data.address,
-  };
+  const cookies = parse(request.headers.get('cookie') || '');
+  const sessionToken = cookies.sessionToken;
+
+  if (!sessionToken) {
+    return ExpoApiResponse.json({
+      error: 'No session token found',
+    });
+  }
+
+  const newProduct =
+    sessionToken &&
+    (await createProductInsecure(
+      sessionToken,
+      result.data.name,
+      result.data.price,
+      result.data.address,
+    ));
   // description: result.data.description,
   // category: result.data.category,
   // image: result.data.image,
   // quantity: result.data.quantity,
   // owner: result.data.owner,
-  const product = await createProductInsecure(newProduct);
+  // const product = await createProductInsecure(newProduct);
 
-  if (!product) {
+  if (!newProduct) {
     return ExpoApiResponse.json(
       {
-        error: 'Guest not created',
+        error: 'Product not created',
       },
       {
         status: 500,
@@ -87,5 +104,5 @@ export async function POST(
     );
   }
 
-  return ExpoApiResponse.json({ product: product });
+  return ExpoApiResponse.json({ product: newProduct });
 }

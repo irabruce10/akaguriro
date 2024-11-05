@@ -30,8 +30,6 @@ export const bookingsSchema = z.object({
   hasBreakfast: z.boolean(),
   isPaid: z.boolean(),
   observations: z.string().max(250),
-  roomId: z.number().min(1),
-  userId: z.number().min(1),
 });
 
 export async function up(sql: Sql) {
@@ -49,7 +47,8 @@ export async function up(sql: Sql) {
       has_breakfast boolean NOT NULL,
       is_paid boolean NOT NULL,
       observations varchar(250) NOT NULL,
-      apartment_id integer NOT NULL REFERENCES apartments (id) ON DELETE cascade ON UPDATE cascade
+      apartment_id integer NOT NULL REFERENCES apartments (id) ON DELETE cascade ON UPDATE cascade,
+      user_id integer NOT NULL REFERENCES users (id) ON DELETE cascade ON UPDATE cascade
     );
   `;
 }
@@ -57,4 +56,3 @@ export async function up(sql: Sql) {
 export async function down(sql: Sql) {
   await sql` DROP TABLE bookings; `;
 }
-//  / / cascade user_id integer NOT NULL REFERENCES users (id) ON DELETE cascade ON UPDATE

@@ -1,4 +1,4 @@
-import type { Apartment } from '../migrations/00001-createTableApartments';
+import type { Apartment } from '../migrations/00008-createTableApartments';
 import { sql } from './connect';
 
 export const getApartmentsInsecure = async () => {

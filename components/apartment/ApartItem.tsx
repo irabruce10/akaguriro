@@ -1,8 +1,9 @@
 import { View, Text, Pressable, Image } from 'react-native';
 import React from 'react';
-import type { Apartment } from '../../migrations/00001-createTableApartments';
+
 import { Link } from 'expo-router';
 import { images } from '../../constants';
+import type { Apartment } from '../../migrations/00008-createTableApartments';
 
 type Props = {
   apartment: Apartment;

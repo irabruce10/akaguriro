@@ -6,7 +6,7 @@ import { ExpoApiResponse } from '../../ExpoApiResponse';
 import {
   apartmentsSchema,
   type Apartment,
-} from '../../migrations/00001-createTableApartments';
+} from '../../migrations/00008-createTableApartments';
 
 export type ApartmentsResponseBodyGet = {
   apartments: Apartment[];
