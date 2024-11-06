@@ -8,28 +8,14 @@ import {
   apartmentsSchema,
   type Apartment,
 } from '../../../migrations/00008-createTableApartments';
-export type ApartmentsResponseBodyGet =
-  | {
-      apartments: Apartment[];
-    }
-  | {
-      error: string;
-      errorIssues?: { message: string }[];
-    };
+export type ApartmentsResponseBodyGet = {
+  apartments: Apartment[];
+};
 
 export async function GET(
   request: Request,
 ): Promise<ExpoApiResponse<ApartmentsResponseBodyGet>> {
-  const cookies = parse(request.headers.get('cookie') || '');
-  const token = cookies.sessionToken;
-
-  if (!token) {
-    return ExpoApiResponse.json({
-      error: 'No session token found',
-    });
-  }
-
-  const apartments = await getApartmentsInsecure(token);
+  const apartments = await getApartmentsInsecure();
 
   return ExpoApiResponse.json({
     apartments: apartments,

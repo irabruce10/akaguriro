@@ -2,9 +2,12 @@ import {
   deleteApartmentInsecure,
   getApartmentInsecure,
   updateApartmentInsecure,
-} from '../../database/apartment';
-import { ExpoApiResponse } from '../../ExpoApiResponse';
-import type { Apartment } from '../../migrations/00008-createTableApartments';
+} from '../../../database/apartment';
+import { ExpoApiResponse } from '../../../ExpoApiResponse';
+import {
+  apartmentsSchema,
+  type Apartment,
+} from '../../../migrations/00008-createTableApartments';
 
 export type ApartmentResponseBodyGet =
   | {

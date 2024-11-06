@@ -2,17 +2,12 @@ import type { Apartment } from '../migrations/00008-createTableApartments';
 import type { Session } from '../migrations/00006-createTableSessions.js';
 import { sql } from './connect';
 
-export const getApartmentsInsecure = async (sessionToken: Session['token']) => {
+export const getApartmentsInsecure = async () => {
   const apartments = await sql<Apartment[]>`
     SELECT
       apartments.*
     FROM
       apartments
-      INNER JOIN sessions ON (
-        sessions.token = ${sessionToken}
-        AND sessions.user_id = apartments.user_id
-        AND expiry_timestamp > now()
-      )
   `;
 
   return apartments;
@@ -73,29 +68,29 @@ export const createApartmentInsecure = async (
   return apartment;
 };
 
-// export const updateApartmentInsecure = async (updatedApartment: Apartment) => {
-//   const [apartment] = await sql<Apartment[]>`
-//     UPDATE apartments
-//     SET
-//       name = ${updatedApartment.name},
-//       rooms = ${updatedApartment.rooms},
-//       max_capacity = ${updatedApartment.maxCapacity},
-//       images_url = ${updatedApartment.imagesUrl}
-//     WHERE
-//       id = ${updatedApartment.id}
-//     RETURNING
-//       apartments.*
-//   `;
-//   return apartment;
-// };
+export const updateApartmentInsecure = async (updatedApartment: Apartment) => {
+  const [apartment] = await sql<Apartment[]>`
+    UPDATE apartments
+    SET
+      name = ${updatedApartment.name},
+      rooms = ${updatedApartment.rooms},
+      max_capacity = ${updatedApartment.maxCapacity},
+      images_url = ${updatedApartment.imagesUrl}
+    WHERE
+      id = ${updatedApartment.id}
+    RETURNING
+      apartments.*
+  `;
+  return apartment;
+};
 
-// export const deleteApartmentInsecure = async (apartmentId: Apartment['id']) => {
-//   const [apartment] = await sql<Apartment[]>`
-//     DELETE FROM apartments
-//     WHERE
-//       id = ${apartmentId}
-//     RETURNING
-//       apartments.*
-//   `;
-//   return apartment;
-// };
+export const deleteApartmentInsecure = async (apartmentId: Apartment['id']) => {
+  const [apartment] = await sql<Apartment[]>`
+    DELETE FROM apartments
+    WHERE
+      id = ${apartmentId}
+    RETURNING
+      apartments.*
+  `;
+  return apartment;
+};

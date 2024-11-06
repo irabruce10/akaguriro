@@ -1,5 +1,5 @@
-import { router } from 'expo-router';
-import { useState } from 'react';
+import { router, useFocusEffect } from 'expo-router';
+import { useCallback, useState } from 'react';
 import {
   Alert,
   Pressable,
@@ -21,7 +21,12 @@ import {
   deleteObject,
 } from 'firebase/storage';
 import { db, storage } from '../../firebaseConfig';
-import type { ApartmentsResponseBodyPost } from '../../app/api/apartments/apartments+api';
+import type {
+  ApartmentsResponseBodyGet,
+  ApartmentsResponseBodyPost,
+} from '../../app/api/apartments/apartments+api';
+import type { UserResponseBodyGet } from '../../app/api/user+api';
+import type { Apartment } from '../../migrations/00008-createTableApartments';
 
 export default function FormApart() {
   const [name, setName] = useState('');
@@ -32,11 +37,62 @@ export default function FormApart() {
 
   const [images, setImages] = useState<string[]>([]);
   const [imagesUrl, setImagesUrl] = useState<string[]>([]);
+  const [isStale, setIsStale] = useState(true);
+  const [apartments, setApartments] = useState<Apartment[]>([]);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (!isStale) return;
+
+      async function getApartments() {
+        const response = await fetch('/api/apartments/apartments', {
+          headers: {
+            Cookie: 'name=value',
+          },
+        });
+        const body: ApartmentsResponseBodyGet = await response.json();
+
+        setApartments(body.apartments);
+
+        const [apartmentsResponse, userResponse]: [
+          ApartmentsResponseBodyGet,
+          UserResponseBodyGet,
+        ] = await Promise.all([
+          fetch('/api/apartments/apartments').then((response) =>
+            response.json(),
+          ),
+          fetch('/api/user').then((response) => response.json()),
+        ]);
+
+        setIsStale(false);
+        console.log('User apa:', userResponse);
+        console.log('Apartments:', apartmentsResponse);
+
+        if ('error' in userResponse) {
+          router.replace(`/authModal/signin?returnTo=/apartments`);
+          return;
+        }
+
+        if ('error' in apartmentsResponse) {
+          setApartments([]);
+          return;
+        }
+
+        if ('apartments' in apartmentsResponse) {
+          setApartments(apartmentsResponse.apartments);
+        }
+      }
+
+      getApartments().catch((error) => {
+        console.error(error);
+      });
+    }, [isStale, router]),
+  );
 
   const handlePress = async () => {
     // await uploadImages(images, 'image/jpeg');
 
-    const response = await fetch('/api/apartments', {
+    const response = await fetch('/api/apartments/apartments', {
       method: 'POST',
 
       body: JSON.stringify({

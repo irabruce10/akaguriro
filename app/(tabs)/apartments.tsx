@@ -27,42 +27,42 @@ const apartments = () => {
       if (!isStale) return;
 
       async function getApartments() {
-        // const response = await fetch('/api_apartments/apartments', {
-        //   headers: {
-        //     Cookie: 'name=value',
-        //   },
-        // });
-        // const body: ApartmentsResponseBodyGet = await response.json();
+        const response = await fetch('/api/apartments/apartments', {
+          headers: {
+            Cookie: 'name=value',
+          },
+        });
+        const body: ApartmentsResponseBodyGet = await response.json();
 
-        // setApartments(body.apartments);
+        setApartments(body.apartments);
 
-        const [apartmentsResponse, userResponse]: [
-          ApartmentsResponseBodyGet,
-          UserResponseBodyGet,
-        ] = await Promise.all([
-          fetch('/api/apartments/apartments').then((response) =>
-            response.json(),
-          ),
-          fetch('/api/user').then((response) => response.json()),
-        ]);
+        //   const [apartmentsResponse, userResponse]: [
+        //     ApartmentsResponseBodyGet,
+        //     UserResponseBodyGet,
+        //   ] = await Promise.all([
+        //     fetch('/api/apartments/apartments').then((response) =>
+        //       response.json(),
+        //     ),
+        //     fetch('/api/user').then((response) => response.json()),
+        //   ]);
 
-        setIsStale(false);
-        console.log('User apa:', userResponse);
-        console.log('Apartments:', apartmentsResponse);
+        //   setIsStale(false);
+        //   console.log('User apa:', userResponse);
+        //   console.log('Apartments:', apartmentsResponse);
 
-        if ('error' in userResponse) {
-          router.replace(`/(auth)/signin?returnTo=/(tabs)/apartments`);
-          return;
-        }
+        //   if ('error' in userResponse) {
+        //     router.replace(`/(auth)/signin?returnTo=/(tabs)/apartments`);
+        //     return;
+        //   }
 
-        if ('error' in apartmentsResponse) {
-          setApartments([]);
-          return;
-        }
+        //   if ('error' in apartmentsResponse) {
+        //     setApartments([]);
+        //     return;
+        //   }
 
-        if ('apartments' in apartmentsResponse) {
-          setApartments(apartmentsResponse.apartments);
-        }
+        //   if ('apartments' in apartmentsResponse) {
+        //     setApartments(apartmentsResponse.apartments);
+        //   }
       }
 
       getApartments().catch((error) => {

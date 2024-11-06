@@ -55,15 +55,31 @@ export default function TabsLayout() {
         />
 
         <Tabs.Screen
-          name="create"
+          name="shop"
           options={{
-            title: 'Create',
+            title: 'Shop Store',
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.plus}
+                icon={icons.store}
                 color={color}
-                name="Create"
+                name="Shop Store"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+
+        <Tabs.Screen
+          name="books"
+          options={{
+            title: 'Book store',
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.books}
+                color={color}
+                name="Book store"
                 focused={focused}
               />
             ),
@@ -77,7 +93,7 @@ export default function TabsLayout() {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.bookmark}
+                icon={icons.apartment}
                 color={color}
                 name="Apartments"
                 focused={focused}

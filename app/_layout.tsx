@@ -38,7 +38,6 @@ const RootLayout = () => {
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       <Stack.Screen
         name="productModal/[productId]"
         options={{
@@ -51,6 +50,22 @@ const RootLayout = () => {
       />
 
       <Stack.Screen
+        name="authModal/signin"
+        options={{
+          presentation: 'modal',
+          title: '',
+          animation: 'slide_from_bottom',
+        }}
+      />
+      <Stack.Screen
+        name="authModal/signup"
+        options={{
+          presentation: 'modal',
+          title: '',
+          animation: 'slide_from_bottom',
+        }}
+      />
+      <Stack.Screen
         name="apartmentModal/addApart"
         options={{
           presentation: 'modal',
@@ -60,7 +75,6 @@ const RootLayout = () => {
           headerStyle: { backgroundColor: 'black' },
         }}
       />
-
       <Stack.Screen
         name="apartmentModal/[apartmentId]"
         options={{

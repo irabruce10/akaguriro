@@ -18,8 +18,8 @@ import {
   type Href,
 } from 'expo-router';
 
-import type { LoginResponseBodyPost } from './api/signIn+api';
 import type { UserResponseBodyGet } from '../api/user+api';
+import type { LoginResponseBodyPost } from '../(auth)/api/signIn+api';
 
 export default function signInPage() {
   const [name, setName] = useState('');
@@ -70,7 +70,7 @@ export default function signInPage() {
             />
           </View>
         </View>
-        <Link href="/signup" style={{ color: 'blue' }}>
+        <Link href="/authModal/signup" style={{ color: 'blue' }}>
           Create account
         </Link>
         <Pressable

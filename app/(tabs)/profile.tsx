@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
 });
 
 export default function Profile() {
+  const [userName, setUserName] = React.useState('');
   const router = useRouter();
 
   useFocusEffect(
@@ -41,9 +42,12 @@ export default function Profile() {
         const body: UserResponseBodyGet = await response.json();
 
         if ('error' in body) {
-          router.replace('/(auth)/signin?returnTo=/(tabs)/profile');
+          router.replace('/authModal/signin?returnTo=/profile');
           return;
         }
+
+        setUserName(body.name);
+        console.log('User fetched:', userName);
       }
       getUser().catch((error) => {
         console.error(error);
@@ -53,6 +57,9 @@ export default function Profile() {
 
   return (
     <View style={styles.container}>
+      <Text>Profile</Text>
+      <Text>User Name : {userName!}</Text>
+
       <Pressable
         style={({ pressed }) => [styles.button, { opacity: pressed ? 0.5 : 1 }]}
         onPress={async () => {
@@ -69,7 +76,7 @@ export default function Profile() {
             return;
           }
 
-          router.push('/(auth)/signin');
+          router.push('/(tabs)/home');
         }}
       >
         <Text style={styles.text}>Logout</Text>
