@@ -2,12 +2,12 @@ import {
   deleteProductInsecure,
   getProductInsecure,
   updateProductInsecure,
-} from '../../database/products';
-import { ExpoApiResponse } from '../../ExpoApiResponse';
+} from '../../../database/products';
+import { ExpoApiResponse } from '../../../ExpoApiResponse';
 import {
   productsSchema,
   type Product,
-} from '../../migrations/00007-createTableProducts';
+} from '../../../migrations/00007-createTableProducts';
 import { parse } from 'cookie';
 export type ProductResponseBodyGet =
   | {

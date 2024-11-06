@@ -1,9 +1,9 @@
 import { useFocusEffect, useRouter } from 'expo-router';
 import React, { useCallback } from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
-// import type { LogoutResponseBodyGet } from '../(auth)/api/logout+api';
 
-import type { UserResponseBodyGet } from '../api_user/user+api';
+import type { UserResponseBodyGet } from '../api/user+api';
+import type { SignOutResponseBodyGet } from '../(auth)/api/signOut+api';
 
 const styles = StyleSheet.create({
   container: {
@@ -36,12 +36,12 @@ export default function Profile() {
   useFocusEffect(
     useCallback(() => {
       async function getUser() {
-        const response = await fetch('/api_user/user');
+        const response = await fetch('/api/user');
 
         const body: UserResponseBodyGet = await response.json();
 
         if ('error' in body) {
-          router.replace('/(auth)/sign-in?redirect=profile');
+          router.replace('/(auth)/signin?returnTo=/(tabs)/profile');
           return;
         }
       }
@@ -56,18 +56,20 @@ export default function Profile() {
       <Pressable
         style={({ pressed }) => [styles.button, { opacity: pressed ? 0.5 : 1 }]}
         onPress={async () => {
-          const response = await fetch('/api/logout');
+          const response = await fetch('/api/signOut');
 
           if (!response.ok) {
             let errorMessage = 'Error logging out';
-            // const responseBody: LogoutResponseBodyGet = await response.json();
-            // if ('error' in responseBody) {
-            //   errorMessage = responseBody.error;
-            // }
+            const responseBody: SignOutResponseBodyGet = await response.json();
+            if ('error' in responseBody) {
+              errorMessage = responseBody.error;
+            }
 
             Alert.alert('Error', errorMessage, [{ text: 'OK' }]);
             return;
           }
+
+          router.push('/(auth)/signin');
         }}
       >
         <Text style={styles.text}>Logout</Text>

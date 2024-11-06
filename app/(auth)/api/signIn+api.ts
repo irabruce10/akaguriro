@@ -73,9 +73,11 @@ export async function POST(
   }
   // 6. Create a token
   const token = crypto.randomBytes(100).toString('base64');
+  console.log('Generated token:', token);
 
   // 7. Create the session record
   const session = await createSessionInsecure(token, userWithPasswordHash.id);
+  console.log('Created session:', session);
 
   if (!session) {
     return ExpoApiResponse.json(
@@ -92,6 +94,7 @@ export async function POST(
     session.token,
   );
 
+  console.log('Serialized cookie:', serializedCookie);
   return ExpoApiResponse.json(
     {
       user: {

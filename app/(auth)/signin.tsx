@@ -17,8 +17,9 @@ import {
   useLocalSearchParams,
   type Href,
 } from 'expo-router';
-import type { UserResponseBodyGet } from '../api_user/user+api';
+
 import type { LoginResponseBodyPost } from './api/signIn+api';
+import type { UserResponseBodyGet } from '../api/user+api';
 
 export default function signInPage() {
   const [name, setName] = useState('');
@@ -29,7 +30,7 @@ export default function signInPage() {
   useFocusEffect(
     useCallback(() => {
       async function getUser() {
-        const response = await fetch('/api_user/user');
+        const response = await fetch('/api/user');
 
         const responseBody: UserResponseBodyGet = await response.json();
 
@@ -40,7 +41,7 @@ export default function signInPage() {
             router.replace(returnTo as Href);
           }
 
-          router.replace('/(tabs)/apartments');
+          router.replace('/(tabs)/home');
         }
       }
 
@@ -69,7 +70,7 @@ export default function signInPage() {
             />
           </View>
         </View>
-        <Link href="/sign-up" style={{ color: 'blue' }}>
+        <Link href="/signup" style={{ color: 'blue' }}>
           Create account
         </Link>
         <Pressable

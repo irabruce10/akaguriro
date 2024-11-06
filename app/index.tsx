@@ -18,7 +18,7 @@ export default function App() {
           </Text>
           <CustomButton
             title="Continue with Login in"
-            handlePress={() => router.push('/sign-in')}
+            handlePress={() => router.push('/signin')}
             containerStyles="w-full flex justify-center items-center mt-4 px-4 py-2 rounded-md text-sm font-pblack text-white bg-primary"
             textStyles=""
           />

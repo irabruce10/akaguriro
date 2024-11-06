@@ -1,13 +1,13 @@
-import {
-  createProductInsecure,
-  getProductsInsecure,
-} from '../../database/products';
-import { ExpoApiResponse } from '../../ExpoApiResponse';
+import { parse } from 'cookie';
 import {
   productsSchema,
   type Product,
-} from '../../migrations/00007-createTableProducts';
-import { parse } from 'cookie';
+} from '../../../migrations/00007-createTableProducts';
+import { ExpoApiResponse } from '../../../ExpoApiResponse';
+import {
+  createProductInsecure,
+  getProductsInsecure,
+} from '../../../database/products';
 
 export type ProductsResponseBodyGet =
   | {
@@ -29,7 +29,6 @@ export async function GET(
       error: 'No session token found',
     });
   }
-  console.log('cookie apartn', cookie);
 
   const products = await getProductsInsecure(sessionToken);
   if (!products) {

@@ -1,7 +1,7 @@
 import { parse } from 'cookie';
-import { getUser } from '../../database/users';
+import type { User } from '../../migrations/00005-createTableUsers';
 import { ExpoApiResponse } from '../../ExpoApiResponse';
-import { type User } from '../../migrations/00005-createTableUsers';
+import { getUser } from '../../database/users';
 
 export type UserResponseBodyGet =
   | {
@@ -18,6 +18,9 @@ export async function GET(
   // 1. get the session token from the cookie
   const cookies = parse(request.headers.get('cookie') || '');
   const token = cookies.sessionToken;
+
+  console.log('GET /user', { token });
+  console.log('cookie', cookies);
 
   if (!token) {
     return ExpoApiResponse.json({

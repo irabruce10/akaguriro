@@ -9,7 +9,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import type { ApartmentsResponseBodyPost } from '../../app/api_apartments/apartments+api';
+
 import CustomButton from '../CustomButton';
 import { addDoc, collection, onSnapshot } from 'firebase/firestore';
 import { Button, Image, ScrollView } from 'react-native';
@@ -21,6 +21,7 @@ import {
   deleteObject,
 } from 'firebase/storage';
 import { db, storage } from '../../firebaseConfig';
+import type { ApartmentsResponseBodyPost } from '../../app/api/apartments/apartments+api';
 
 export default function FormApart() {
   const [name, setName] = useState('');
@@ -35,7 +36,7 @@ export default function FormApart() {
   const handlePress = async () => {
     // await uploadImages(images, 'image/jpeg');
 
-    const response = await fetch('/api_apartments/apartments', {
+    const response = await fetch('/api/apartments', {
       method: 'POST',
 
       body: JSON.stringify({
@@ -58,7 +59,6 @@ export default function FormApart() {
       return;
     }
 
-    console.log('Apartment created successfully');
     setName('');
     setRooms('');
     setMaxCapacity('');

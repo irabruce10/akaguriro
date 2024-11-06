@@ -12,7 +12,7 @@ import {
   View,
 } from 'react-native';
 
-import type { ApartmentResponseBodyGet } from '../api_apartments/[apartmentId]+api';
+import type { ApartmentResponseBodyGet } from '../apiApartments/[apartmentId]+api';
 
 import CalenderPicker from '../../components/CalenderPicker';
 import { Picker } from '@react-native-picker/picker';

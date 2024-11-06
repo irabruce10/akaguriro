@@ -22,7 +22,7 @@ export default function Home() {
     useCallback(() => {
       if (!isStale) return;
       async function getProducts() {
-        const response = await fetch('/api/products', {
+        const response = await fetch('/api/products/products', {
           headers: {
             Cookie: 'name=value',
           },

@@ -7,6 +7,7 @@ export type Apartment = {
   rooms: number;
   maxCapacity: number;
   imagesUrl: string[];
+  userId: number;
 };
 // regular_price: number;
 // discount_price: number;
@@ -31,7 +32,8 @@ export async function up(sql: Sql) {
       name varchar(50) NOT NULL,
       rooms integer NOT NULL,
       max_capacity integer NOT NULL,
-      images_url TEXT[] NOT NULL
+      images_url TEXT[] NOT NULL,
+      user_id integer NOT NULL REFERENCES users (id) ON DELETE cascade
     );
   `;
 }
