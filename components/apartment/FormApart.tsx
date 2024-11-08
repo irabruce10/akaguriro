@@ -65,8 +65,6 @@ export default function FormApart() {
         ]);
 
         setIsStale(false);
-        console.log('User apa:', userResponse);
-        console.log('Apartments:', apartmentsResponse);
 
         if ('error' in userResponse) {
           router.replace(`/authModal/signin?returnTo=/apartments`);

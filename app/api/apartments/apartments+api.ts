@@ -50,24 +50,21 @@ export async function POST(
     );
   }
 
-  const cookies = parse(request.headers.get('cookie') || '');
-  const token = cookies.sessionToken;
+  // const cookies = parse(request.headers.get('cookie') || '');
+  // const token = cookies.sessionToken;
 
-  if (!token) {
-    return ExpoApiResponse.json({
-      error: 'No session token found',
-    });
-  }
+  // if (!token) {
+  //   return ExpoApiResponse.json({
+  //     error: 'No session token found',
+  //   });
+  // }
 
-  const newApartment =
-    token &&
-    ((await createApartmentInsecure(
-      token,
-      result.data.name,
-      result.data.rooms,
-      result.data.maxCapacity,
-      result.data.imagesUrl,
-    )) as Apartment);
+  const newApartment = (await createApartmentInsecure(
+    result.data.name,
+    result.data.rooms,
+    result.data.maxCapacity,
+    result.data.imagesUrl,
+  )) as Apartment;
 
   if (!newApartment) {
     return ExpoApiResponse.json(

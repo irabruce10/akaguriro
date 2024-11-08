@@ -1,6 +1,11 @@
 import type { Sql } from 'postgres';
 import { z } from 'zod';
 
+export type User = {
+  id: number;
+  name: string;
+};
+
 export type Apartment = {
   id: number;
   name: string;

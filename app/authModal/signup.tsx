@@ -108,8 +108,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-
-import type { SignUpResponseBodyPost } from './api/signUp+api';
+import type { SignUpResponseBodyPost } from '../(auth)/api/signUp+api';
 
 const styles = StyleSheet.create({
   container: {
@@ -182,7 +181,7 @@ export default function Register() {
         const responseBody: SignUpResponseBodyPost = await response.json();
 
         if ('name' in responseBody) {
-          router.replace('/(tabs)/home');
+          router.replace('/authModal/signin');
         }
       }
 
@@ -217,7 +216,7 @@ export default function Register() {
         />
         <View style={styles.promptTextContainer}>
           <Text>Already have an account?</Text>
-          <Link href="/(auth)/signin">Login</Link>
+          <Link href="/authModal/signup">Login</Link>
         </View>
       </View>
       <Pressable

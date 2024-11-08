@@ -1,4 +1,4 @@
-import { useFocusEffect, useRouter } from 'expo-router';
+import { Link, useFocusEffect, useRouter } from 'expo-router';
 import React, { useCallback } from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -47,7 +47,6 @@ export default function Profile() {
         }
 
         setUserName(body.name);
-        console.log('User fetched:', userName);
       }
       getUser().catch((error) => {
         console.error(error);
@@ -80,6 +79,9 @@ export default function Profile() {
         }}
       >
         <Text style={styles.text}>Logout</Text>
+        <View>
+          <Link href="/dashboard/dashboard">Dashboard</Link>
+        </View>
       </Pressable>
     </View>
   );

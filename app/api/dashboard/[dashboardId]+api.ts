@@ -1,13 +1,13 @@
-import {
-  deleteApartmentInsecure,
-  getApartmentInsecure,
-  updateApartmentInsecure,
-} from '../../../database/apartment';
-import { ExpoApiResponse } from '../../../ExpoApiResponse';
+import { parse } from 'cookie';
 import {
   apartmentsSchema,
   type Apartment,
 } from '../../../migrations/00008-createTableApartments';
+import { ExpoApiResponse } from '../../../ExpoApiResponse';
+import {
+  deleteApartmentInsecure,
+  getApartmentDashboard,
+} from '../../../database/apartment';
 
 export type ApartmentResponseBodyGet =
   | {
@@ -19,41 +19,58 @@ export type ApartmentResponseBodyGet =
 
 export async function GET(
   request: Request,
-  { apartmentId }: { apartmentId: string },
+  { dashboardId }: { dashboardId: string },
 ): Promise<ExpoApiResponse<ApartmentResponseBodyGet>> {
-  const apartment = await getApartmentInsecure(Number(apartmentId));
+  // const apartment = await getApartmentDashboard(Number(apartmentId));
+  // if (!apartment) {
+  //   return ExpoApiResponse.json(
+  //     {
+  //       error: `No apartment with id ${apartmentId} found`,
+  //     },
+  //     {
+  //       status: 404,
+  //     },
+  //   );
+  // }
+  // return ExpoApiResponse.json({ apartment: apartment });
 
-  console.log('apId', apartment);
+  const cookies = parse(request.headers.get('cookie') || '');
+
+  const token = cookies.sessionToken;
+
+  if (!token) {
+    return ExpoApiResponse.json(
+      {
+        error: 'No session token found',
+      },
+      {
+        status: 401,
+      },
+    );
+  }
+  const apartment = await getApartmentDashboard(token, Number(dashboardId));
 
   if (!apartment) {
     return ExpoApiResponse.json(
       {
-        error: `No apartmentddd with id ${apartmentId} found`,
+        error: `No apartmentddd with id ${dashboardId} found`,
       },
       {
         status: 404,
       },
     );
   }
-
-  //  // Extract the apartment ID from the object
-  //  const apartmentIdFromDatabase = apartment.id;
-
-  //  // Return the apartment ID as a response
-  //  return ExpoApiResponse.json({
-  //    apartmentId: apartmentIdFromDatabase,
-  //  });
   return ExpoApiResponse.json({ apartment: apartment });
 }
 
-export type ApartmentResponseBodyPut =
-  | {
-      apartment: Apartment;
-    }
-  | {
-      error: string;
-      errorIssues?: { message: string }[];
-    };
+// export type ApartmentResponseBodyPut =
+//   | {
+//       apartment: Apartment;
+//     }
+//   | {
+//       error: string;
+//       errorIssues?: { message: string }[];
+//     };
 
 // export async function PUT(
 //   request: Request,
@@ -110,6 +127,8 @@ export async function DELETE(
   { apartmentId }: { apartmentId: string },
 ): Promise<ExpoApiResponse<ApartmentResponseBodyDelete>> {
   const apartment = await deleteApartmentInsecure(Number(apartmentId));
+
+  console.log('Deleting', apartment);
 
   if (!apartment) {
     return ExpoApiResponse.json(
