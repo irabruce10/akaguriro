@@ -57,7 +57,7 @@ export default function Profile() {
   return (
     <View style={styles.container}>
       <Text>Profile</Text>
-      <Text>User Name : {userName!}</Text>
+      <Text>UserName : {userName!}</Text>
 
       <Pressable
         style={({ pressed }) => [styles.button, { opacity: pressed ? 0.5 : 1 }]}
@@ -80,7 +80,7 @@ export default function Profile() {
       >
         <Text style={styles.text}>Logout</Text>
         <View>
-          <Link href="/dashboard/dashboard">Dashboard</Link>
+          <Link href="/dashboard/dashboard">Dashboard </Link>
         </View>
       </Pressable>
     </View>
