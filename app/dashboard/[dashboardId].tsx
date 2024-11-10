@@ -84,7 +84,7 @@ export default function Apartment() {
           ApartmentResponseBodyGet,
         ] = await Promise.all([
           fetch('/api/user').then((response) => response.json()),
-          fetch(`/api/apartments/${dashboardId}`).then((response) =>
+          fetch(`/api/dashboard/${dashboardId}`).then((response) =>
             response.json(),
           ),
         ]);

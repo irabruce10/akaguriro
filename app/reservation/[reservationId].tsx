@@ -26,7 +26,7 @@ import type { ApartmentResponseBodyGet } from '../api/apartments/[apartmentId]+a
 import type { Apartment } from '../../migrations/00008-createTableApartments';
 
 export default function Apartment() {
-  const { apartmentId } = useLocalSearchParams();
+  const { dashboardId } = useLocalSearchParams();
 
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState('');
@@ -39,13 +39,12 @@ export default function Apartment() {
   const [totalPrice, setTotalPrice] = useState('');
   const [userName, setUserName] = useState('');
   const [apartment, setApartment] = useState<Apartment | null>();
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [isStale, setIsStale] = useState(true);
 
   useFocusEffect(
     useCallback(() => {
       async function getUserAndLoadApartment() {
-        if (typeof apartmentId !== 'string') {
+        if (typeof dashboardId !== 'string') {
           return;
         }
 
@@ -54,93 +53,53 @@ export default function Apartment() {
           ApartmentResponseBodyGet,
         ] = await Promise.all([
           fetch('/api/user').then((response) => response.json()),
-          fetch(`/api/apartments/${apartmentId}`).then((response) =>
+          fetch(`/api/dashboard/${dashboardId}`).then((response) =>
             response.json(),
           ),
         ]);
 
-        if ('name' in userResponse) setUserName(userResponse.name);
+        console.log('User response', userResponse);
 
         if ('error' in userResponse) {
           router.replace(
-            `/authModal/signin?returnTo=/apartments/${apartmentId}`,
+            `/authModal/signin?returnTo=/apartments/${dashboardId}`,
           );
         }
 
         if ('apartment' in apartmentResponse) {
-          setApartment(apartmentResponse.apartment!);
+          setApartment(apartmentResponse.apartment);
+          console.log('Apartment responsedf', apartment);
         }
       }
 
       getUserAndLoadApartment().catch((error) => {
         console.error(error);
       });
-    }, [apartmentId, router]),
+    }, [dashboardId, router]),
   );
-  const handlePress = async () => {
-    console.log('handlePress', apartment?.userId);
-    console.log('handlePress', apartment?.id);
-    console.log('handlePress', guestsNumber);
-    console.log('handlePress', startDate);
-    console.log('handlePress', endDate);
 
-    // // await uploadImages(images, 'image/jpeg');
-    // const response = await fetch('/api/apartments/apartments', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     name,
-    //     rooms: parseInt(rooms),
-    //     maxCapacity: parseInt(maxCapacity),
-    //     imagesUrl,
-    //   }),
-    // });
-    // if (!response.ok) {
-    //   let errorMessage = 'Error creating apartment';
-    //   const body: ApartmentsResponseBodyPost = await response.json();
-    //   if ('error' in body) {
-    //     errorMessage = body.error;
-    //   }
-    //   Alert.alert('Error', errorMessage, [{ text: 'OK' }]);
-    //   return;
-    // }
-    // setName('');
-    // setRooms('');
-    // setMaxCapacity('');
-    // setImages([]);
-    // setImagesUrl([]);
-    // router.push('/(tabs)/apartments');
-  };
-
-  const handleDateChange = (
-    selectedStartDate: string,
-    selectedEndDate: string,
-  ) => {
-    setStartDate(selectedStartDate);
-    setEndDate(selectedEndDate);
-  };
+  if (typeof dashboardId !== 'string') {
+    return null;
+  }
 
   return (
     <ScrollView>
       <View className="my-6 px-4 space-y-6">
         <View>
-          <Text className="text-xl">
-            Reserve {apartment?.name} today. Pay on arrival.
-          </Text>
+          <Text className="text-xl">Reserve {name} today. Pay on arrival.</Text>
 
-          <CalenderPicker onDateChanges={handleDateChange} />
+          <CalenderPicker />
         </View>
-        <Text className="font-pmedium text-sm text-black">
-          user {userName.toLocaleUpperCase()}
-        </Text>
+        <Text className="font-pmedium text-sm text-black">user{userName}</Text>
 
         <Text
           numberOfLines={1}
           ellipsizeMode="tail"
           className="text-black font-pregular "
         >
-          name: {apartment?.name}
+          name: {name}
         </Text>
-        <Text className="text-black">rooms {apartment?.rooms} </Text>
+        <Text className="text-black">{rooms} rooms </Text>
 
         <Text>How many guests?</Text>
         <Picker
@@ -150,7 +109,7 @@ export default function Apartment() {
           style={{ height: 50, width: 150 }}
           itemStyle={{ height: 50 }}
         >
-          {Array.from({ length: apartment?.maxCapacity! + 1 }, (_, i) => (
+          {Array.from({ length: parseInt(maxCapacity) + 1 }, (_, i) => (
             <Picker.Item key={i} label={`${i} `} value={i} />
           ))}
         </Picker>
@@ -169,8 +128,6 @@ export default function Apartment() {
         )}
         <Text>You are booking for {guestsNumber} guests.</Text>
       </View>
-
-      <CustomButton title="Book Now" handlePress={handlePress} />
     </ScrollView>
   );
 }

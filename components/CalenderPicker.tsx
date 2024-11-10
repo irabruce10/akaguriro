@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import CalendarPicker from 'react-native-calendar-picker';
 import CustomButton from './CustomButton';
 
-export default function Calender() {
+interface CalenderProps {
+  onDateChanges: (startDate: string, endDate: string) => void;
+}
+
+export default function Calender({ onDateChanges }: CalenderProps) {
   const [selectedStartDate, setSelectedStartDate] = useState('DD/MM/YYYY');
 
   const [selectedEndDate, setSelectedEndDate] = useState('DD/MM/YYYY');
@@ -14,24 +18,29 @@ export default function Calender() {
 
   const togglePicker = () => setShowPicker(!showPicker);
 
-  const onDateChange = (date, type) => {
+  const onDateChange = (date: Date, type: 'START_DATE' | 'END_DATE') => {
     const newDate = JSON.stringify(date);
-    console.log(newDate);
     const newD = newDate.substring(1, newDate.length - 1);
     const dates = newD.split('T');
-    const date1 = dates[0].split('-');
-    const day = date1[2];
-    const month = date1[1];
-    const year = date1[0];
-    if (type == 'END_DATE') {
-      if (day === undefined) {
-        setSelectedEndDate('DD/MM/YYYY');
+
+    if (dates[0]) {
+      const date1 = dates[0].split('-');
+      const day = date1[2];
+      const month = date1[1];
+      const year = date1[0];
+
+      if (type === 'END_DATE') {
+        if (day === undefined) {
+          setSelectedEndDate('DD/MM/YYYY');
+        } else {
+          setSelectedEndDate(day + '/' + month + '/' + year);
+        }
       } else {
-        setSelectedEndDate(day + '/' + month + '/' + year);
+        setSelectedStartDate(day + '/' + month + '/' + year);
       }
-    } else {
-      setSelectedStartDate(day + '/' + month + '/' + year);
     }
+
+    onDateChanges(selectedStartDate, selectedEndDate);
   };
 
   const confirmDate = () => {
@@ -45,7 +54,6 @@ export default function Calender() {
           <Pressable onPress={togglePicker}>
             <Text
               className="text-xl  font-psemibold text-black mt-4 mb-4"
-              editable={false}
               onPressIn={togglePicker}
             >
               Choose the date

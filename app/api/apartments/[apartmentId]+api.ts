@@ -23,8 +23,6 @@ export async function GET(
 ): Promise<ExpoApiResponse<ApartmentResponseBodyGet>> {
   const apartment = await getApartmentInsecure(Number(apartmentId));
 
-  console.log('apId', apartment);
-
   if (!apartment) {
     return ExpoApiResponse.json(
       {

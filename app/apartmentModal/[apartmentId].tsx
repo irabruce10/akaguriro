@@ -99,7 +99,7 @@ export default function Apartment() {
         <View>
           <Link
             className="bg-secondary rounded-xl min-h-[62px] justify-center items-center"
-            href={'/reservation/reservation'}
+            href={`/reservation/reservation?apartmentId=${apartmentId}`}
           >
             Reserve Now
           </Link>
