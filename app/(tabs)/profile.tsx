@@ -82,6 +82,11 @@ export default function Profile() {
         <View>
           <Link href="/dashboard/dashboard">Dashboard </Link>
         </View>
+        <View>
+          <Link href="/reservationDash/reservationDash">
+            Reservation Dashboard
+          </Link>
+        </View>
       </Pressable>
     </View>
   );

@@ -7,6 +7,7 @@ import {
 } from 'expo-router';
 import { useCallback, useState } from 'react';
 import {
+  Alert,
   Button,
   Image,
   Pressable,
@@ -24,6 +25,12 @@ import type { UserResponseBodyGet } from '../api/user+api';
 import CustomButton from '../../components/CustomButton';
 import type { ApartmentResponseBodyGet } from '../api/apartments/[apartmentId]+api';
 import type { Apartment } from '../../migrations/00008-createTableApartments';
+import type { ReservationResponseBodyPost } from '../api/reservation/reservation+api';
+
+interface ReservationProps {
+  startDate: string;
+  endDate: string;
+}
 
 export default function Apartment() {
   const { apartmentId } = useLocalSearchParams();
@@ -35,12 +42,13 @@ export default function Apartment() {
   const [imagesUrl, setImagesUrl] = useState<string[]>([]);
   const [focusedInput, setFocusedInput] = useState<string | undefined>();
   const [guestsNumber, setGuestsNumber] = useState('');
-  const [hasBreakfast, setHasBreakfast] = useState(false);
-  const [totalPrice, setTotalPrice] = useState('');
+  const [breakfast, setBreakfast] = useState(false);
+  // const [extrasPrice, setExtrasPrice] = useState(0);
   const [userName, setUserName] = useState('');
   const [apartment, setApartment] = useState<Apartment | null>();
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState(Date);
+  const [endDate, setEndDate] = useState(Date);
+  const [numNights, setNumNights] = useState(0);
 
   useFocusEffect(
     useCallback(() => {
@@ -77,46 +85,56 @@ export default function Apartment() {
       });
     }, [apartmentId, router]),
   );
-  const handlePress = async () => {
-    console.log('handlePress', apartment?.userId);
-    console.log('handlePress', apartment?.id);
-    console.log('handlePress', guestsNumber);
-    console.log('handlePress', startDate);
-    console.log('handlePress', endDate);
 
-    // // await uploadImages(images, 'image/jpeg');
-    // const response = await fetch('/api/apartments/apartments', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     name,
-    //     rooms: parseInt(rooms),
-    //     maxCapacity: parseInt(maxCapacity),
-    //     imagesUrl,
-    //   }),
-    // });
-    // if (!response.ok) {
-    //   let errorMessage = 'Error creating apartment';
-    //   const body: ApartmentsResponseBodyPost = await response.json();
-    //   if ('error' in body) {
-    //     errorMessage = body.error;
-    //   }
-    //   Alert.alert('Error', errorMessage, [{ text: 'OK' }]);
-    //   return;
-    // }
-    // setName('');
-    // setRooms('');
-    // setMaxCapacity('');
-    // setImages([]);
-    // setImagesUrl([]);
-    // router.push('/(tabs)/apartments');
+  const handlePress = async () => {
+    const response = await fetch('/api/reservation/reservation', {
+      method: 'POST',
+      body: JSON.stringify({
+        startDate,
+        endDate,
+        numNights,
+        numGuests: parseInt(guestsNumber),
+        breakfast,
+        apartmentId: Number(apartmentId),
+      }),
+    });
+    if (!response.ok) {
+      let errorMessage = 'Error creating apartment';
+      const body: ReservationResponseBodyPost = await response.json();
+      if ('error' in body) {
+        errorMessage = body.error;
+      }
+      Alert.alert('Error', errorMessage, [{ text: 'OK' }]);
+      return;
+    }
+
+    router.push('/reservationDash/reservationDash');
   };
 
   const handleDateChange = (
     selectedStartDate: string,
     selectedEndDate: string,
   ) => {
-    setStartDate(selectedStartDate);
-    setEndDate(selectedEndDate);
+    // setStartDate(selectedStartDate);
+    // setEndDate(selectedEndDate);
+
+    const startDateObj = new Date(selectedStartDate);
+    const endDateObj = new Date(selectedEndDate);
+
+    const startDate = startDateObj.toISOString().slice(0, 10);
+    console.log('Start Dated:', startDate);
+    const endDate = endDateObj.toISOString().slice(0, 10);
+
+    setStartDate(startDate);
+    setEndDate(endDate);
+
+    const diffInMilliseconds = endDateObj.getTime() - startDateObj.getTime();
+
+    const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+
+    setNumNights(diffInDays);
+
+    console.log('Total Nights', numNights);
   };
 
   return (
@@ -128,6 +146,8 @@ export default function Apartment() {
           </Text>
 
           <CalenderPicker onDateChanges={handleDateChange} />
+
+          <Text>Total Nights {numNights}</Text>
         </View>
         <Text className="font-pmedium text-sm text-black">
           user {userName.toLocaleUpperCase()}
@@ -157,16 +177,18 @@ export default function Apartment() {
 
         <Text>Breakfast: </Text>
         <Switch
-          value={hasBreakfast}
-          onValueChange={(newValue) => setHasBreakfast(newValue)}
+          value={breakfast}
+          onValueChange={(newValue) => setBreakfast(newValue)}
           trackColor={{ false: '#767577', true: '#8e8b87' }}
           thumbColor="#fb8f15"
           ios_backgroundColor="#3e2465"
         />
-        <Text>{hasBreakfast}</Text>
-        {parseInt(guestsNumber) > 0 && hasBreakfast !== false && (
-          <Text>Total price: {` ${60 * parseInt(guestsNumber)} `}</Text>
-        )}
+        <Text>{breakfast}</Text>
+        {/*
+        {parseInt(guestsNumber) > 0 && breakfast !== false && (
+          <Text> price: {Number(extrasPrice)}</Text>
+        )} */}
+
         <Text>You are booking for {guestsNumber} guests.</Text>
       </View>
 

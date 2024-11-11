@@ -2,7 +2,6 @@ import { Pressable, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import CalendarPicker from 'react-native-calendar-picker';
 import CustomButton from './CustomButton';
-
 interface CalenderProps {
   onDateChanges: (startDate: string, endDate: string) => void;
 }
@@ -10,7 +9,7 @@ interface CalenderProps {
 export default function Calender({ onDateChanges }: CalenderProps) {
   const [selectedStartDate, setSelectedStartDate] = useState('DD/MM/YYYY');
 
-  const [selectedEndDate, setSelectedEndDate] = useState('DD/MM/YYYY');
+  const [selectedEndDate, setSelectedEndDate] = useState('DDs/MsM/YYYsY');
 
   const minDate = new Date(); // Today
   const maxDate = new Date(2026, 11, 31);
@@ -33,18 +32,18 @@ export default function Calender({ onDateChanges }: CalenderProps) {
         if (day === undefined) {
           setSelectedEndDate('DD/MM/YYYY');
         } else {
-          setSelectedEndDate(day + '/' + month + '/' + year);
+          setSelectedEndDate(year + '-' + month + '-' + day);
         }
       } else {
-        setSelectedStartDate(day + '/' + month + '/' + year);
+        // setSelectedStartDate(day + '/' + month + '/' + year);
+        setSelectedStartDate(year + '-' + month + '-' + day);
       }
     }
-
-    onDateChanges(selectedStartDate, selectedEndDate);
   };
 
   const confirmDate = () => {
     togglePicker();
+    onDateChanges(selectedStartDate, selectedEndDate);
   };
 
   return (

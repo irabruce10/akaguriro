@@ -37,11 +37,7 @@ const apartments = () => {
       if (!isStale) return;
 
       async function getApartments() {
-        const response = await fetch('/api/apartments/apartments', {
-          headers: {
-            Cookie: 'name=value',
-          },
-        });
+        const response = await fetch('/api/apartments/apartments', {});
         const body: ApartmentsResponseBodyGet = await response.json();
 
         setApartments(body.apartments);
