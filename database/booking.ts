@@ -4,9 +4,7 @@ import { sql } from './connect';
 import { ExpoApiResponse } from '../ExpoApiResponse';
 import type { Booking } from '../migrations/00009-createTableBookings';
 
-export const getBookingsDashboard = async (
-  sessionToken: Session['token'],
-) => {
+export const getBookingsDashboard = async (sessionToken: Session['token']) => {
   const bookings = await sql<Booking[]>`
     SELECT
       bookings.*
@@ -21,7 +19,6 @@ export const getBookingsDashboard = async (
 
   return bookings;
 };
-
 
 export const createBookingInsecure = async (
   sessionToken: Session['token'],
@@ -62,3 +59,34 @@ export const createBookingInsecure = async (
   `;
   return booking;
 };
+
+export const deleteBooking = async (bookingId: Booking['id']) => {
+  const [booking] = await sql<Booking[]>`
+    DELETE FROM bookings
+    WHERE
+      id = ${bookingId}
+    RETURNING
+      bookings.*
+  `;
+  return booking;
+};
+
+export async function getBooking(
+  sessionToken: Session['token'],
+  bookingId: Booking['id'],
+) {
+  const [booking] = await sql<Booking[]>`
+    SELECT
+      bookings.*
+    FROM
+      bookings
+      INNER JOIN sessions ON (
+        sessions.token = ${sessionToken}
+        AND sessions.user_id = bookings.user_id
+        AND expiry_timestamp > now()
+      )
+    WHERE
+      bookings.id = ${bookingId}
+  `;
+  return booking;
+}

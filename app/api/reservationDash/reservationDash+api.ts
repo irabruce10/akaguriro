@@ -28,8 +28,6 @@ export async function GET(
   }
   const reservation = await getBookingsDashboard(token);
 
-  console.log('reservation', reservation);
-
   return ExpoApiResponse.json({
     reservation: reservation,
   });

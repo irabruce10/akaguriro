@@ -1,23 +1,6 @@
-import { Ionicons } from '@expo/vector-icons';
-import {
-  Link,
-  router,
-  useFocusEffect,
-  useLocalSearchParams,
-} from 'expo-router';
+import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
-import {
-  Alert,
-  Button,
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Switch,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import { Alert, ScrollView, Switch, Text, View } from 'react-native';
 
 import CalenderPicker from '../../components/CalenderPicker';
 import { Picker } from '@react-native-picker/picker';
@@ -35,12 +18,6 @@ interface ReservationProps {
 export default function Apartment() {
   const { apartmentId } = useLocalSearchParams();
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState('');
-  const [rooms, setRooms] = useState('');
-  const [maxCapacity, setMaxCapacity] = useState('');
-  const [imagesUrl, setImagesUrl] = useState<string[]>([]);
-  const [focusedInput, setFocusedInput] = useState<string | undefined>();
   const [guestsNumber, setGuestsNumber] = useState('');
   const [breakfast, setBreakfast] = useState(false);
   // const [extrasPrice, setExtrasPrice] = useState(0);
@@ -115,14 +92,11 @@ export default function Apartment() {
     selectedStartDate: string,
     selectedEndDate: string,
   ) => {
-    // setStartDate(selectedStartDate);
-    // setEndDate(selectedEndDate);
-
     const startDateObj = new Date(selectedStartDate);
     const endDateObj = new Date(selectedEndDate);
 
     const startDate = startDateObj.toISOString().slice(0, 10);
-    console.log('Start Dated:', startDate);
+
     const endDate = endDateObj.toISOString().slice(0, 10);
 
     setStartDate(startDate);
@@ -133,8 +107,6 @@ export default function Apartment() {
     const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
 
     setNumNights(diffInDays);
-
-    console.log('Total Nights', numNights);
   };
 
   return (

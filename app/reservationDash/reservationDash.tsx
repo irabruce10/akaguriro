@@ -4,7 +4,7 @@ import { View, Text, FlatList } from 'react-native';
 import React, { useCallback, useState } from 'react';
 
 import ApartItem from '../../components/apartment/ApartItem';
-import { router, useFocusEffect } from 'expo-router';
+import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 
 import Add from '../../components/apartment/AddApartBtn';
 import EmptyState from '../../components/EmptyState';
@@ -17,12 +17,13 @@ import type { ReservationResponseBodyGet } from '../api/reservationDash/reservat
 import Reservation from '../../components/Reservation';
 
 const reservation = () => {
+  const { bookingId } = useLocalSearchParams();
+
   const [reservation, setReservation] = useState<Booking[]>([]);
 
   const [isStale, setIsStale] = useState(true);
 
   const renderItem = (item: { item: Booking }) => (
-    // <ApartItem apartment={item.item} setIsStale={setIsStale} />
     <Reservation booking={item.item} setIsStale={setIsStale} />
   );
 
@@ -66,6 +67,12 @@ const reservation = () => {
 
   return (
     <SafeAreaView className="bg-primary w-full h-full">
+      <Text>Thank you </Text>
+      <View className="flex-row items-center justify-between px-4 py-4 space-x-6">
+        <Text className="font-pmedium text-sm text-gray-100">
+          My Reservations
+        </Text>
+      </View>
       <FlatList
         data={reservation}
         renderItem={renderItem}
