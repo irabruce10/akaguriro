@@ -37,10 +37,14 @@ const apartments = () => {
       if (!isStale) return;
 
       async function getApartments() {
-        const response = await fetch('/api/apartments/apartments', {});
+        const response = await fetch('/api/apartments/apartments');
         const body: ApartmentsResponseBodyGet = await response.json();
 
         setApartments(body.apartments);
+
+        const a = fetch('/api/user').then((response) => response.json());
+
+        console.log('User apa:', a);
 
         //   const [apartmentsResponse, userResponse]: [
         //     ApartmentsResponseBodyGet,

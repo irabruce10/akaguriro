@@ -1,6 +1,7 @@
 import {
   deleteApartmentInsecure,
   getApartmentInsecure,
+  getApartmentWithUser,
   updateApartmentInsecure,
 } from '../../../database/apartment';
 import { ExpoApiResponse } from '../../../ExpoApiResponse';
@@ -21,7 +22,7 @@ export async function GET(
   request: Request,
   { apartmentId }: { apartmentId: string },
 ): Promise<ExpoApiResponse<ApartmentResponseBodyGet>> {
-  const apartment = await getApartmentInsecure(Number(apartmentId));
+  const apartment = await getApartmentWithUser(Number(apartmentId));
 
   if (!apartment) {
     return ExpoApiResponse.json(

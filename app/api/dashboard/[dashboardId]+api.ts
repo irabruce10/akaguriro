@@ -50,8 +50,6 @@ export async function GET(
   }
   const apartment = await getApartmentDashboard(token, Number(dashboardId));
 
-  console.log('ap', apartment);
-
   if (!apartment) {
     return ExpoApiResponse.json(
       {

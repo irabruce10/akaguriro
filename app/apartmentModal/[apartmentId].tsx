@@ -35,7 +35,7 @@ export default function Apartment() {
   const [guestsNumber, setGuestsNumber] = useState('');
   const [hasBreakfast, setHasBreakfast] = useState(false);
   const [totalPrice, setTotalPrice] = useState('');
-  const [userName, setUserName] = useState('');
+  const [owner, setOwner] = useState('');
 
   useFocusEffect(
     useCallback(() => {
@@ -47,14 +47,14 @@ export default function Apartment() {
         const response = await fetch(`/api/apartments/${apartmentId}`);
         const body = await response.json();
 
-        console.log('Apartment response', body);
+        console.log('Apartmentss response', body);
 
         if ('apartment' in body) {
           setName(body.apartment.name);
           setRooms(body.apartment.rooms);
           setMaxCapacity(body.apartment.maxCapacity);
           setImagesUrl(body.apartment.imagesUrl);
-          setUserName(body.apartment.userName);
+          setOwner(body.apartment.ownerName);
         }
       }
 
@@ -71,7 +71,6 @@ export default function Apartment() {
   return (
     <ScrollView>
       <View className="my-6 px-4 space-y-6">
-        <Text className="font-pmedium text-sm text-black">user{userName}</Text>
         <Text className="font-pmedium text-sm text-black">
           Apartment Details
         </Text>
@@ -96,12 +95,23 @@ export default function Apartment() {
         </Text>
         <Text className="text-black">{rooms} rooms </Text>
 
+        <Text>Max Capacity: {maxCapacity} </Text>
+
+        <Text className="font-pmedium text-sm text-black">Owner {owner}</Text>
+
         <View>
           <Link
             className="bg-secondary rounded-xl min-h-[62px] justify-center items-center"
             href={`/reservation/reservation?apartmentId=${apartmentId}`}
           >
             Reserve Now
+          </Link>
+
+          <Link
+            className="bg-secondary rounded-xl min-h-[62px] mt-4 justify-center items-center"
+            href={`/chat/chat?apartmentId=${apartmentId}`}
+          >
+            message
           </Link>
         </View>
       </View>

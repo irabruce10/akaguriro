@@ -131,8 +131,6 @@ export default function FormApart() {
       orderedSelection: true,
     });
 
-    console.log(result);
-
     if (!result.canceled) {
       // setImage(result.assets[0]?.uri);
       const imageUris = result.assets.map((asset) => asset.uri);

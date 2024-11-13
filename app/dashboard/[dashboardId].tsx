@@ -89,8 +89,6 @@ export default function Apartment() {
           ),
         ]);
 
-        console.log('User response', userResponse);
-
         if ('error' in userResponse) {
           router.replace(
             `/authModal/signin?returnTo=/apartments/${dashboardId}`,
@@ -99,7 +97,6 @@ export default function Apartment() {
 
         if ('apartment' in apartmentResponse) {
           setApartment(apartmentResponse.apartment!);
-          console.log('Apartment responsedf', apartment!);
         }
       }
 

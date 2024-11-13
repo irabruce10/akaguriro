@@ -44,7 +44,11 @@ export default function Apartment() {
           ),
         ]);
 
-        if ('name' in userResponse) setUserName(userResponse.name);
+        if ('name' in userResponse) {
+          setUserName(userResponse.name);
+        } else {
+          setUserName('no user found');
+        }
 
         if ('error' in userResponse) {
           router.replace(
@@ -112,6 +116,9 @@ export default function Apartment() {
   return (
     <ScrollView>
       <View className="my-6 px-4 space-y-6">
+        <Text className="font-pmedium text-sm text-black">
+          user {userName.toLocaleUpperCase()}
+        </Text>
         <View>
           <Text className="text-xl">
             Reserve {apartment?.name} today. Pay on arrival.

@@ -19,9 +19,6 @@ export async function GET(
   const cookies = parse(request.headers.get('cookie') || '');
   const token = cookies.sessionToken;
 
-  console.log('GET /user', { token });
-  console.log('cookie', cookies);
-
   if (!token) {
     return ExpoApiResponse.json({
       error: 'No session token found',

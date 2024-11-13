@@ -49,6 +49,21 @@ export const getApartmentInsecure = async (apartmentId: Apartment['id']) => {
   return apartment;
 };
 
+export const getApartmentWithUser = async (apartmentId: Apartment['id']) => {
+  const [apartment] = await sql<Apartment[]>`
+    SELECT
+      apartments.*,
+      users.name AS owner_name
+    FROM
+      apartments
+      INNER JOIN users ON (apartments.user_id = users.id)
+    WHERE
+      apartments.id = ${apartmentId}
+  `;
+
+  return apartment;
+};
+
 export const getApartmentDashboard = async (
   sessionToken: Session['token'],
   apartmentId: Apartment['id'],
@@ -70,45 +85,45 @@ export const getApartmentDashboard = async (
   return apartment;
 };
 
-export const createApartmentInsecure = async (
-  name: Apartment['name'],
-  rooms: Apartment['rooms'],
-  maxCapacity: Apartment['maxCapacity'],
-  imagesUrl: Apartment['imagesUrl'],
-) => {
-  const [session] = await sql<Session[]>`
-    SELECT
-      sessions.*
-    FROM
-      sessions
-  `;
+// export const createApartmentInsecure = async (
+//   name: Apartment['name'],
+//   rooms: Apartment['rooms'],
+//   maxCapacity: Apartment['maxCapacity'],
+//   imagesUrl: Apartment['imagesUrl'],
+// ) => {
+//   const [session] = await sql<Session[]>`
+//     SELECT
+//       sessions.*
+//     FROM
+//       sessions
+//   `;
 
-  if (!session) {
-    return null; // or throw an error if you prefer
-  }
+//   if (!session) {
+//     return null; // or throw an error if you prefer
+//   }
 
-  const [apartment] = await sql<Apartment[]>`
-    INSERT INTO
-      apartments (
-        user_id,
-        name,
-        rooms,
-        max_capacity,
-        images_url
-      )
-    VALUES
-      (
-        ${session.userId},
-        ${name},
-        ${rooms},
-        ${maxCapacity},
-        ${imagesUrl}
-      )
-    RETURNING
-      apartments.*
-  `;
-  return apartment;
-};
+//   const [apartment] = await sql<Apartment[]>`
+//     INSERT INTO
+//       apartments (
+//         user_id,
+//         name,
+//         rooms,
+//         max_capacity,
+//         images_url
+//       )
+//     VALUES
+//       (
+//         ${session.userId},
+//         ${name},
+//         ${rooms},
+//         ${maxCapacity},
+//         ${imagesUrl}
+//       )
+//     RETURNING
+//       apartments.*
+//   `;
+//   return apartment;
+// };
 
 // export const createApartmentInsecure = async (
 //   newApartment: Omit<Apartment, 'id'>,
@@ -135,39 +150,39 @@ export const createApartmentInsecure = async (
 //   return apartment;
 // };
 
-// export const createApartmentInsecure = async (
-//   sessionToken: Session['token'],
-//   name: Apartment['name'],
-//   rooms: Apartment['rooms'],
-//   maxCapacity: Apartment['maxCapacity'],
-//   imagesUrl: Apartment['imagesUrl'],
-// ) => {
-//   const [apartment] = await sql<Apartment[]>`
-//     INSERT INTO
-//       apartments (
-//         user_id,
-//         name,
-//         rooms,
-//         max_capacity,
-//         images_url
-//       ) (
-//         SELECT
-//           user_id,
-//           ${name},
-//           ${rooms},
-//           ${maxCapacity},
-//           ${imagesUrl}
-//         FROM
-//           sessions
-//         WHERE
-//           token = ${sessionToken}
-//           AND sessions.expiry_timestamp > now()
-//       )
-//     RETURNING
-//       apartments.*
-//   `;
-//   return apartment;
-// };
+export const createApartmentInsecure = async (
+  sessionToken: Session['token'],
+  name: Apartment['name'],
+  rooms: Apartment['rooms'],
+  maxCapacity: Apartment['maxCapacity'],
+  imagesUrl: Apartment['imagesUrl'],
+) => {
+  const [apartment] = await sql<Apartment[]>`
+    INSERT INTO
+      apartments (
+        user_id,
+        name,
+        rooms,
+        max_capacity,
+        images_url
+      ) (
+        SELECT
+          user_id,
+          ${name},
+          ${rooms},
+          ${maxCapacity},
+          ${imagesUrl}
+        FROM
+          sessions
+        WHERE
+          token = ${sessionToken}
+          AND sessions.expiry_timestamp > now()
+      )
+    RETURNING
+      apartments.*
+  `;
+  return apartment;
+};
 
 export const deleteApartmentInsecure = async (apartmentId: Apartment['id']) => {
   const [apartment] = await sql<Apartment[]>`
