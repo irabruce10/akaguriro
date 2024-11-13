@@ -53,8 +53,38 @@ export default function TabsLayout() {
             ),
           }}
         />
+        <Tabs.Screen
+          name="apartments"
+          options={{
+            title: 'Apartments',
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.apartment}
+                color={color}
+                name="Apartments"
+                focused={focused}
+              />
+            ),
+          }}
+        />
 
         <Tabs.Screen
+          name="chatStack"
+          options={{
+            title: 'Chat',
+            headerShown: true,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.store}
+                color={color}
+                name="Chat"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+        {/* <Tabs.Screen
           name="shop"
           options={{
             title: 'Shop Store',
@@ -68,7 +98,7 @@ export default function TabsLayout() {
               />
             ),
           }}
-        />
+        /> */}
 
         <Tabs.Screen
           name="books"
@@ -86,21 +116,6 @@ export default function TabsLayout() {
           }}
         />
 
-        <Tabs.Screen
-          name="apartments"
-          options={{
-            title: 'Apartments',
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={icons.apartment}
-                color={color}
-                name="Apartments"
-                focused={focused}
-              />
-            ),
-          }}
-        />
         <Tabs.Screen
           name="profile"
           options={{
