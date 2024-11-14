@@ -21,6 +21,43 @@ export async function getUser(sessionToken: Session['token']) {
   return user;
 }
 
+export async function getUserStream(sessionToken: Session['token']) {
+  const [user] = await sql<Pick<User, 'name' | 'id'>[]>`
+    SELECT
+      users.name,
+      users.id
+    FROM
+      users
+      INNER JOIN sessions ON (
+        sessions.token = ${sessionToken}
+        AND users.id = sessions.user_id
+        AND expiry_timestamp > now()
+      )
+  `;
+  return user;
+}
+
+export async function getUserByIdAndToken(
+  sessionToken: Session['token'],
+  userId: User['id'],
+) {
+  const [user] = await sql<User[]>`
+    SELECT
+      users.id,
+      users.name
+    FROM
+      users
+      INNER JOIN sessions ON (
+        sessions.token = ${sessionToken}
+        AND users.id = sessions.user_id
+        AND expiry_timestamp > now()
+      )
+    WHERE
+      users.id = ${userId}
+  `;
+  return user;
+}
+
 export async function getUserInsecure(name: User['name']) {
   const [user] = await sql<User[]>`
     SELECT

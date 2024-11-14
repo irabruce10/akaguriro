@@ -1,18 +1,18 @@
-import SearchInput from '../../components/SearchInput';
+import SearchInput from '../../../components/SearchInput';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, Text, FlatList, TextInput } from 'react-native';
 import React, { useCallback, useState } from 'react';
 
-import ApartItem from '../../components/apartment/ApartItem';
+import ApartItem from '../../../components/apartment/ApartItem';
 import { router, useFocusEffect } from 'expo-router';
-import type { ApartmentsResponseBodyGet } from '../api/apartments/apartments+api';
-import Add from '../../components/apartment/AddApartBtn';
-import EmptyState from '../../components/EmptyState';
-import type { Apartment } from '../../migrations/00008-createTableApartments';
+import type { ApartmentsResponseBodyGet } from '../../api/apartments/apartments+api';
+import Add from '../../../components/apartment/AddApartBtn';
+import EmptyState from '../../../components/EmptyState';
+import type { Apartment } from '../../../migrations/00008-createTableApartments';
 
 import { parse } from 'cookie';
-import type { UserResponseBodyGet } from '../api/user+api';
-import { getApartmentInsecure } from '../../database/apartment';
+import type { UserResponseBodyGet } from '../../api/user+api';
+import { getApartmentInsecure } from '../../../database/apartment';
 
 const apartments = () => {
   const [apartments, setApartments] = useState<Apartment[]>([]);
