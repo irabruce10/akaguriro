@@ -2,8 +2,8 @@ import { Link, useFocusEffect, useRouter } from 'expo-router';
 import React, { useCallback } from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import type { UserResponseBodyGet } from '../../api/user+api';
-import type { SignOutResponseBodyGet } from '../../(auth)/api/signOut+api';
+import type { UserResponseBodyGet } from '../api/user+api';
+import type { SignOutResponseBodyGet } from '../(auth)/api/signOut+api';
 
 const styles = StyleSheet.create({
   container: {
@@ -75,7 +75,7 @@ export default function Profile() {
             return;
           }
 
-          router.push('/(tabs)/home');
+          router.push('/home');
         }}
       >
         <Text style={styles.text}>Logout</Text>

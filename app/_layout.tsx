@@ -127,12 +127,12 @@ export default function RootLayout() {
   }
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Slot />
-
-      {/* <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
+      {/* <Slot /> */}
+      <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen
+      </Stack>
+
+      {/* <Stack.Screen
           name="productModal/[productId]"
           options={{
             presentation: 'modal',
@@ -173,8 +173,8 @@ export default function RootLayout() {
             title: '',
             animation: 'slide_from_bottom',
           }}
-        />
-      </Stack> */}
+        /> */}
+      {/* </Stack> */}
     </GestureHandlerRootView>
   );
 }

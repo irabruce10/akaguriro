@@ -17,53 +17,11 @@ export default function ChatProvider({ children }: PropsWithChildren) {
   const [userName, setUserName] = useState('');
   const [userId, setUserId] = useState('');
 
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     async function getUser() {
-  //       const response = await fetch('/api/astreamusers/users/');
-
-  //       const body: UserStreamResponseBodyGet = await response.json();
-
-  //       if ('error' in body) {
-  //         router.replace('/authModal/signin?returnTo=/(tabs)/home');
-  //         return;
-  //       }
-
-  //       console.log('body: ', body.name, body.id!);
-
-  //       setUserName(body.name!);
-  //       setUserId(String(body.id!));
-
-  //       console.log('userId', userId);
-  //       console.log('userName', userName);
-  //     }
-  //     getUser().catch((error) => {
-  //       console.error(error);
-  //     });
-  //   }, [router]),
-  // );
-
   useEffect(() => {
-    // if ('error' in body) {
-    //   router.replace('/authModal/signin?returnTo=/(tabs)/home');
-    //   return;
-    // }
-
-    // console.log('body: ', body.name, body.id!);
-
-    // setUserName(body.name!);
-    // setUserId(String(body.id!));
-
-    // console.log('userId', userId);
-    // console.log('userName', userName);
-
     const connect = async () => {
       const response = await fetch('/api/astreamusers/users/');
-      const body: UserStreamResponseBodyGet = await response.json();
-      if ('error' in body) {
-        router.replace('/authModal/signin?returnTo=/(tabs)/home');
-        return;
-      }
+      const body = await response.json();
+      console.log('body: ', body.name, body.id);
 
       await client.connectUser(
         {

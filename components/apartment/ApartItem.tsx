@@ -13,7 +13,7 @@ type Props = {
 const ApartItem = ({ apartment }: Props) => {
   const { id, name, rooms, maxCapacity, imagesUrl } = apartment;
   return (
-    <Link href={`/apartmentModal/${id}`} asChild>
+    <Link href={`/achats/(home)/apartmentModal/${id}`} asChild>
       <Pressable>
         <View className="my-6 px-4 space-y-6">
           <Text className="text-white">name:{name}</Text>

@@ -5,7 +5,7 @@ import {
   useFocusEffect,
   useLocalSearchParams,
 } from 'expo-router';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   Button,
   Image,
@@ -15,13 +15,15 @@ import {
   Switch,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
-import CalenderPicker from '../../components/CalenderPicker';
+import CalenderPicker from '../../../../components/CalenderPicker';
 import { Picker } from '@react-native-picker/picker';
-import type { UserResponseBodyGet } from '../api/user+api';
-import CustomButton from '../../components/CustomButton';
+import type { UserResponseBodyGet } from '../../../api/user+api';
+import CustomButton from '../../../../components/CustomButton';
+import { useChatContext } from 'stream-chat-expo';
 
 export default function Apartment() {
   const { apartmentId } = useLocalSearchParams();
@@ -36,6 +38,8 @@ export default function Apartment() {
   const [hasBreakfast, setHasBreakfast] = useState(false);
   const [totalPrice, setTotalPrice] = useState('');
   const [owner, setOwner] = useState('');
+  const [me, setMe] = useState('');
+  const [ownerId, setOwnerId] = useState('');
 
   useFocusEffect(
     useCallback(() => {
@@ -67,6 +71,35 @@ export default function Apartment() {
   if (typeof apartmentId !== 'string') {
     return null;
   }
+
+  const { client } = useChatContext();
+  useEffect(() => {
+    const connect = async () => {
+      const response = await fetch('/api/astreamusers/users/');
+      const body = await response.json();
+      setMe(body.id);
+
+      console.log('bodyid: ', me);
+
+      const responseSender = await fetch(`/api/apartments/${apartmentId}`);
+      const bodySender = await responseSender.json();
+
+      setOwnerId(bodySender.apartment.userId);
+      console.log('ownerapa', ownerId);
+    };
+    connect();
+  }, []);
+
+  const handlePress = async () => {
+    console.log('me', me);
+    console.log('ownerid', ownerId);
+    const channel = client.channel('messaging', {
+      members: [String(me), String(ownerId)],
+    });
+    await channel.watch();
+    router.replace(`/achats/channel/${channel.cid}`);
+    console.warn('Press');
+  };
 
   return (
     <ScrollView>
@@ -107,12 +140,21 @@ export default function Apartment() {
             Reserve Now
           </Link>
 
-          <Link
+          {/* <Link
             className="bg-secondary rounded-xl min-h-[62px] mt-4 justify-center items-center"
             href={`/chat/chat?apartmentId=${apartmentId}`}
           >
             message
-          </Link>
+          </Link> */}
+
+          <TouchableOpacity
+            onPress={handlePress}
+            className="bg-secondary rounded-xl mt-6 min-h-[62px] justify-center items-center"
+          >
+            <Text className={`text-primary font-psemibold text-lg `}>
+              Message
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
