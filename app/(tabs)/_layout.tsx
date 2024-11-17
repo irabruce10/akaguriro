@@ -1,10 +1,12 @@
 import { Slot, Stack, Tabs } from 'expo-router';
 import {
   Entypo,
+  Feather,
   FontAwesome,
   FontAwesome5,
   FontAwesome6,
   MaterialCommunityIcons,
+  MaterialIcons,
 } from '@expo/vector-icons';
 import { LogBox } from 'react-native';
 
@@ -21,7 +23,7 @@ export default function TabsNavigation() {
           backgroundColor: '#161622',
           borderTopWidth: 1,
           borderTopColor: '#232533',
-          height: 64,
+          height: 74,
         },
       }}
     >
@@ -29,33 +31,34 @@ export default function TabsNavigation() {
         name="home"
         options={{
           title: 'Home',
+          headerShown: false,
           tabBarIcon: ({ size, color }) => (
-            <FontAwesome6 name="hotel" size={30} color={color} />
+            <Feather name="home" size={44} color={color} />
           ),
         }}
       />
+      <Tabs.Screen
+        name="apartments"
+        options={{
+          title: 'Apartments',
+          headerShown: false,
 
+          tabBarIcon: ({ size, color }) => (
+            <MaterialIcons name="apartment" size={44} color={color} />
+          ),
+        }}
+      />
       <Tabs.Screen
         name="chat"
         options={{
-          title: 'Chat',
-
+          href: '/achats/(home)/(tabs)/chat',
           tabBarIcon: ({ size, color }) => (
             <Entypo name="message" size={45} color={color} />
           ),
         }}
       />
 
-      <Tabs.Screen
-        name="apartments"
-        options={{
-          title: 'Apartments',
-          tabBarIcon: ({ size, color }) => (
-            <FontAwesome6 name="hotel" size={30} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="chats"
         options={{
           title: 'Chat',
@@ -63,13 +66,13 @@ export default function TabsNavigation() {
             <Entypo name="message" size={45} color={color} />
           ),
         }}
-      />
+      /> */}
       <Tabs.Screen
         name="books"
         options={{
           title: 'Books',
           tabBarIcon: ({ size, color }) => (
-            <FontAwesome name="book" size={40} color={color} />
+            <MaterialCommunityIcons name="bookshelf" size={44} color={color} />
           ),
         }}
       />
@@ -78,6 +81,7 @@ export default function TabsNavigation() {
         name="profile"
         options={{
           title: 'Profile',
+          headerShown: false,
           tabBarIcon: ({ size, color }) => (
             <FontAwesome5 name="user" size={35} color={color} />
           ),

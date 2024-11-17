@@ -128,9 +128,10 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       {/* <Slot /> */}
-      <Stack screenOptions={{ headerShown: false }}>
+      <Stack screenOptions={{ headerShown: false }} />
+      {/* <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
+      </Stack> */}
 
       {/* <Stack.Screen
           name="productModal/[productId]"

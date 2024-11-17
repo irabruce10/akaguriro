@@ -51,14 +51,12 @@ export default function Apartment() {
         const response = await fetch(`/api/apartments/${apartmentId}`);
         const body = await response.json();
 
-        console.log('Apartmentss response', body);
-
         if ('apartment' in body) {
           setName(body.apartment.name);
           setRooms(body.apartment.rooms);
           setMaxCapacity(body.apartment.maxCapacity);
           setImagesUrl(body.apartment.imagesUrl);
-          setOwner(body.apartment.ownerName);
+          setOwner(body.apartment.ownerName!);
         }
       }
 
@@ -130,7 +128,16 @@ export default function Apartment() {
 
         <Text>Max Capacity: {maxCapacity} </Text>
 
-        <Text className="font-pmedium text-sm text-black">Owner {owner}</Text>
+        <View className="flex-row gap-3 items-center  ">
+          <Text className="font-pmedium text-sm text-black">Owner {owner}</Text>
+          <View className="w-[46px] h-[46px] rounded-lg border border-secondary justify-center p-0.5 ">
+            <Image
+              className="w-full h-full rounded-lg "
+              resizeMode="cover"
+              source={{ uri: `https://ui-avatars.com/api/?name=${'ow'}` }}
+            />
+          </View>
+        </View>
 
         <View>
           <Link

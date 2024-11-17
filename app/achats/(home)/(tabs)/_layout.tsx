@@ -1,12 +1,13 @@
-import { Slot, Stack, Tabs } from 'expo-router';
+import { router, Slot, Stack, Tabs } from 'expo-router';
 import {
   Entypo,
   FontAwesome,
   FontAwesome5,
   FontAwesome6,
+  Ionicons,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
-import { LogBox } from 'react-native';
+import { LogBox, TouchableOpacity } from 'react-native';
 
 LogBox.ignoreAllLogs(true);
 
@@ -78,7 +79,18 @@ export default function TabsNavigation() {
     <Stack>
       <Stack.Screen
         name="chat"
-        options={{ title: 'chat', headerShown: false }}
+        options={{
+          headerLeft: () => (
+            <TouchableOpacity
+              style={{ marginLeft: 16 }}
+              onPress={() => router.replace('/(tabs)/home')}
+              className="mr-5"
+            >
+              {/* <Entypo name="chevron-left" size={50} color="black" /> */}
+              <Ionicons name="arrow-back-outline" size={24} color="black" />
+            </TouchableOpacity>
+          ),
+        }}
       />
     </Stack>
   );

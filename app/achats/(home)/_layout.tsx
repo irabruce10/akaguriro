@@ -126,15 +126,16 @@
 //   return <Slot />;
 // }
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import ChatProvider from '../../providers/ChatProvider';
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function HomeLayout() {
   return (
     <ChatProvider>
-      <Stack>
+      <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="(tabs)"
           options={{ title: 'chat', headerShown: false }}
