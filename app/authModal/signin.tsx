@@ -17,7 +17,6 @@ import {
   useLocalSearchParams,
   type Href,
 } from 'expo-router';
-
 import type { UserResponseBodyGet } from '../api/user+api';
 import type { LoginResponseBodyPost } from '../(auth)/api/signIn+api';
 
@@ -103,7 +102,7 @@ export default function signInPage() {
             if (returnTo && typeof returnTo === 'string') {
               router.replace(returnTo as Href);
             } else {
-              router.replace('/(tabs)/apartments');
+              router.replace('/(tabs)/home');
             }
           }}
         >

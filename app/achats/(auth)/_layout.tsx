@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 
-export default function books() {
+export default function _layout() {
   return (
     <View>
-      <Text>books</Text>
+      <Text>_layout</Text>
     </View>
   );
 }

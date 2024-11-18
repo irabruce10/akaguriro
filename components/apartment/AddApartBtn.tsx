@@ -5,7 +5,7 @@ import { Link } from 'expo-router';
 const add = () => {
   return (
     <View>
-      <Link href={`/achats/(home)/apartmentModal/addApart`} asChild>
+      <Link href={`/add/addApart`} asChild>
         <Pressable>
           <View>
             <Text className="text-white">add</Text>

@@ -67,6 +67,9 @@ export async function POST(
       result.data.name,
       result.data.rooms,
       result.data.maxCapacity,
+      result.data.price,
+      result.data.description,
+      result.data.location,
       result.data.imagesUrl,
     )) as Apartment);
 

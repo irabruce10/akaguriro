@@ -1,6 +1,6 @@
 import { View, Text, Pressable } from 'react-native';
 import React from 'react';
-import FormApart from '../../../../components/apartment/FormApart';
+import FormApart from '../../components/apartment/FormApart';
 
 const addApart = () => {
   return (

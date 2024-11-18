@@ -155,6 +155,9 @@ export const createApartmentInsecure = async (
   name: Apartment['name'],
   rooms: Apartment['rooms'],
   maxCapacity: Apartment['maxCapacity'],
+  price: Apartment['price'],
+  description: Apartment['description'],
+  location: Apartment['location'],
   imagesUrl: Apartment['imagesUrl'],
 ) => {
   const [apartment] = await sql<Apartment[]>`
@@ -164,6 +167,9 @@ export const createApartmentInsecure = async (
         name,
         rooms,
         max_capacity,
+        price,
+        description,
+        location,
         images_url
       ) (
         SELECT
@@ -171,6 +177,9 @@ export const createApartmentInsecure = async (
           ${name},
           ${rooms},
           ${maxCapacity},
+          ${price},
+          ${description},
+          ${location},
           ${imagesUrl}
         FROM
           sessions

@@ -32,6 +32,9 @@ export default function FormApart() {
   const [name, setName] = useState('');
   const [rooms, setRooms] = useState('');
   const [maxCapacity, setMaxCapacity] = useState('');
+  const [price, setPrice] = useState('');
+  const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
 
   const [focusedInput, setFocusedInput] = useState<string | undefined>();
 
@@ -67,6 +70,7 @@ export default function FormApart() {
         setIsStale(false);
 
         if ('error' in userResponse) {
+          // router.replace(`/authModal/signin?returnTo=/apartments`);
           router.replace(`/authModal/signin?returnTo=/apartments`);
           return;
         }
@@ -97,6 +101,9 @@ export default function FormApart() {
         name,
         rooms: parseInt(rooms),
         maxCapacity: parseInt(maxCapacity),
+        price: parseInt(price),
+        description,
+        location,
         imagesUrl,
       }),
     });
@@ -116,6 +123,7 @@ export default function FormApart() {
     setName('');
     setRooms('');
     setMaxCapacity('');
+    setDescription('');
     setImages([]);
     setImagesUrl([]);
 
@@ -232,6 +240,28 @@ export default function FormApart() {
           value={maxCapacity}
           onChangeText={setMaxCapacity}
           onFocus={() => setFocusedInput('maxCapacity')}
+          onBlur={() => setFocusedInput(undefined)}
+        />
+        <Text>price</Text>
+        <TextInput
+          value={price}
+          onChangeText={setPrice}
+          onFocus={() => setFocusedInput('price')}
+          onBlur={() => setFocusedInput(undefined)}
+        />
+
+        <Text>description</Text>
+        <TextInput
+          multiline
+          value={description}
+          onChangeText={setDescription}
+          onFocus={() => setFocusedInput('description')}
+        />
+        <Text>Location</Text>
+        <TextInput
+          value={location}
+          onChangeText={setLocation}
+          onFocus={() => setFocusedInput('location')}
           onBlur={() => setFocusedInput(undefined)}
         />
 
