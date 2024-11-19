@@ -22,6 +22,7 @@ import type { LoginResponseBodyPost } from '../(auth)/api/signIn+api';
 
 export default function signInPage() {
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const { returnTo } = useLocalSearchParams<{ returnTo: string }>();
@@ -40,7 +41,7 @@ export default function signInPage() {
             router.replace(returnTo as Href);
           }
 
-          router.replace('/(tabs)/home');
+          router.replace('/achats/(home)/(tabs)/home');
         }
       }
 
@@ -55,11 +56,18 @@ export default function signInPage() {
         <View>
           <Text className="text-base text-gray-100 font-pmedium">Sign In</Text>
           <View className="justify-center items-center px-4 pt-5 ">
-            <Text className="text-gray-100 ">email</Text>
+            <Text className="text-gray-100 ">name</Text>
             <TextInput
               className="w-full h-16 px-4 bg-black-100  rounded-2xl items-center flex-row text-gray-100 focus:border-secondary "
               value={name}
               onChangeText={setName}
+            />
+
+            <Text className="text-gray-100 ">email</Text>
+            <TextInput
+              className="w-full h-16 px-4 bg-black-100  rounded-2xl items-center flex-row text-gray-100 focus:border-secondary "
+              value={email}
+              onChangeText={setEmail}
             />
             <Text className="text-gray-100 ">password</Text>
             <TextInput
@@ -76,7 +84,7 @@ export default function signInPage() {
           onPress={async () => {
             const response = await fetch('/api/signIn', {
               method: 'POST',
-              body: JSON.stringify({ name, password }),
+              body: JSON.stringify({ name, email, password }),
             });
 
             if (!response.ok) {
@@ -98,11 +106,13 @@ export default function signInPage() {
             }
 
             setName('');
+            setEmail('');
             setPassword('');
+
             if (returnTo && typeof returnTo === 'string') {
               router.replace(returnTo as Href);
             } else {
-              router.replace('/(tabs)/home');
+              router.replace('/achats/(home)/(tabs)/home');
             }
           }}
         >

@@ -20,6 +20,22 @@ export const getBookingsDashboard = async (sessionToken: Session['token']) => {
   return bookings;
 };
 
+export const getAllBookingWithDate = async (
+  apartmentId: Booking['apartmentId'],
+) => {
+  const [booking] = await sql<Booking[]>`
+    SELECT
+      start_date,
+      end_date
+    FROM
+      bookings
+    WHERE
+      apartment_id = ${apartmentId}
+  `;
+
+  return booking;
+};
+
 export const createBookingInsecure = async (
   sessionToken: Session['token'],
   startDate: Booking['startDate'],
@@ -27,6 +43,8 @@ export const createBookingInsecure = async (
   numNights: Booking['numNights'],
   numGuests: Booking['numGuests'],
   breakfast: Booking['breakfast'],
+  totalPrice: Booking['totalPrice'],
+  status: Booking['status'],
   apartmentId: Booking['apartmentId'],
 ) => {
   const [booking] = await sql<Booking[]>`
@@ -38,7 +56,9 @@ export const createBookingInsecure = async (
         end_date,
         num_nights,
         num_guests,
-        breakfast
+        breakfast,
+        total_price,
+        status
       ) (
         SELECT
           ${apartmentId},
@@ -47,7 +67,9 @@ export const createBookingInsecure = async (
           ${endDate},
           ${numNights},
           ${numGuests},
-          ${breakfast}
+          ${breakfast},
+          ${totalPrice},
+          ${status}
         FROM
           sessions
         WHERE

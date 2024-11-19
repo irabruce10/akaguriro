@@ -4,7 +4,10 @@ import {
   bookingsSchema,
   type Booking,
 } from '../../../migrations/00009-createTableBookings';
-import { createBookingInsecure } from '../../../database/booking';
+import {
+  createBookingInsecure,
+  getBookingsWithDateRange,
+} from '../../../database/booking';
 
 export type ReservationResponseBodyPost =
   | {
@@ -54,6 +57,8 @@ export async function POST(
       result.data.numNights,
       result.data.numGuests,
       result.data.breakfast,
+      result.data.totalPrice,
+      result.data.status,
       result.data.apartmentId,
     )) as Booking);
 

@@ -12,7 +12,7 @@ export default function App() {
           <Text className="text-sm font-pblack   text-center">Akaguriro</Text>
 
           <Text>
-            <Link href="/(tabs)/home" style={{ color: 'blue' }}>
+            <Link href="/achats/(home)/(tabs)/home" style={{ color: 'blue' }}>
               go to home page
             </Link>
           </Text>

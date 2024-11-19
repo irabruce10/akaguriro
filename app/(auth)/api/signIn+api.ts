@@ -13,6 +13,7 @@ import {
 export type LoginResponseBodyPost =
   | {
       user: { name: User['name'] };
+      email: { name: User['email'] };
     }
   | { error: string; errorIssues?: { message: string }[] };
 
@@ -42,6 +43,7 @@ export async function POST(
   // 3. Verify the user credentials
   const userWithPasswordHash = await getUserWithPasswordHashInsecure(
     result.data.name,
+    result.data.email,
   );
 
   if (!userWithPasswordHash) {
@@ -73,11 +75,9 @@ export async function POST(
   }
   // 6. Create a token
   const token = crypto.randomBytes(100).toString('base64');
-  console.log('Generated token:', token);
 
   // 7. Create the session record
   const session = await createSessionInsecure(token, userWithPasswordHash.id);
-  console.log('Created session:', session);
 
   if (!session) {
     return ExpoApiResponse.json(
@@ -94,11 +94,13 @@ export async function POST(
     session.token,
   );
 
-  console.log('Serialized cookie:', serializedCookie);
   return ExpoApiResponse.json(
     {
       user: {
         name: userWithPasswordHash.name,
+      },
+      email: {
+        name: userWithPasswordHash.email,
       },
     },
     {

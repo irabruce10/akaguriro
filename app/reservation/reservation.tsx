@@ -9,6 +9,7 @@ import CustomButton from '../../components/CustomButton';
 import type { ApartmentResponseBodyGet } from '../api/apartments/[apartmentId]+api';
 import type { Apartment } from '../../migrations/00008-createTableApartments';
 import type { ReservationResponseBodyPost } from '../api/reservation/reservation+api';
+import { TextInput } from 'react-native-gesture-handler';
 
 interface ReservationProps {
   startDate: string;
@@ -17,15 +18,17 @@ interface ReservationProps {
 
 export default function Apartment() {
   const { apartmentId } = useLocalSearchParams();
-
+  const { bookingId } = useLocalSearchParams();
   const [guestsNumber, setGuestsNumber] = useState('');
   const [breakfast, setBreakfast] = useState(false);
-  // const [extrasPrice, setExtrasPrice] = useState(0);
   const [userName, setUserName] = useState('');
   const [apartment, setApartment] = useState<Apartment | null>();
   const [startDate, setStartDate] = useState(Date);
   const [endDate, setEndDate] = useState(Date);
   const [numNights, setNumNights] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [status, setStatus] = useState('');
+  const [isDateAvailable, setIsDateAvailable] = useState(true);
 
   useFocusEffect(
     useCallback(() => {
@@ -76,6 +79,9 @@ export default function Apartment() {
         numNights,
         numGuests: parseInt(guestsNumber),
         breakfast,
+        totalPrice:
+          numNights * (apartment?.price ?? 0) * parseInt(guestsNumber),
+        status,
         apartmentId: Number(apartmentId),
       }),
     });
@@ -92,7 +98,7 @@ export default function Apartment() {
     router.push('/reservationDash/reservationDash');
   };
 
-  const handleDateChange = (
+  const handleDateChange = async (
     selectedStartDate: string,
     selectedEndDate: string,
   ) => {
@@ -116,6 +122,12 @@ export default function Apartment() {
   return (
     <ScrollView>
       <View className="my-6 px-4 space-y-6">
+        {!isDateAvailable && (
+          <Text style={{ color: 'red' }}>
+            Sorry, the selected date range is already booked. Please choose
+            another date.
+          </Text>
+        )}
         <Text className="font-pmedium text-sm text-black">
           user {userName.toLocaleUpperCase()}
         </Text>
@@ -142,6 +154,8 @@ export default function Apartment() {
         <Text className="text-black">rooms {apartment?.rooms} </Text>
 
         <Text>How many guests?</Text>
+        <Text>apartmentPrice per night {apartment?.price} € </Text>
+
         <Picker
           selectedValue={guestsNumber}
           onValueChange={(itemValue) => setGuestsNumber(itemValue)}
@@ -154,7 +168,14 @@ export default function Apartment() {
           ))}
         </Picker>
 
-        <Text>Breakfast: </Text>
+        {parseInt(guestsNumber) > 0 && (
+          <Text>
+            Total price:
+            {numNights * (apartment?.price ?? 0) * parseInt(guestsNumber)} euro
+          </Text>
+        )}
+
+        <Text>Breakfast </Text>
         <Switch
           value={breakfast}
           onValueChange={(newValue) => setBreakfast(newValue)}
@@ -167,6 +188,8 @@ export default function Apartment() {
         {parseInt(guestsNumber) > 0 && breakfast !== false && (
           <Text> price: {Number(extrasPrice)}</Text>
         )} */}
+
+        <TextInput value={status} onChangeText={setStatus} />
 
         <Text>You are booking for {guestsNumber} guests.</Text>
       </View>

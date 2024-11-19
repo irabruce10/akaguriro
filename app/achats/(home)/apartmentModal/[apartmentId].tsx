@@ -36,7 +36,10 @@ export default function Apartment() {
   const [focusedInput, setFocusedInput] = useState<string | undefined>();
   const [guestsNumber, setGuestsNumber] = useState('');
   const [hasBreakfast, setHasBreakfast] = useState(false);
-  const [totalPrice, setTotalPrice] = useState('');
+  const [roomPrice, setRoomPrice] = useState(0);
+  const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
+
   const [owner, setOwner] = useState('');
   const [me, setMe] = useState('');
   const [ownerId, setOwnerId] = useState('');
@@ -57,6 +60,9 @@ export default function Apartment() {
           setMaxCapacity(body.apartment.maxCapacity);
           setImagesUrl(body.apartment.imagesUrl);
           setOwner(body.apartment.ownerName!);
+          setRoomPrice(body.apartment.price);
+          setDescription(body.apartment.description);
+          setLocation(body.apartment.location);
         }
       }
 
@@ -138,6 +144,9 @@ export default function Apartment() {
             />
           </View>
         </View>
+        <Text>Room Price {roomPrice} € </Text>
+        <Text>Description: {description} </Text>
+        <Text>Location: {location} </Text>
 
         <View>
           <Link

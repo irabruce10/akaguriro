@@ -8,15 +8,11 @@ export type Booking = {
   numNights: number;
   numGuests: number;
   breakfast: boolean;
+  totalPrice: number;
+  status: string;
   apartmentId: number;
   userId: number;
 };
-
-// roomPrice: number;
-// totalPrice: number;
-// status: string;
-// isPaid: boolean;
-// observations: string;
 
 export const bookingsSchema = z.object({
   startDate: z.string().min(1),
@@ -24,14 +20,10 @@ export const bookingsSchema = z.object({
 
   numNights: z.number().min(1),
   numGuests: z.number().min(1),
-  // roomPrice: z.number().min(0),
   breakfast: z.boolean(),
+  totalPrice: z.number(),
+  status: z.string().min(1).max(50),
   apartmentId: z.number(),
-
-  // totalPrice: z.number().min(0),
-  // status: z.string().min(1).max(50),
-  // isPaid: z.boolean(),
-  // observations: z.string().max(250),
 });
 
 export async function up(sql: Sql) {
@@ -43,6 +35,8 @@ export async function up(sql: Sql) {
       num_nights integer NOT NULL,
       num_guests integer NOT NULL,
       breakfast boolean NOT NULL,
+      total_price numeric NOT NULL,
+      status varchar(250) NOT NULL,
       apartment_id integer NOT NULL REFERENCES apartments (id) ON DELETE cascade ON UPDATE cascade,
       user_id integer NOT NULL REFERENCES users (id) ON DELETE cascade ON UPDATE cascade
     );
@@ -52,8 +46,3 @@ export async function up(sql: Sql) {
 export async function down(sql: Sql) {
   await sql` DROP TABLE bookings; `;
 }
-// room_price numeric NOT NULL,
-// total_price numeric NOT NULL,
-//       status varchar(50) NOT NULL,
-// is_paid boolean NOT NULL,
-//     observations varchar(250) NOT NULL,

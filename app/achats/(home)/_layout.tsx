@@ -150,13 +150,13 @@
 //----------------------------------------------------------------
 
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { StreamChat } from 'stream-chat';
-import { router, Slot, Stack } from 'expo-router';
+import { router, Slot, Stack, useFocusEffect } from 'expo-router';
 import { Chat, OverlayProvider } from 'stream-chat-expo';
 import type { UserStreamResponseBodyGet } from '../../api/astreamusers/users+api';
 
-const client = StreamChat.getInstance('9eaw64xjzt94');
+const client = StreamChat.getInstance('fvp2pqwqbcsh');
 //   useEffect(() => {
 //     const connect = async () => {
 //       const response = await fetch('/api/astreamusers/users/');
@@ -207,33 +207,63 @@ const client = StreamChat.getInstance('9eaw64xjzt94');
 // }
 
 export default function Homelayout() {
-  useEffect(() => {
-    const connect = async () => {
-      const response = await fetch('/api/astreamusers/users/');
-      const body: UserStreamResponseBodyGet = await response.json();
+  useFocusEffect(
+    useCallback(() => {
+      const connect = async () => {
+        const response = await fetch('/api/astreamusers/users/');
+        const body: UserStreamResponseBodyGet = await response.json();
 
-      if ('error' in body) {
-        router.replace('/authModal/signin?returnTo=/(tabs)/home');
-        return;
-      }
+        if ('error' in body) {
+          // router.replace('/authModal/signin?returnTo=/(tabs)/home');
+          return;
+        }
 
-      console.log(body);
-      await client.connectUser(
-        {
-          id: String(body.id),
-          name: body.name,
-          image: 'https://ui-avatars.com/api/?name=user',
-        },
-        client.devToken(String(body.id)),
-      );
-      // const channel = client.channel('messaging', 'the_park', {
-      //   name: 'the-park',
-      // });
-      // await channel.watch();
-    };
+        console.log(body);
+        await client.connectUser(
+          {
+            id: String(body.id),
+            name: body.name,
+            image: 'https://ui-avatars.com/api/?name=user',
+          },
+          client.devToken(String(body.id)),
+        );
+        // const channel = client.channel('messaging', 'the_park', {
+        //   name: 'the-park',
+        // });
+        // await channel.watch();
+      };
 
-    connect();
-  }, []);
+      connect();
+    }, []),
+  );
+
+  // useEffect(() => {
+  //   const connect = async () => {
+  //     const response = await fetch('/api/astreamusers/users/');
+  //     const body: UserStreamResponseBodyGet = await response.json();
+
+  //     if ('error' in body) {
+  //       router.replace('/authModal/signin?returnTo=/(tabs)/home');
+  //       return;
+  //     }
+
+  //     console.log(body);
+  //     await client.connectUser(
+  //       {
+  //         id: String(body.id),
+  //         name: body.name,
+  //         image: 'https://ui-avatars.com/api/?name=user',
+  //       },
+  //       client.devToken(String(body.id)),
+  //     );
+  //     // const channel = client.channel('messaging', 'the_park', {
+  //     //   name: 'the-park',
+  //     // });
+  //     // await channel.watch();
+  //   };
+
+  //   connect();
+  // }, []);
   return (
     <OverlayProvider>
       <Chat client={client}>
