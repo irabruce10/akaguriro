@@ -41,7 +41,7 @@ export default function signInPage() {
             router.replace(returnTo as Href);
           }
 
-          router.replace('/achats/(home)/(tabs)/home');
+          router.replace('/(app)/(tabs)/home');
         }
       }
 
@@ -112,7 +112,7 @@ export default function signInPage() {
             if (returnTo && typeof returnTo === 'string') {
               router.replace(returnTo as Href);
             } else {
-              router.replace('/achats/(home)/(tabs)/home');
+              router.replace('/(app)/(tabs)/home');
             }
           }}
         >

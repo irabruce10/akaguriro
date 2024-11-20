@@ -19,10 +19,8 @@ import {
   View,
 } from 'react-native';
 
-import CalenderPicker from '../../../../components/CalenderPicker';
 import { Picker } from '@react-native-picker/picker';
-import type { UserResponseBodyGet } from '../../../api/user+api';
-import CustomButton from '../../../../components/CustomButton';
+
 import { useChatContext } from 'stream-chat-expo';
 
 export default function Apartment() {
@@ -101,7 +99,7 @@ export default function Apartment() {
       members: [String(me), String(ownerId)],
     });
     await channel.watch();
-    router.replace(`/achats/channel/${channel.cid}`);
+    router.replace(`/channel/${channel.cid}`);
     console.warn('Press');
   };
 

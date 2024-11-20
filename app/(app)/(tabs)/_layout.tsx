@@ -51,22 +51,13 @@ export default function TabsNavigation() {
       <Tabs.Screen
         name="chat"
         options={{
-          href: '/achats/(home)/(tabs)/chat',
+          // href: '/achats/(home)/(tabs)/chat',
           tabBarIcon: ({ size, color }) => (
             <Entypo name="message" size={45} color={color} />
           ),
         }}
       />
 
-      {/* <Tabs.Screen
-        name="chats"
-        options={{
-          title: 'Chat',
-          tabBarIcon: ({ size, color }) => (
-            <Entypo name="message" size={45} color={color} />
-          ),
-        }}
-      /> */}
       <Tabs.Screen
         name="books"
         options={{

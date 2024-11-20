@@ -5,12 +5,12 @@ import React, { useCallback, useState } from 'react';
 import { router, useFocusEffect } from 'expo-router';
 
 import { parse } from 'cookie';
-import type { Apartment } from '../../../../migrations/00008-createTableApartments';
-import ApartItem from '../../../../components/apartment/ApartItem';
-import type { ApartmentsResponseBodyGet } from '../../../api/apartments/apartments+api';
-import EmptyState from '../../../../components/EmptyState';
-import SearchInput from '../../../../components/SearchInput';
-import Add from '../../../../components/apartment/AddApartBtn';
+import type { Apartment } from '../../../migrations/00008-createTableApartments';
+import ApartItem from '../../../components/apartment/ApartItem';
+import type { ApartmentsResponseBodyGet } from '../../api/apartments/apartments+api';
+import SearchInput from '../../../components/SearchInput';
+import EmptyState from '../../../components/EmptyState';
+import Add from '../../../components/apartment/AddApartBtn';
 
 const apartments = () => {
   const [apartments, setApartments] = useState<Apartment[]>([]);

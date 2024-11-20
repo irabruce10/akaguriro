@@ -422,7 +422,7 @@ export default function Register() {
 
           setName('');
           setPassword('');
-          router.replace('/achats/(home)/(tabs)/home');
+          router.replace('/(app)/(tabs)/home');
         }}
       >
         <Text style={styles.text}>Register</Text>

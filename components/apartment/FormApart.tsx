@@ -127,7 +127,7 @@ export default function FormApart() {
     setImages([]);
     setImagesUrl([]);
 
-    router.push('/achats/(home)/(tabs)/apartments');
+    router.push('/(app)/apartments');
   };
 
   const pickImage = async () => {

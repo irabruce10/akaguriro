@@ -154,7 +154,7 @@ import React, { useCallback, useEffect } from 'react';
 import { StreamChat } from 'stream-chat';
 import { router, Slot, Stack, useFocusEffect } from 'expo-router';
 import { Chat, OverlayProvider } from 'stream-chat-expo';
-import type { UserStreamResponseBodyGet } from '../../api/astreamusers/users+api';
+import type { UserStreamResponseBodyGet } from '../api/astreamusers/users+api';
 
 const client = StreamChat.getInstance('fvp2pqwqbcsh');
 //   useEffect(() => {
