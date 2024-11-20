@@ -19,6 +19,7 @@ const apartments = () => {
   const filteredAp = search
     ? apartments.filter(
         (item) =>
+          item.location.includes(search.toLocaleLowerCase()) ||
           item.name.includes(search.toLocaleLowerCase()) ||
           item.rooms.toString() === search,
       )
@@ -41,36 +42,6 @@ const apartments = () => {
         setApartments(body.apartments);
 
         const a = fetch('/api/user').then((response) => response.json());
-
-        console.log('User apa:', a);
-
-        //   const [apartmentsResponse, userResponse]: [
-        //     ApartmentsResponseBodyGet,
-        //     UserResponseBodyGet,
-        //   ] = await Promise.all([
-        //     fetch('/api/apartments/apartments').then((response) =>
-        //       response.json(),
-        //     ),
-        //     fetch('/api/user').then((response) => response.json()),
-        //   ]);
-
-        //   setIsStale(false);
-        //   console.log('User apa:', userResponse);
-        //   console.log('Apartments:', apartmentsResponse);
-
-        //   if ('error' in userResponse) {
-        //     router.replace(`/(auth)/signin?returnTo=/(tabs)/apartments`);
-        //     return;
-        //   }
-
-        //   if ('error' in apartmentsResponse) {
-        //     setApartments([]);
-        //     return;
-        //   }
-
-        //   if ('apartments' in apartmentsResponse) {
-        //     setApartments(apartmentsResponse.apartments);
-        //   }
       }
 
       getApartments().catch((error) => {

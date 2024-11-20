@@ -65,8 +65,6 @@ export default function Apartment() {
           setApartment(apartmentResponse.apartment!);
         }
 
-        //--------------------------------
-
         const response = await fetch(`/api/reservation/reservation`);
         const body = await response.json();
 
@@ -74,26 +72,6 @@ export default function Apartment() {
           (booking) => booking.apartmentId === Number(apartmentId),
         );
         setDateAvailable(bookingsForApartment1);
-
-        console.log('dateAvailable', dateAvailable);
-
-        // bookingsForApartment1.forEach((booking) => {
-        //   console.log('booking', booking);
-
-        //   if (booking.startDate === startDate && booking.endDate === endDate) {
-        //     setIsDateAvailable(false);
-        //     console.log('isDateAvailable', isDateAvailable);
-        //   }
-        // });
-
-        // body.booking.map((booking) => {
-        //   console.log('booking', booking);
-
-        //   if (booking.startDate === startDate && booking.endDate === endDate) {
-        //     setIsDateAvailable(false);
-        //     console.log('isDateAvailable', isDateAvailable);
-        //   }
-        // });
       }
 
       getUserAndLoadApartment().catch((error) => {
