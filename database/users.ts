@@ -176,23 +176,20 @@ export async function getUserInsecure(name: User['name']) {
   return user;
 }
 
-export async function createUserInsecure(
-  name: User['name'],
+export async function createUser(
   email: User['email'],
   passwordHash: UserWithPasswordHash['passwordHash'],
 ) {
   const [user] = await sql<User[]>`
     INSERT INTO
-      users (name, email, password_hash)
+      users (email, password_hash)
     VALUES
       (
-        ${name.toLowerCase()},
         ${email},
         ${passwordHash}
       )
     RETURNING
       users.id,
-      users.name,
       users.email
   `;
   return user;

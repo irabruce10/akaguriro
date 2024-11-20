@@ -12,7 +12,6 @@ import {
 
 export type LoginResponseBodyPost =
   | {
-      user: { name: User['name'] };
       email: { name: User['email'] };
     }
   | { error: string; errorIssues?: { message: string }[] };
@@ -42,14 +41,13 @@ export async function POST(
 
   // 3. Verify the user credentials
   const userWithPasswordHash = await getUserWithPasswordHashInsecure(
-    result.data.name,
     result.data.email,
   );
 
   if (!userWithPasswordHash) {
     return ExpoApiResponse.json(
       {
-        error: 'Name or password not valid',
+        error: 'Email or password not valid',
       },
       {
         status: 401,
@@ -66,7 +64,7 @@ export async function POST(
   if (!passwordHash) {
     return ExpoApiResponse.json(
       {
-        error: 'Name or password not valid',
+        error: 'Email or password not valid',
       },
       {
         status: 401,
@@ -96,9 +94,6 @@ export async function POST(
 
   return ExpoApiResponse.json(
     {
-      user: {
-        name: userWithPasswordHash.name,
-      },
       email: {
         name: userWithPasswordHash.email,
       },

@@ -56,13 +56,6 @@ export default function signInPage() {
         <View>
           <Text className="text-base text-gray-100 font-pmedium">Sign In</Text>
           <View className="justify-center items-center px-4 pt-5 ">
-            <Text className="text-gray-100 ">name</Text>
-            <TextInput
-              className="w-full h-16 px-4 bg-black-100  rounded-2xl items-center flex-row text-gray-100 focus:border-secondary "
-              value={name}
-              onChangeText={setName}
-            />
-
             <Text className="text-gray-100 ">email</Text>
             <TextInput
               className="w-full h-16 px-4 bg-black-100  rounded-2xl items-center flex-row text-gray-100 focus:border-secondary "
@@ -74,6 +67,7 @@ export default function signInPage() {
               className="w-full h-16 px-4 bg-black-100  rounded-2xl items-center flex-row  text-gray-100 focus:border-secondary "
               value={password}
               onChangeText={setPassword}
+              secureTextEntry
             />
           </View>
         </View>
@@ -84,7 +78,7 @@ export default function signInPage() {
           onPress={async () => {
             const response = await fetch('/api/signIn', {
               method: 'POST',
-              body: JSON.stringify({ name, email, password }),
+              body: JSON.stringify({ email, password }),
             });
 
             if (!response.ok) {
@@ -105,7 +99,6 @@ export default function signInPage() {
               return;
             }
 
-            setName('');
             setEmail('');
             setPassword('');
 
