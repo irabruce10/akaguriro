@@ -35,13 +35,6 @@ export async function GET(
     );
   }
 
-  //  // Extract the apartment ID from the object
-  //  const apartmentIdFromDatabase = apartment.id;
-
-  //  // Return the apartment ID as a response
-  //  return ExpoApiResponse.json({
-  //    apartmentId: apartmentIdFromDatabase,
-  //  });
   return ExpoApiResponse.json({ apartment: apartment });
 }
 

@@ -18,6 +18,7 @@ interface ReservationProps {
 
 export default function Apartment() {
   const { apartmentId } = useLocalSearchParams();
+  const { checkreservationId } = useLocalSearchParams();
   const { bookingId } = useLocalSearchParams();
   const [guestsNumber, setGuestsNumber] = useState('');
   const [breakfast, setBreakfast] = useState(false);
@@ -29,6 +30,7 @@ export default function Apartment() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [status, setStatus] = useState('');
   const [isDateAvailable, setIsDateAvailable] = useState(true);
+  const [dateAvailable, setDateAvailable] = useState([]);
 
   useFocusEffect(
     useCallback(() => {
@@ -62,6 +64,36 @@ export default function Apartment() {
         if ('apartment' in apartmentResponse) {
           setApartment(apartmentResponse.apartment!);
         }
+
+        //--------------------------------
+
+        const response = await fetch(`/api/reservation/reservation`);
+        const body = await response.json();
+
+        const bookingsForApartment1 = body.booking.filter(
+          (booking) => booking.apartmentId === Number(apartmentId),
+        );
+        setDateAvailable(bookingsForApartment1);
+
+        console.log('dateAvailable', dateAvailable);
+
+        // bookingsForApartment1.forEach((booking) => {
+        //   console.log('booking', booking);
+
+        //   if (booking.startDate === startDate && booking.endDate === endDate) {
+        //     setIsDateAvailable(false);
+        //     console.log('isDateAvailable', isDateAvailable);
+        //   }
+        // });
+
+        // body.booking.map((booking) => {
+        //   console.log('booking', booking);
+
+        //   if (booking.startDate === startDate && booking.endDate === endDate) {
+        //     setIsDateAvailable(false);
+        //     console.log('isDateAvailable', isDateAvailable);
+        //   }
+        // });
       }
 
       getUserAndLoadApartment().catch((error) => {
@@ -117,6 +149,19 @@ export default function Apartment() {
     const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
 
     setNumNights(diffInDays);
+    //-----------------------------------
+
+    setIsDateAvailable(true);
+
+    dateAvailable.forEach((booking) => {
+      if (
+        booking.startDate === startDate ||
+        (booking.endDate === endDate && booking.endDate === endDate) ||
+        booking.startDate === startDate
+      ) {
+        setIsDateAvailable(false);
+      }
+    });
   };
 
   return (
@@ -194,7 +239,9 @@ export default function Apartment() {
         <Text>You are booking for {guestsNumber} guests.</Text>
       </View>
 
-      <CustomButton title="Book Now" handlePress={handlePress} />
+      {isDateAvailable && (
+        <CustomButton title="Book Now" handlePress={handlePress} />
+      )}
     </ScrollView>
   );
 }

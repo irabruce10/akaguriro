@@ -6,7 +6,7 @@ import {
 } from '../../../migrations/00009-createTableBookings';
 import {
   createBookingInsecure,
-  getBookingsWithDateRange,
+  getAllBookings,
 } from '../../../database/booking';
 
 export type ReservationResponseBodyPost =
@@ -76,4 +76,29 @@ export async function POST(
   }
 
   return ExpoApiResponse.json({ reservation: newBooking });
+}
+
+export type BookingsResponseBodyGet = {
+  booking: Booking[];
+};
+
+// export async function GET(
+//   request: Request,
+// ): Promise<ExpoApiResponse<BookingsResponseBodyGet>> {
+//   const booking = await getAllBookings();
+
+//   return ExpoApiResponse.json({
+//     booking: booking,
+//   });
+// }
+
+export async function GET(
+  request: Request,
+  { id }: { id: number },
+): Promise<ExpoApiResponse<BookingsResponseBodyGet>> {
+  const booking = await getAllBookings();
+
+  return ExpoApiResponse.json({
+    booking: booking,
+  });
 }

@@ -20,6 +20,18 @@ export const getBookingsDashboard = async (sessionToken: Session['token']) => {
   return bookings;
 };
 
+export const getAllBookings = async () => {
+  const bookings = await sql<Booking[]>`
+    SELECT
+      apartment_id,
+      start_date,
+      end_date
+    FROM
+      bookings
+  `;
+
+  return bookings;
+};
 export const getAllBookingWithDate = async (
   apartmentId: Booking['apartmentId'],
 ) => {
@@ -28,7 +40,7 @@ export const getAllBookingWithDate = async (
       start_date,
       end_date
     FROM
-      bookings
+      booking
     WHERE
       apartment_id = ${apartmentId}
   `;
