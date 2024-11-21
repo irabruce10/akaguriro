@@ -128,10 +128,12 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       {/* <Slot /> */}
+
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="productModal/[productId]"
           options={{
+            headerShown: false,
             presentation: 'modal',
             title: '',
             animation: 'slide_from_bottom',
@@ -142,7 +144,10 @@ export default function RootLayout() {
           name="authModal/signin"
           options={{
             presentation: 'modal',
-            title: '',
+            title: 'Akaguriro',
+            headerTintColor: 'black',
+            headerShown: true,
+
             animation: 'slide_from_bottom',
           }}
         />
@@ -150,27 +155,30 @@ export default function RootLayout() {
           name="authModal/signup"
           options={{
             presentation: 'modal',
-            title: '',
+            title: 'signIn',
+
             animation: 'slide_from_bottom',
           }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="apartmentModal/addApart"
           options={{
             presentation: 'modal',
             title: '',
             animation: 'slide_from_bottom',
-            headerStyle: { backgroundColor: 'black' },
+            headerShown: false,
+            headerStyle: { backgroundColor: 'white' },
           }}
-        />
-        <Stack.Screen
+        /> */}
+        {/* <Stack.Screen
           name="apartmentModal/[apartmentId]"
           options={{
             presentation: 'modal',
+
             title: '',
             animation: 'slide_from_bottom',
           }}
-        />
+        /> */}
       </Stack>
     </GestureHandlerRootView>
   );

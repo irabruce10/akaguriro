@@ -21,7 +21,6 @@ import type { UserResponseBodyGet } from '../api/user+api';
 import type { LoginResponseBodyPost } from '../(auth)/api/signIn+api';
 
 export default function signInPage() {
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -50,34 +49,40 @@ export default function signInPage() {
   );
   return (
     <SafeAreaView className="bg-primary h-full">
-      <ScrollView>
+      <ScrollView className="px-4">
         <View>
           <Text className="text-base text-gray-100 font-pmedium">Sign In</Text>
-          <View className="justify-center items-center px-4 pt-5 ">
-            {/* <Text className="text-gray-100 ">name</Text>
+          <View className="justify-center items-center pt-5 ">
             <TextInput
-              className="w-full h-16 px-4 bg-black-100  rounded-2xl items-center flex-row text-gray-100 focus:border-secondary "
-              value={name}
-              onChangeText={setName}
-            /> */}
-            <Text className="text-gray-100 ">email</Text>
-            <TextInput
-              className="w-full h-16 px-4 bg-black-100  rounded-2xl items-center flex-row text-gray-100 focus:border-secondary "
+              className="w-full h-16 bg-black-100  rounded-2xl items-center flex-row text-gray-100 focus:border-secondary mb-4 px-4 "
               value={email}
+              placeholder="Enter your email address"
+              placeholderTextColor={'gray'}
               onChangeText={setEmail}
             />
-            <Text className="text-gray-100 ">password</Text>
+
             <TextInput
               className="w-full h-16 px-4 bg-black-100  rounded-2xl items-center flex-row  text-gray-100 focus:border-secondary "
               value={password}
+              placeholder="Enter your password"
+              placeholderTextColor={'gray'}
               onChangeText={setPassword}
               secureTextEntry
             />
           </View>
         </View>
-        <Link href="/authModal/signup" style={{ color: 'blue' }}>
-          Create account
-        </Link>
+
+        <View className="flex flex-row mt-4 mb-4  text-center   ">
+          <Text className="text-white">Don't have an Account? </Text>
+          <Link
+            href="/authModal/signup"
+            style={{ color: 'blue' }}
+            className=" text-center  hover:text-black-800 visited:text-purple-600"
+          >
+            <Text className="text-secondary"> Create account for free</Text>
+          </Link>
+        </View>
+
         <Pressable
           onPress={async () => {
             const response = await fetch('/api/signIn', {
@@ -113,7 +118,7 @@ export default function signInPage() {
             }
           }}
         >
-          <Text className="bg-secondary rounded-xl min-h-[62px] justify-center items-center">
+          <Text className="bg-secondary rounded-xl min-h-[62px] justify-center  text-center ">
             Login
           </Text>
         </Pressable>

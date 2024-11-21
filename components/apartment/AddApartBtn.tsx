@@ -1,14 +1,17 @@
 import { View, Text, Pressable } from 'react-native';
 import React from 'react';
 import { Link } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 const add = () => {
   return (
     <View>
-      <Link href={`/(home)/apartmentModal/addApart`} asChild>
+      <Link href={`/(app)/apartmentModal/addApart`} asChild>
         <Pressable>
           <View>
-            <Text className="text-white">add</Text>
+            <Text className="text-white">
+              <Ionicons name="add-circle" size={34} color="white" />
+            </Text>
           </View>
         </Pressable>
       </Link>

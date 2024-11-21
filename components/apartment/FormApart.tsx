@@ -220,9 +220,19 @@ export default function FormApart() {
 
   return (
     <SafeAreaView>
-      <View className="justify-center items-center px-4 pt-5 ">
-        <Text>name</Text>
+      <View className="   text-center mt-4">
+        <Text>Add your property</Text>
+        {/* <Text className=" text-center ">
+          First, we need some details about your property. That way, we can
+          tailor the property management experience to you.
+        </Text> */}
+      </View>
+      <View className="grid gap-6  md:grid-cols-2">
+        <Text className=" text-sm font-medium text-gray-900 dark:text-white">
+          name
+        </Text>
         <TextInput
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
           value={name}
           onChangeText={setName}
           onFocus={() => setFocusedInput('name')}
