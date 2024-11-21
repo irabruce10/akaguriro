@@ -1,5 +1,6 @@
 import {
   Alert,
+  Image,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -51,8 +52,17 @@ export default function signInPage() {
     <SafeAreaView className="bg-primary h-full">
       <ScrollView className="px-4">
         <View>
-          <Text className="text-base text-gray-100 font-pmedium">Sign In</Text>
-          <View className="justify-center items-center pt-5 ">
+          <View className="flex flex-row justify-between mt-5">
+            <Text className="text-base text-gray-100 font-pmedium ">
+              Sign In
+            </Text>
+            <Image
+              source={require('../../assets/AkaLogo.png')}
+              resizeMode="cover"
+              style={styles.logo}
+            />
+          </View>
+          <View className="justify-center items-center  ">
             <TextInput
               className="w-full h-16 bg-black-100  rounded-2xl items-center flex-row text-gray-100 focus:border-secondary mb-4 px-4 "
               value={email}
@@ -70,17 +80,6 @@ export default function signInPage() {
               secureTextEntry
             />
           </View>
-        </View>
-
-        <View className="flex flex-row mt-4 mb-4  text-center   ">
-          <Text className="text-white">Don't have an Account? </Text>
-          <Link
-            href="/authModal/signup"
-            style={{ color: 'blue' }}
-            className=" text-center  hover:text-black-800 visited:text-purple-600"
-          >
-            <Text className="text-secondary"> Create account for free</Text>
-          </Link>
         </View>
 
         <Pressable
@@ -118,13 +117,29 @@ export default function signInPage() {
             }
           }}
         >
-          <Text className="bg-secondary rounded-xl min-h-[62px] justify-center  text-center ">
-            Login
+          <Text className="bg-secondary rounded-xl min-h-[62px] justify-center mt-5 pt-5 text-xl font-medium  text-center ">
+            SignIn
           </Text>
         </Pressable>
+        <View className="flex flex-row mt-4 mb-4  text-center items-center ml-10   ">
+          <Text className="text-white">Don't have an Account? </Text>
+          <Link
+            href="/authModal/signup"
+            style={{ color: 'blue' }}
+            className=" text-center  hover:text-black-800 visited:text-purple-600"
+          >
+            <Text className="text-secondary"> Create account for free</Text>
+          </Link>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  logo: {
+    width: 50,
+    height: 50,
+    top: -20,
+  },
+});

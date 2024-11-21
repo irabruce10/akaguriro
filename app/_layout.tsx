@@ -130,6 +130,7 @@ export default function RootLayout() {
       {/* <Slot /> */}
 
       <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
         <Stack.Screen
           name="productModal/[productId]"
           options={{
@@ -145,9 +146,8 @@ export default function RootLayout() {
           options={{
             presentation: 'modal',
             title: 'Akaguriro',
-            headerTintColor: 'black',
             headerShown: true,
-
+            headerTintColor: 'black',
             animation: 'slide_from_bottom',
           }}
         />
@@ -155,8 +155,9 @@ export default function RootLayout() {
           name="authModal/signup"
           options={{
             presentation: 'modal',
-            title: 'signIn',
-
+            title: 'Akaguriro',
+            headerTintColor: 'black',
+            headerShown: true,
             animation: 'slide_from_bottom',
           }}
         />
