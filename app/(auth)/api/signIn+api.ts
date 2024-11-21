@@ -1,18 +1,20 @@
 import crypto from 'node:crypto';
 import bcryptJs from 'bcryptjs';
 import { createSessionInsecure } from '../../../database/sessions';
-import { getUserWithPasswordHashInsecure } from '../../../database/users';
+
 import { ExpoApiResponse } from '../../../ExpoApiResponse';
 
 import { createSerializedRegisterSessionTokenCookie } from '../../../util/cookies';
 import {
+  userLoginSchema,
   userSchema,
   type User,
 } from '../../../migrations/00005-createTableUsers';
+import { getUserWithPasswordHash } from '../../../database/users';
 
 export type LoginResponseBodyPost =
   | {
-      email: { name: User['email'] };
+      email: { email: User['email'] };
     }
   | { error: string; errorIssues?: { message: string }[] };
 
@@ -23,9 +25,11 @@ export async function POST(
 
   // 1. Get the user data from the request
   const requestBody = await request.json();
+  console.log('Requestggg', requestBody);
 
   // 2. Validate the user data with zod
-  const result = userSchema.safeParse(requestBody);
+  const result = userLoginSchema.safeParse(requestBody);
+  console.log('zod', result);
 
   if (!result.success) {
     return ExpoApiResponse.json(
@@ -40,9 +44,7 @@ export async function POST(
   }
 
   // 3. Verify the user credentials
-  const userWithPasswordHash = await getUserWithPasswordHashInsecure(
-    result.data.email,
-  );
+  const userWithPasswordHash = await getUserWithPasswordHash(result.data.email);
 
   if (!userWithPasswordHash) {
     return ExpoApiResponse.json(
@@ -95,7 +97,7 @@ export async function POST(
   return ExpoApiResponse.json(
     {
       email: {
-        name: userWithPasswordHash.email,
+        email: userWithPasswordHash.email,
       },
     },
     {

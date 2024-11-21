@@ -41,6 +41,11 @@ export const userSchema = z.object({
   password: z.string().min(3),
 });
 
+export const userLoginSchema = z.object({
+  email: z.string().min(3).email(),
+  password: z.string().min(3),
+});
+
 export async function up(sql: Sql) {
   await sql`
     CREATE TABLE users (

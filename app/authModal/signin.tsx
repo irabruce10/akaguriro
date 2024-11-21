@@ -36,8 +36,6 @@ export default function signInPage() {
 
         if ('name' in responseBody) {
           if (returnTo && typeof returnTo === 'string') {
-            // Replace current route in the navigation stack with the new route
-            // (prevents login screen appearing again with "go back" gesture)
             router.replace(returnTo as Href);
           }
 
@@ -56,6 +54,12 @@ export default function signInPage() {
         <View>
           <Text className="text-base text-gray-100 font-pmedium">Sign In</Text>
           <View className="justify-center items-center px-4 pt-5 ">
+            {/* <Text className="text-gray-100 ">name</Text>
+            <TextInput
+              className="w-full h-16 px-4 bg-black-100  rounded-2xl items-center flex-row text-gray-100 focus:border-secondary "
+              value={name}
+              onChangeText={setName}
+            /> */}
             <Text className="text-gray-100 ">email</Text>
             <TextInput
               className="w-full h-16 px-4 bg-black-100  rounded-2xl items-center flex-row text-gray-100 focus:border-secondary "
