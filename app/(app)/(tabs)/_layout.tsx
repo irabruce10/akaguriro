@@ -42,7 +42,6 @@ export default function TabsNavigation() {
         options={{
           title: 'Apartments',
           headerShown: false,
-
           tabBarIcon: ({ size, color }) => (
             <MaterialIcons name="apartment" size={44} color={color} />
           ),

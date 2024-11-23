@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 const add = () => {
   return (
     <View>
-      <Link href={`/(app)/apartmentModal/addApart`} asChild>
+      <Link href={`/(app)/apartmentModal/addApart`}>
         <Pressable>
           <View>
             <Text className="text-white">

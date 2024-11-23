@@ -11,6 +11,7 @@ import {
   Image,
   Pressable,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Switch,
   Text,
@@ -18,9 +19,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
-import { Picker } from '@react-native-picker/picker';
-
+import Animated, { FadeInDown, FadeInLeft } from 'react-native-reanimated';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useChatContext } from 'stream-chat-expo';
 
 export default function Apartment() {
@@ -100,77 +100,126 @@ export default function Apartment() {
     });
     await channel.watch();
     router.replace(`/channel/${channel.cid}`);
-    console.warn('Press');
   };
 
   return (
-    <ScrollView>
-      <View className="my-6 px-4 space-y-6">
-        <Text className="font-pmedium text-sm text-black">
-          Apartment Details
-        </Text>
-        <View className="flex-row justify-between items-start mb-6">
-          {imagesUrl.map((imageUrl, index) => (
-            <Image
-              className="flex-1 flex-row"
-              key={index}
-              source={{ uri: imageUrl }}
-              style={{ width: 150, height: 150 }}
-              resizeMode="contain"
-            />
-          ))}
-        </View>
+    <SafeAreaView>
+      <ScrollView>
+        <View className="px-4">
+          {/* <Text className="font-pmedium text-sm text-black">
+            Apartment Details
+          </Text> */}
+          <View className="flex-row justify-between items-start mb-6">
+            {imagesUrl.map((imageUrl, index) => (
+              <Image
+                className="flex-1 flex-row"
+                key={index}
+                source={{ uri: imageUrl }}
+                style={{ width: 150, height: 150 }}
+                resizeMode="contain"
+              />
+            ))}
+          </View>
 
-        <Text
-          numberOfLines={1}
-          ellipsizeMode="tail"
-          className="text-black font-pregular "
-        >
-          name: {name}
-        </Text>
-        <Text className="text-black">{rooms} rooms </Text>
+          <View>
+            <Animated.Text
+              entering={FadeInLeft.delay(700).duration(700)}
+              className="text-xl mt-6 text-black-400 font-pmedium "
+            >
+              name: {name}
+            </Animated.Text>
+          </View>
+          <View>
+            <Animated.Text
+              entering={FadeInLeft.delay(600).duration(600)}
+              className="text-xl mt-6 text-black-400 font-pmedium "
+            >
+              {rooms} rooms
+            </Animated.Text>
+          </View>
+          <View>
+            <Animated.Text
+              entering={FadeInLeft.delay(500).duration(500)}
+              className="text-xl mt-6 text-black-400 font-pmedium "
+            >
+              Max Capacity: {maxCapacity}
+            </Animated.Text>
+          </View>
 
-        <Text>Max Capacity: {maxCapacity} </Text>
+          <View>
+            <Animated.Text
+              entering={FadeInDown.delay(400).duration(400)}
+              className="text-xl mt-6 text-black-400 font-pmedium "
+            >
+              Room Price {roomPrice} €
+            </Animated.Text>
+          </View>
+          <View>
+            <Animated.Text
+              entering={FadeInDown.delay(300).duration(300)}
+              className="text-xl mt-6 text-black-100 font-pmedium "
+            >
+              Description: {description}
+            </Animated.Text>
+          </View>
+          <View>
+            <Animated.Text
+              entering={FadeInDown.delay(200).duration(200)}
+              className="text-xl mt-6 text-black-100 font-pmedium "
+            >
+              Location: {location}
+            </Animated.Text>
+          </View>
 
-        <View className="flex-row gap-3 items-center  ">
-          <Text className="font-pmedium text-sm text-black">Owner {owner}</Text>
-          <View className="w-[46px] h-[46px] rounded-lg border border-secondary justify-center p-0.5 ">
-            <Image
-              className="w-full h-full rounded-lg "
-              resizeMode="cover"
-              source={{ uri: `https://ui-avatars.com/api/?name=${'ow'}` }}
-            />
+          <View>
+            <Animated.Text
+              entering={FadeInDown.delay(100).duration(100)}
+              className="text-xl mt-6  text-black-100 font-pmedium "
+            >
+              <View className="flex flex-row justify-between">
+                <View className="w-[46px] h-[46px] mr-4 rounded-lg border border-secondary justify-center p-0.5 ">
+                  <Image
+                    className="w-full h-full rounded-lg "
+                    resizeMode="cover"
+                    source={{
+                      uri: `https://ui-avatars.com/api/?name=${owner}`,
+                    }}
+                  />
+                </View>
+              </View>
+              <Text
+                style={{
+                  top: 31,
+                  left: 10,
+                  position: 'absolute',
+                  fontSize: 16,
+                  color: '#171717',
+                }}
+              >
+                Owner {owner}
+              </Text>
+            </Animated.Text>
+          </View>
+
+          <View>
+            <Link
+              className="bg-secondary rounded-xl min-h-[62px] justify-center mt-5 pt-5 text-xl font-medium  text-center "
+              href={`/reservation/reservation?apartmentId=${apartmentId}`}
+            >
+              Reserve Now
+            </Link>
+
+            <TouchableOpacity
+              onPress={handlePress}
+              className="bg-secondary rounded-xl mt-6 min-h-[62px] justify-center items-center"
+            >
+              <Text className={`text-primary font-psemibold text-lg `}>
+                Message
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
-        <Text>Room Price {roomPrice} € </Text>
-        <Text>Description: {description} </Text>
-        <Text>Location: {location} </Text>
-
-        <View>
-          <Link
-            className="bg-secondary rounded-xl min-h-[62px] justify-center items-center"
-            href={`/reservation/reservation?apartmentId=${apartmentId}`}
-          >
-            Reserve Now
-          </Link>
-
-          {/* <Link
-            className="bg-secondary rounded-xl min-h-[62px] mt-4 justify-center items-center"
-            href={`/chat/chat?apartmentId=${apartmentId}`}
-          >
-            message
-          </Link> */}
-
-          <TouchableOpacity
-            onPress={handlePress}
-            className="bg-secondary rounded-xl mt-6 min-h-[62px] justify-center items-center"
-          >
-            <Text className={`text-primary font-psemibold text-lg `}>
-              Message
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 }

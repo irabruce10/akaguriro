@@ -1,5 +1,5 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text, FlatList, TextInput } from 'react-native';
+import { View, Text, FlatList, TextInput, Image } from 'react-native';
 import React, { useCallback, useState } from 'react';
 
 import { router, useFocusEffect } from 'expo-router';
@@ -52,51 +52,30 @@ const apartments = () => {
 
   return (
     <SafeAreaView className="bg-primary w-full h-full">
-      <View className="my-6 px-4 space-y-6">
-        <View className="flex-row justify-between items-start mb-6">
-          <Text className="font-pmedium text-sm text-gray-100">
-            User Profile
-          </Text>
-          <Text className="">
+      <View className="my-6 px-4 ">
+        <View className="flex flex-row justify-between mt-5">
+          <Image
+            source={require('../../../assets/AkaLogo.png')}
+            resizeMode="cover"
+            style={{ width: 50, height: 50, top: -20 }}
+          />
+          <Text className="" style={{ top: -12 }}>
             <Add />
           </Text>
         </View>
 
-        <View className="w-full flex-1 pt-5 pb-8">
-          <Text className="text-gray-100 text-lg font-pregular mb-3">
-            Latest Apartments
-          </Text>
-        </View>
+        <View className=" "></View>
       </View>
-      <View>
+      <View className="mt-x px-4" style={{ top: -20 }}>
         <SearchInput value={search} handleChangeText={setSearch} />
       </View>
+      <Text className="text-gray-100 px-4  text-lg font-pregular ">
+        Latest Apartments
+      </Text>
       <FlatList
         data={filteredAp}
         renderItem={renderItem}
         keyExtractor={(item: Apartment) => String(item.id)}
-        // ListHeaderComponent={() => (
-        //   <View className="my-6 px-4 space-y-6">
-        //     <View className="flex-row justify-between items-start mb-6">
-        //       <Text className="font-pmedium text-sm text-gray-100">
-        //         User Profile
-        //       </Text>
-        //       <Text className="">
-        //         <Add />
-        //       </Text>
-        //     </View>
-
-        //     <View>
-        //       <SearchInput value={search} handleChangeText={setSearch} />
-        //     </View>
-
-        //     <View className="w-full flex-1 pt-5 pb-8">
-        //       <Text className="text-gray-100 text-lg font-pregular mb-3">
-        //         Latest Apartments
-        //       </Text>
-        //     </View>
-        //   </View>
-        // )}
         ListEmptyComponent={() => (
           <View className="flex-1 justify-center items-center px-4">
             <EmptyState
