@@ -102,7 +102,7 @@ export default function Carousel() {
   return (
     <View>
       <Text className="text-center mb-6 text-xl text-white ">
-        Modern Luxury Apartments
+        Modern Luxury Apartments .
       </Text>
       <FlatList
         data={images}
