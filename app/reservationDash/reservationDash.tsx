@@ -1,10 +1,15 @@
 import SearchInput from '../../components/SearchInput';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Pressable } from 'react-native';
 import React, { useCallback, useState } from 'react';
 
 import ApartItem from '../../components/apartment/ApartItem';
-import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
+import {
+  Link,
+  router,
+  useFocusEffect,
+  useLocalSearchParams,
+} from 'expo-router';
 
 import Add from '../../components/apartment/AddApartBtn';
 import EmptyState from '../../components/EmptyState';
@@ -66,8 +71,7 @@ const reservation = () => {
   );
 
   return (
-    <SafeAreaView className="bg-primary w-full h-full">
-      <Text>Thank you </Text>
+    <SafeAreaView className="bg-primary text-center  w-full h-full border-l-2">
       <View className="flex-row items-center justify-between px-4 py-4 space-x-6">
         <Text className="font-pmedium text-sm text-gray-100">
           My Reservations
@@ -77,6 +81,19 @@ const reservation = () => {
         data={reservation}
         renderItem={renderItem}
         keyExtractor={(item: Booking) => String(item.id)}
+        ListEmptyComponent={() => (
+          <View className="flex-1 justify-center items-center px-4">
+            <Text className="text-xl text-center font-psemibold mb-8  text-white mt2">
+              No Reservation Found Be the first to Book the apartment!
+            </Text>
+
+            <Link href="/(app)/(tabs)/apartments" className="px-20">
+              <Text className="bg-secondary  rounded-xl min-h-[62px] justify-center pt-5 text-xl font-medium  text-center ">
+                Book now
+              </Text>
+            </Link>
+          </View>
+        )}
       />
     </SafeAreaView>
   );

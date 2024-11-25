@@ -220,12 +220,8 @@ export default function FormApart() {
 
   return (
     <SafeAreaView>
-      <View className="   text-center mt-4">
+      <View className=" text-center mt-4">
         <Text>Add your property</Text>
-        {/* <Text className=" text-center ">
-          First, we need some details about your property. That way, we can
-          tailor the property management experience to you.
-        </Text> */}
       </View>
       <View className="grid gap-6  md:grid-cols-2">
         <Text className=" text-sm font-medium text-gray-900 dark:text-white">
@@ -276,12 +272,6 @@ export default function FormApart() {
         />
 
         <View style={styles.container}>
-          {/* {image && <Image source={{ uri: image }} style={styles.image} />} */}
-
-          {/* {images.map((images, index) => (
-            <Image key={index} source={{ uri: images }} style={styles.image} />
-          ))} */}
-
           {imagesUrl.map((url) => (
             <Image key={url} source={{ uri: url }} style={styles.image} />
           ))}
@@ -291,8 +281,6 @@ export default function FormApart() {
             onPress={pickImage}
           />
         </View>
-
-        {/* <ImagePickerExample /> */}
       </View>
 
       <CustomButton
@@ -300,36 +288,6 @@ export default function FormApart() {
         containerStyles="w-full my-7 px-28  "
         textStyles="text-white font-bold"
         handlePress={handlePress}
-        // handlePress={async () => {
-        //   const response = await fetch('/api_apartments/apartments', {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //       name,
-        //       rooms: parseInt(rooms),
-        //       maxCapacity: parseInt(maxCapacity),
-        //       imagesUrl,
-        //     }),
-        //   });
-
-        //   if (!response.ok) {
-        //     let errorMessage = 'Error creating guest';
-        //     const body: ApartmentsResponseBodyPost = await response.json();
-
-        //     if ('error' in body) {
-        //       errorMessage = body.error;
-        //     }
-
-        //     Alert.alert('Error', errorMessage, [{ text: 'OK' }]);
-        //     return;
-        //   }
-
-        //   console.log('iaaaaaa', imagesUrl);
-        //   setName('');
-        //   setRooms('');
-        //   setMaxCapacity('');
-        //   setImagesUrl([]);
-        //   router.push('/(tabs)/apartments');
-        // }}
       />
     </SafeAreaView>
   );

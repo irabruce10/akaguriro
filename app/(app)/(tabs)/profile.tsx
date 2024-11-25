@@ -1,34 +1,9 @@
 import { Link, useFocusEffect, useRouter } from 'expo-router';
 import React, { useCallback } from 'react';
-import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Alert, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { UserResponseBodyGet } from '../../api/user+api';
 import type { SignOutResponseBodyGet } from '../../(auth)/api/signOut+api';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  button: {
-    marginTop: 30,
-
-    padding: 12,
-    borderRadius: 12,
-
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 4,
-    width: '100%',
-  },
-  text: {
-    textAlign: 'center',
-    fontSize: 18,
-  },
-});
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 export default function Profile() {
   const [userName, setUserName] = React.useState('');
   const router = useRouter();
@@ -54,39 +29,65 @@ export default function Profile() {
   );
 
   return (
-    <View style={styles.container}>
-      <Text>Profile</Text>
-      <Text>UserName : {userName!}</Text>
+    <SafeAreaView>
+      <View className="mt-10">
+        <View>
+          <View className="flex flex-col items-center space-y-5 sm:flex-row sm:space-y-0">
+            <Image
+              className="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500"
+              src="https://ui-avatars.com/api/?name={}"
+              alt="Bordered avatar"
+            />
 
-      <Pressable
-        style={({ pressed }) => [styles.button, { opacity: pressed ? 0.5 : 1 }]}
-        onPress={async () => {
-          const response = await fetch('/api/signOut');
+            <Text className="text-xl text-center font-psemibold mb-8 mt-6 text-black mt2">
+              {userName!}
+            </Text>
+            <View className="flex flex-col space-y-5 sm:ml-8">
+              <Link
+                href="/dashboard/dashboard"
+                className="py-3.5 mb-6 px-7 text-base font-medium text-primary-100 focus:outline-none  rounded-lg border border-indigo-200 hover:bg-indigo-900 focus:z-10 focus:ring-4 focus:ring-indigo-200 "
+              >
+                Apartment Owner
+              </Link>
 
-          if (!response.ok) {
-            let errorMessage = 'Error logging out';
-            const responseBody: SignOutResponseBodyGet = await response.json();
-            if ('error' in responseBody) {
-              errorMessage = responseBody.error;
+              <View>
+                <Link
+                  href="/reservationDash/reservationDash"
+                  className="py-3.5 px-7 text-base font-medium text-primary-100 focus:outline-none  rounded-lg border border-indigo-200  focus:z-10 focus:ring-4 focus:ring-indigo-200 "
+                >
+                  Reservation Managment
+                </Link>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        <Pressable
+          onPress={async () => {
+            const response = await fetch('/api/signOut');
+
+            if (!response.ok) {
+              let errorMessage = 'Error logging out';
+              const responseBody: SignOutResponseBodyGet =
+                await response.json();
+              if ('error' in responseBody) {
+                errorMessage = responseBody.error;
+              }
+
+              Alert.alert('Error', errorMessage, [{ text: 'OK' }]);
+              return;
             }
 
-            Alert.alert('Error', errorMessage, [{ text: 'OK' }]);
-            return;
-          }
-
-          router.push('/');
-        }}
-      >
-        <Text style={styles.text}>Logout</Text>
-        <View>
-          <Link href="/dashboard/dashboard">Dashboard </Link>
-        </View>
-        <View>
-          <Link href="/reservationDash/reservationDash">
-            Reservation Dashboard
-          </Link>
-        </View>
-      </Pressable>
-    </View>
+            router.push('/');
+          }}
+        >
+          <View className="mt-9 px-11">
+            <Text className="py-3.5 text-center text-base font-medium bg-[#fb8f15] rounded-lg border  ">
+              Sign Out
+            </Text>
+          </View>
+        </Pressable>
+      </View>
+    </SafeAreaView>
   );
 }

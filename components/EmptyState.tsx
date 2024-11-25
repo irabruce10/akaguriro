@@ -21,7 +21,7 @@ export default function EmptyState({
       </Text>
       <CustomButton
         title="Add apartment"
-        handlePress={() => router.push('/add/addApart')}
+        handlePress={() => router.push('/apartmentModal/addApart')}
         containerStyles="w-full my-7 px-28 text-center"
         textStyles=""
       />

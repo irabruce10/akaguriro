@@ -66,6 +66,14 @@ const apartments = () => {
         data={apartments}
         renderItem={renderItem}
         keyExtractor={(item: Apartment) => String(item.id)}
+        ListEmptyComponent={() => (
+          <View className="flex-1 mt-20 justify-center items-center px-4">
+            <EmptyState
+              title="No Apartment Found"
+              subtitle="Be the first to upload the apartment!"
+            />
+          </View>
+        )}
       />
     </SafeAreaView>
   );
