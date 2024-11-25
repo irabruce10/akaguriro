@@ -9,6 +9,7 @@ import CustomButton from '../../components/CustomButton';
 import type { ApartmentResponseBodyGet } from '../api/apartments/[apartmentId]+api';
 import type { Apartment } from '../../migrations/00008-createTableApartments';
 import type { ReservationResponseBodyPost } from '../api/reservation/reservation+api';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput } from 'react-native-gesture-handler';
 
 interface ReservationProps {
@@ -143,83 +144,86 @@ export default function Apartment() {
   };
 
   return (
-    <ScrollView>
-      <View className="my-6 px-4 space-y-6">
-        {!isDateAvailable && (
-          <Text style={{ color: 'red' }}>
-            Sorry, the selected date range is already booked. Please choose
-            another date.
+    <SafeAreaView className="" style={{ top: -60 }}>
+      <ScrollView>
+        <View className="my-6 px-4 space-y-6">
+          {!isDateAvailable && (
+            <Text style={{ color: 'red' }}>
+              Sorry, the selected date range is already booked. Please choose
+              another date.
+            </Text>
+          )}
+
+          <View>
+            <Text className="text-xl">
+              Reserve {apartment?.name} today. Pay on arrival.
+            </Text>
+
+            <CalenderPicker onDateChanges={handleDateChange} />
+
+            <Text>Total Nights {numNights}</Text>
+          </View>
+          <Text className="font-pmedium text-sm text-black">
+            user {userName.toLocaleUpperCase()}
           </Text>
-        )}
-        <Text className="font-pmedium text-sm text-black">
-          user {userName.toLocaleUpperCase()}
-        </Text>
-        <View>
-          <Text className="text-xl">
-            Reserve {apartment?.name} today. Pay on arrival.
+
+          <Text
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            className="text-black font-pregular "
+          >
+            name: {apartment?.name}
           </Text>
+          <Text className="text-black">rooms {apartment?.rooms} </Text>
 
-          <CalenderPicker onDateChanges={handleDateChange} />
+          <Text>How many guests?</Text>
+          <Text>apartmentPrice per night {apartment?.price} € </Text>
 
-          <Text>Total Nights {numNights}</Text>
-        </View>
-        <Text className="font-pmedium text-sm text-black">
-          user {userName.toLocaleUpperCase()}
-        </Text>
+          <Picker
+            selectedValue={guestsNumber}
+            onValueChange={(itemValue) => setGuestsNumber(itemValue)}
+            mode="dropdown"
+            style={{ height: 50, width: 150 }}
+            itemStyle={{ height: 50 }}
+          >
+            {Array.from({ length: apartment?.maxCapacity! + 1 }, (_, i) => (
+              <Picker.Item key={i} label={`${i} `} value={i} />
+            ))}
+          </Picker>
 
-        <Text
-          numberOfLines={1}
-          ellipsizeMode="tail"
-          className="text-black font-pregular "
-        >
-          name: {apartment?.name}
-        </Text>
-        <Text className="text-black">rooms {apartment?.rooms} </Text>
+          {parseInt(guestsNumber) > 0 && (
+            <Text>
+              Total price:
+              {numNights *
+                (apartment?.price ?? 0) *
+                parseInt(guestsNumber)}{' '}
+              euro
+            </Text>
+          )}
 
-        <Text>How many guests?</Text>
-        <Text>apartmentPrice per night {apartment?.price} € </Text>
-
-        <Picker
-          selectedValue={guestsNumber}
-          onValueChange={(itemValue) => setGuestsNumber(itemValue)}
-          mode="dropdown"
-          style={{ height: 50, width: 150 }}
-          itemStyle={{ height: 50 }}
-        >
-          {Array.from({ length: apartment?.maxCapacity! + 1 }, (_, i) => (
-            <Picker.Item key={i} label={`${i} `} value={i} />
-          ))}
-        </Picker>
-
-        {parseInt(guestsNumber) > 0 && (
-          <Text>
-            Total price:
-            {numNights * (apartment?.price ?? 0) * parseInt(guestsNumber)} euro
-          </Text>
-        )}
-
-        <Text>Breakfast </Text>
-        <Switch
-          value={breakfast}
-          onValueChange={(newValue) => setBreakfast(newValue)}
-          trackColor={{ false: '#767577', true: '#8e8b87' }}
-          thumbColor="#fb8f15"
-          ios_backgroundColor="#3e2465"
-        />
-        <Text>{breakfast}</Text>
-        {/*
+          <Text>Breakfast </Text>
+          <Switch
+            value={breakfast}
+            onValueChange={(newValue) => setBreakfast(newValue)}
+            trackColor={{ false: '#767577', true: '#8e8b87' }}
+            thumbColor="#fb8f15"
+            ios_backgroundColor="#3e2465"
+          />
+          <Text>{breakfast}</Text>
+          {/*
         {parseInt(guestsNumber) > 0 && breakfast !== false && (
           <Text> price: {Number(extrasPrice)}</Text>
         )} */}
 
-        <TextInput value={status} onChangeText={setStatus} />
+          <TextInput value={status} onChangeText={setStatus} />
 
-        <Text>You are booking for {guestsNumber} guests.</Text>
-      </View>
+          <Text>You are booking for {guestsNumber} guests.</Text>
+        </View>
 
-      {isDateAvailable && (
-        <CustomButton title="Book Now" handlePress={handlePress} />
-      )}
-    </ScrollView>
+        {isDateAvailable && (
+          <CustomButton title="Book Now" handlePress={handlePress} />
+        )}
+      </ScrollView>
+    </SafeAreaView>
   );
 }

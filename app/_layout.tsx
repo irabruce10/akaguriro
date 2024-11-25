@@ -161,6 +161,16 @@ export default function RootLayout() {
             animation: 'slide_from_bottom',
           }}
         />
+        <Stack.Screen
+          name="reservation/reservation"
+          options={{
+            presentation: 'modal',
+            title: '',
+            headerShown: true,
+
+            animation: 'slide_from_bottom',
+          }}
+        />
         {/* <Stack.Screen
           name="apartmentModal/addApart"
           options={{

@@ -9,7 +9,7 @@ interface CalenderProps {
 export default function Calender({ onDateChanges }: CalenderProps) {
   const [selectedStartDate, setSelectedStartDate] = useState('DD/MM/YYYY');
 
-  const [selectedEndDate, setSelectedEndDate] = useState('DDs/MsM/YYYsY');
+  const [selectedEndDate, setSelectedEndDate] = useState('DD/MM/YYYY');
 
   const minDate = new Date(); // Today
   const maxDate = new Date(2026, 11, 31);
@@ -45,6 +45,11 @@ export default function Calender({ onDateChanges }: CalenderProps) {
     togglePicker();
     onDateChanges(selectedStartDate, selectedEndDate);
   };
+  const cancelDate = () => {
+    togglePicker();
+    setSelectedStartDate('DD/MM/YYYY');
+    setSelectedEndDate('DD/MM/YYYY');
+  };
 
   return (
     <View className="my-6 px-4 space-y-6">
@@ -74,12 +79,17 @@ export default function Calender({ onDateChanges }: CalenderProps) {
             />
           )}
           {showPicker && (
-            <View>
-              {/* <TouchableOpacity onPress={cancelDate}>
-                <Text>Cancel</Text>
-              </TouchableOpacity> */}
+            <View className="flex flex-row justify-between">
               <TouchableOpacity
-                className="bg-secondary rounded-xl mt-4 min-h-[62px] justify-center  "
+                onPress={cancelDate}
+                className="bg-secondary rounded-xl px-12  mt-4 min-h-[62px] justify-center"
+              >
+                <Text className="text-primary font-psemibold  text-lg text-center">
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                className="bg-secondary rounded-xl px-12 mt-4 min-h-[62px] justify-center  "
                 activeOpacity={0.7}
                 onPress={confirmDate}
               >
@@ -90,12 +100,12 @@ export default function Calender({ onDateChanges }: CalenderProps) {
             </View>
           )}
 
-          <View>
+          <View className="">
             <Text className="text-lg font-bold text-black">
-              SELECTED START DATE: {selectedStartDate}
+              START DATE: {selectedStartDate}
             </Text>
             <Text className="text-lg font-bold text-black">
-              SELECTED END DATE: {selectedEndDate}
+              END DATE: {selectedEndDate}
             </Text>
           </View>
         </View>
