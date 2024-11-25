@@ -1,15 +1,22 @@
-import { Pressable, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Pressable,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, { useState } from 'react';
 import CalendarPicker from 'react-native-calendar-picker';
 import CustomButton from './CustomButton';
+import { AntDesign } from '@expo/vector-icons';
 interface CalenderProps {
   onDateChanges: (startDate: string, endDate: string) => void;
 }
 
 export default function Calender({ onDateChanges }: CalenderProps) {
-  const [selectedStartDate, setSelectedStartDate] = useState('DD/MM/YYYY');
+  const [selectedStartDate, setSelectedStartDate] = useState('YYYY/MM/DD');
 
-  const [selectedEndDate, setSelectedEndDate] = useState('DD/MM/YYYY');
+  const [selectedEndDate, setSelectedEndDate] = useState('YYYY/MM/DD');
 
   const minDate = new Date(); // Today
   const maxDate = new Date(2026, 11, 31);
@@ -30,7 +37,7 @@ export default function Calender({ onDateChanges }: CalenderProps) {
 
       if (type === 'END_DATE') {
         if (day === undefined) {
-          setSelectedEndDate('DD/MM/YYYY');
+          setSelectedEndDate('YYYY/MM/DD');
         } else {
           setSelectedEndDate(year + '-' + month + '-' + day);
         }
@@ -47,8 +54,8 @@ export default function Calender({ onDateChanges }: CalenderProps) {
   };
   const cancelDate = () => {
     togglePicker();
-    setSelectedStartDate('DD/MM/YYYY');
-    setSelectedEndDate('DD/MM/YYYY');
+    setSelectedStartDate('YYYY/MM/DD');
+    setSelectedEndDate('YYYY/MM/DD');
   };
 
   return (
@@ -57,7 +64,7 @@ export default function Calender({ onDateChanges }: CalenderProps) {
         {!showPicker && (
           <Pressable onPress={togglePicker}>
             <Text
-              className="text-xl  font-psemibold text-black mt-4 mb-4"
+              className="text-xl  font-psemibold text-center text-black mt-4 mb-4"
               onPressIn={togglePicker}
             >
               Choose the date
@@ -100,13 +107,22 @@ export default function Calender({ onDateChanges }: CalenderProps) {
             </View>
           )}
 
-          <View className="">
-            <Text className="text-lg font-bold text-black">
-              START DATE: {selectedStartDate}
-            </Text>
-            <Text className="text-lg font-bold text-black">
-              END DATE: {selectedEndDate}
-            </Text>
+          <View className="flex flex-row ml-5 mt-3">
+            <View className="relative">
+              <TextInput
+                value={selectedStartDate}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full ps-10 p-2.5"
+                placeholder="Select date start"
+              />
+            </View>
+            <Text className="mx-4 mt-3 text-gray-500">to</Text>
+            <View className="relative">
+              <TextInput
+                value={selectedEndDate}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full ps-10 p-2.5  "
+                placeholder="Select date start"
+              />
+            </View>
           </View>
         </View>
       </View>
