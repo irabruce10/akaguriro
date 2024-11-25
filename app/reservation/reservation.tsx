@@ -1,6 +1,6 @@
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Alert, ScrollView, Switch, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, Switch, Text, View } from 'react-native';
 
 import CalenderPicker from '../../components/CalenderPicker';
 import { Picker } from '@react-native-picker/picker';
@@ -144,7 +144,7 @@ export default function Apartment() {
   };
 
   return (
-    <SafeAreaView className="" style={{ top: -60 }}>
+    <SafeAreaView style={{ top: -60 }}>
       <ScrollView>
         <View className="my-6 px-4 space-y-6">
           {!isDateAvailable && (
@@ -155,36 +155,44 @@ export default function Apartment() {
           )}
 
           <View>
-            <Text className="text-xl">
+            <Text className="text-xl mt-2 text-black-400 font-pmedium ">
               Reserve {apartment?.name} today. Pay on arrival.
             </Text>
 
             <CalenderPicker onDateChanges={handleDateChange} />
 
-            <Text>Total Nights {numNights}</Text>
+            <Text className="text-xl  text-black-400 font-pmedium ">
+              Total Nights {numNights}
+            </Text>
           </View>
-          <Text className="font-pmedium text-sm text-black">
+          {/* <Text className="text-xl mt-2 text-black-400 font-pmedium ">
             user {userName.toLocaleUpperCase()}
-          </Text>
+          </Text> */}
 
           <Text
             numberOfLines={1}
             ellipsizeMode="tail"
-            className="text-black font-pregular "
+            className="text-xl mt-2 text-black-400 font-pmedium "
           >
-            name: {apartment?.name}
+            Name: {apartment?.name}
           </Text>
-          <Text className="text-black">rooms {apartment?.rooms} </Text>
+          <Text className="text-xl mt-2 text-black-400 font-pmedium ">
+            Rooms {apartment?.rooms}{' '}
+          </Text>
 
-          <Text>How many guests?</Text>
-          <Text>apartmentPrice per night {apartment?.price} € </Text>
-
+          <Text className="text-xl mt-2 text-black-400 font-pmedium ">
+            ApartmentPrice per night {apartment?.price} €{' '}
+          </Text>
+          <Text className="text-xl mt-2 text-black-400 font-pmedium ">
+            How many guests?
+          </Text>
           <Picker
             selectedValue={guestsNumber}
             onValueChange={(itemValue) => setGuestsNumber(itemValue)}
             mode="dropdown"
             style={{ height: 50, width: 150 }}
             itemStyle={{ height: 50 }}
+            className="text-xl mt-3 text-black-400 font-pmedium "
           >
             {Array.from({ length: apartment?.maxCapacity! + 1 }, (_, i) => (
               <Picker.Item key={i} label={`${i} `} value={i} />
@@ -201,7 +209,9 @@ export default function Apartment() {
             </Text>
           )}
 
-          <Text>Breakfast </Text>
+          <Text className="text-xl mt-2 text-black-400 font-pmedium ">
+            Breakfast
+          </Text>
           <Switch
             value={breakfast}
             onValueChange={(newValue) => setBreakfast(newValue)}
@@ -209,19 +219,28 @@ export default function Apartment() {
             thumbColor="#fb8f15"
             ios_backgroundColor="#3e2465"
           />
-          <Text>{breakfast}</Text>
+          <Text className="text-xl mt-2 text-black-400 font-pmedium ">
+            {breakfast}
+          </Text>
           {/*
         {parseInt(guestsNumber) > 0 && breakfast !== false && (
           <Text> price: {Number(extrasPrice)}</Text>
         )} */}
 
-          <TextInput value={status} onChangeText={setStatus} />
+          <TextInput onChangeText={setStatus} />
 
-          <Text>You are booking for {guestsNumber} guests.</Text>
+          <Text className="text-xl text-black-400 font-pmedium ">
+            You are booking for {guestsNumber} guests.
+          </Text>
         </View>
 
         {isDateAvailable && (
-          <CustomButton title="Book Now" handlePress={handlePress} />
+          // <CustomButton title="Book Now" handlePress={handlePress} />
+          <Pressable onPress={handlePress}>
+            <Text className="bg-secondary rounded-xl min-h-[62px] justify-center mt-5 pt-5 text-xl font-medium  text-center ">
+              Book now
+            </Text>
+          </Pressable>
         )}
       </ScrollView>
     </SafeAreaView>
