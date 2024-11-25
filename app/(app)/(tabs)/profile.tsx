@@ -35,12 +35,11 @@ export default function Profile() {
           <View className="flex flex-col items-center space-y-5 sm:flex-row sm:space-y-0">
             <Image
               className="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500"
-              src="https://ui-avatars.com/api/?name={}"
+              source={{ uri: `https://ui-avatars.com/api/?name=${userName}` }}
               alt="Bordered avatar"
             />
-
             <Text className="text-xl text-center font-psemibold mb-8 mt-6 text-black mt2">
-              {userName!}
+              {userName.toLocaleUpperCase()!}
             </Text>
             <View className="flex flex-col space-y-5 sm:ml-8">
               <Link
