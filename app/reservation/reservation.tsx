@@ -161,7 +161,7 @@ export default function Apartment() {
 
             <CalenderPicker onDateChanges={handleDateChange} />
 
-            <Text className="text-xl  text-black-400 font-pmedium ">
+            <Text className="text-xl text-center  text-black-400 font-pmedium ">
               Total Nights {numNights}
             </Text>
           </View>
@@ -172,27 +172,32 @@ export default function Apartment() {
           <Text
             numberOfLines={1}
             ellipsizeMode="tail"
-            className="text-xl mt-2 text-black-400 font-pmedium "
+            className="text-xl mt-2 text-center  text-black-400 font-pmedium "
           >
             Name: {apartment?.name}
           </Text>
-          <Text className="text-xl mt-2 text-black-400 font-pmedium ">
-            Rooms {apartment?.rooms}{' '}
+          <Text className="text-xl mt-2 text-center  text-black-400 font-pmedium ">
+            Rooms {apartment?.rooms}
           </Text>
 
-          <Text className="text-xl mt-2 text-black-400 font-pmedium ">
-            ApartmentPrice per night {apartment?.price} €{' '}
+          <Text className="text-xl mt-2 text-center text-black-400 font-pmedium ">
+            Price per night {apartment?.price} €
           </Text>
-          <Text className="text-xl mt-2 text-black-400 font-pmedium ">
+          <Text className="text-xl mt-2 mb-6  text-center  text-black-400 font-pmedium ">
             How many guests?
           </Text>
           <Picker
             selectedValue={guestsNumber}
             onValueChange={(itemValue) => setGuestsNumber(itemValue)}
             mode="dropdown"
-            style={{ height: 50, width: 150 }}
+            style={{
+              height: 50,
+              width: 100,
+              backgroundColor: 'gray',
+              margin: 'auto',
+            }}
             itemStyle={{ height: 50 }}
-            className="text-xl mt-3 text-black-400 font-pmedium "
+            className="text-xl mt-1 text-black-400 font-pmedium  "
           >
             {Array.from({ length: apartment?.maxCapacity! + 1 }, (_, i) => (
               <Picker.Item key={i} label={`${i} `} value={i} />
@@ -200,25 +205,26 @@ export default function Apartment() {
           </Picker>
 
           {parseInt(guestsNumber) > 0 && (
-            <Text>
-              Total price:
-              {numNights *
-                (apartment?.price ?? 0) *
-                parseInt(guestsNumber)}{' '}
-              euro
+            <Text className="text-center mt-2 text-xl text-black-400 font-pmedium">
+              Total price :
+              {numNights * (apartment?.price ?? 0) * parseInt(guestsNumber)} €
             </Text>
           )}
 
-          <Text className="text-xl mt-2 text-black-400 font-pmedium ">
-            Breakfast
-          </Text>
-          <Switch
-            value={breakfast}
-            onValueChange={(newValue) => setBreakfast(newValue)}
-            trackColor={{ false: '#767577', true: '#8e8b87' }}
-            thumbColor="#fb8f15"
-            ios_backgroundColor="#3e2465"
-          />
+          <View className=" flex flex-row mt-2 justify-center ">
+            <Text className="text-xl mr-10 mt-4 text-black-400 font-pmedium ">
+              Breakfast
+            </Text>
+
+            <Switch
+              value={breakfast}
+              onValueChange={(newValue) => setBreakfast(newValue)}
+              trackColor={{ false: '#767577', true: '#8e8b87' }}
+              thumbColor="#fb8f15"
+              ios_backgroundColor="#3e2465"
+            />
+          </View>
+
           <Text className="text-xl mt-2 text-black-400 font-pmedium ">
             {breakfast}
           </Text>
@@ -226,18 +232,23 @@ export default function Apartment() {
         {parseInt(guestsNumber) > 0 && breakfast !== false && (
           <Text> price: {Number(extrasPrice)}</Text>
         )} */}
+          <View className="px-12">
+            <TextInput
+              onChangeText={setStatus}
+              placeholder="Status"
+              className="border px-3 rounded-xl min-h-[62px] justify-center text-xl font-medium"
+            />
+          </View>
 
-          <TextInput onChangeText={setStatus} />
-
-          <Text className="text-xl text-black-400 font-pmedium ">
+          <Text className="text-xl mt-6 text-center text-black-400 font-pmedium ">
             You are booking for {guestsNumber} guests.
           </Text>
         </View>
 
         {isDateAvailable && (
           // <CustomButton title="Book Now" handlePress={handlePress} />
-          <Pressable onPress={handlePress}>
-            <Text className="bg-secondary rounded-xl min-h-[62px] justify-center mt-5 pt-5 text-xl font-medium  text-center ">
+          <Pressable onPress={handlePress} className=" px-11">
+            <Text className="bg-secondary  rounded-xl min-h-[62px] justify-center pt-5 text-xl font-medium  text-center ">
               Book now
             </Text>
           </Pressable>

@@ -64,7 +64,7 @@ export default function Calender({ onDateChanges }: CalenderProps) {
         {!showPicker && (
           <Pressable onPress={togglePicker}>
             <Text
-              className="text-xl  font-psemibold text-center text-black mt-4 mb-4"
+              className="text-xl  font-psemibold text-center text-black mt-1 mb-4"
               onPressIn={togglePicker}
             >
               Choose the date
