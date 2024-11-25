@@ -98,6 +98,15 @@ export default function Homelayout() {
               animation: 'slide_from_bottom',
             }}
           />
+          <Stack.Screen
+            name="apartmentModal/addApart"
+            options={{
+              presentation: 'modal',
+              title: '',
+              animation: 'slide_from_bottom',
+              headerShown: true,
+            }}
+          />
         </Stack>
       </Chat>
     </OverlayProvider>

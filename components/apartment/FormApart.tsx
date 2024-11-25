@@ -219,56 +219,54 @@ export default function FormApart() {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className="bg-primary w-full min-h-full">
       <View className=" text-center mt-4">
-        <Text>Add your property</Text>
-      </View>
-      <View className="grid gap-6  md:grid-cols-2">
-        <Text className=" text-sm font-medium text-gray-900 dark:text-white">
-          name
+        <Text className="text-xl text-center text-black-400 font-pmedium ">
+          Add your property
         </Text>
+      </View>
+      <View className="px-14">
+        <View>
+          <TextInput
+            className="bg-gray-50 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+            placeholder="Name"
+            value={name}
+            onChangeText={setName}
+          />
+        </View>
+
         <TextInput
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
-          value={name}
-          onChangeText={setName}
-          onFocus={() => setFocusedInput('name')}
-          onBlur={() => setFocusedInput(undefined)}
-        />
-        <Text>rooms</Text>
-        <TextInput
+          className="bg-gray-50 border mb-4 mt-4 border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
           value={rooms}
           onChangeText={setRooms}
-          onFocus={() => setFocusedInput('rooms')}
-          onBlur={() => setFocusedInput(undefined)}
-        />
-        <Text>maxCapacity</Text>
-        <TextInput
-          value={maxCapacity}
-          onChangeText={setMaxCapacity}
-          onFocus={() => setFocusedInput('maxCapacity')}
-          onBlur={() => setFocusedInput(undefined)}
-        />
-        <Text>price</Text>
-        <TextInput
-          value={price}
-          onChangeText={setPrice}
-          onFocus={() => setFocusedInput('price')}
-          onBlur={() => setFocusedInput(undefined)}
+          placeholder="Room"
         />
 
-        <Text>description</Text>
         <TextInput
-          multiline
-          value={description}
-          onChangeText={setDescription}
-          onFocus={() => setFocusedInput('description')}
+          className="bg-gray-50 border mb-4 mt-4 border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+          value={maxCapacity}
+          onChangeText={setMaxCapacity}
+          placeholder="Max Capacity"
         />
-        <Text>Location</Text>
+
         <TextInput
+          className="bg-gray-50 mb-4 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+          value={price}
+          onChangeText={setPrice}
+          placeholder="Price"
+        />
+
+        <TextInput
+          className="bg-gray-50 mb-4 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+          value={description}
+          placeholder="Description"
+        />
+
+        <TextInput
+          className="bg-gray-50 border mb-4 mt-4 border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
           value={location}
           onChangeText={setLocation}
-          onFocus={() => setFocusedInput('location')}
-          onBlur={() => setFocusedInput(undefined)}
+          placeholder="Location"
         />
 
         <View style={styles.container}>

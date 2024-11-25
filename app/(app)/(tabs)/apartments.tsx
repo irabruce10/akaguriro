@@ -4,7 +4,6 @@ import React, { useCallback, useState } from 'react';
 
 import { router, useFocusEffect } from 'expo-router';
 
-import { parse } from 'cookie';
 import type { Apartment } from '../../../migrations/00008-createTableApartments';
 import ApartItem from '../../../components/apartment/ApartItem';
 import type { ApartmentsResponseBodyGet } from '../../api/apartments/apartments+api';
