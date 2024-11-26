@@ -219,16 +219,16 @@ export default function FormApart() {
   };
 
   return (
-    <SafeAreaView className="bg-primary w-full min-h-full">
+    <SafeAreaView className="  bg-black-100 flex-auto ">
       <View className=" text-center mt-4">
-        <Text className="text-xl text-center text-black-400 font-pmedium ">
+        <Text className="text-xl mt-6 mb-6 text-white text-center text-black-400 font-pmedium ">
           Add your property
         </Text>
       </View>
-      <View className="px-14">
+      <View className="px-16 ">
         <View>
           <TextInput
-            className="bg-gray-50 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+            className="bg-gray-50 mb-4 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
             placeholder="Name"
             value={name}
             onChangeText={setName}
@@ -269,7 +269,7 @@ export default function FormApart() {
           placeholder="Location"
         />
 
-        <View style={styles.container}>
+        <View className="mt-6 mb-6">
           {imagesUrl.map((url) => (
             <Image key={url} source={{ uri: url }} style={styles.image} />
           ))}
@@ -281,21 +281,18 @@ export default function FormApart() {
         </View>
       </View>
 
-      <CustomButton
-        title="Add apartment"
-        containerStyles="w-full my-7 px-28  "
-        textStyles="text-white font-bold"
-        handlePress={handlePress}
-      />
+      <View className="mb-28 px-4">
+        <CustomButton
+          title="Add apartment"
+          containerStyles=""
+          textStyles="text-white font-bold"
+          handlePress={handlePress}
+        />
+      </View>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   image: {
     width: 100,
     height: 100,

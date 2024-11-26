@@ -104,7 +104,7 @@ export default function Homelayout() {
               presentation: 'modal',
               title: '',
               animation: 'slide_from_bottom',
-              headerShown: true,
+              headerStyle: { backgroundColor: 'white' },
             }}
           />
         </Stack>
