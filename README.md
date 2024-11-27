@@ -234,6 +234,5 @@ We welcome contributions! If you'd like to contribute to this project, please fo
 ```
 
 Feel free to modify and expand on this template as needed for your specific project!
-```
 
 ````
