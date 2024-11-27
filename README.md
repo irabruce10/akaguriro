@@ -111,6 +111,7 @@ This app allows users to add apartments, manage bookings, and chat with apartmen
 - **Database**: PostgreSQL
 - **Authentication**: JWT (JSON Web Tokens) for secure user authentication
 - **Real-time Chat**: Stream Chat
+- **Images**: upload images from firabase
 
 ## Installation
 
@@ -234,4 +235,5 @@ We welcome contributions! If you'd like to contribute to this project, please fo
 
 Feel free to modify and expand on this template as needed for your specific project!
 ```
+
 ````
