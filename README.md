@@ -271,14 +271,18 @@ Before running this app, ensure you have the following installed:
 
 ### Frontend Setup (Expo)
 
-````
+```
+
+
+
+```
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/apartment-booking-app.git
    cd apartment-booking-app
    ```
-````
 
 2. Install dependencies:
 
