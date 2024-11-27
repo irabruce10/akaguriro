@@ -3,12 +3,12 @@ import { useCallback, useState } from 'react';
 import {
   Alert,
   Pressable,
-  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from 'react-native';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 import CustomButton from '../CustomButton';
 import { addDoc, collection, onSnapshot } from 'firebase/firestore';
@@ -219,77 +219,82 @@ export default function FormApart() {
   };
 
   return (
-    <SafeAreaView className="  bg-black-100 flex-auto ">
-      <View className=" text-center mt-4">
-        <Text className="text-xl mt-6 mb-6 text-white text-center text-black-400 font-pmedium ">
-          Add your property
-        </Text>
-      </View>
-      <View className="px-16 ">
-        <View>
-          <TextInput
-            className="bg-gray-50 mb-4 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
-            placeholder="Name"
-            value={name}
-            onChangeText={setName}
-          />
-        </View>
+    <SafeAreaProvider>
+      <SafeAreaView className=" w-full  bg-primary ">
+        <ScrollView>
+          <View className=" text-center mt-4">
+            <Text className="text-xl mt-6 mb-6 text-white text-center text-black-400 font-pmedium ">
+              Add your property
+            </Text>
+          </View>
+          <View className="px-16 ">
+            <View>
+              <TextInput
+                className="bg-gray-50 mb-4 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+                placeholder="Name"
+                value={name}
+                onChangeText={setName}
+              />
+            </View>
 
-        <TextInput
-          className="bg-gray-50 border mb-4 mt-4 border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
-          value={rooms}
-          onChangeText={setRooms}
-          placeholder="Room"
-        />
+            <TextInput
+              className="bg-gray-50 border mb-4 mt-4 border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+              value={rooms}
+              onChangeText={setRooms}
+              placeholder="Room"
+            />
 
-        <TextInput
-          className="bg-gray-50 border mb-4 mt-4 border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
-          value={maxCapacity}
-          onChangeText={setMaxCapacity}
-          placeholder="Max Capacity"
-        />
+            <TextInput
+              className="bg-gray-50 border mb-4 mt-4 border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+              value={maxCapacity}
+              onChangeText={setMaxCapacity}
+              placeholder="Max Capacity"
+            />
 
-        <TextInput
-          className="bg-gray-50 mb-4 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
-          value={price}
-          onChangeText={setPrice}
-          placeholder="Price"
-        />
+            <TextInput
+              className="bg-gray-50 mb-4 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+              value={price}
+              onChangeText={setPrice}
+              placeholder="Price"
+            />
 
-        <TextInput
-          className="bg-gray-50 mb-4 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
-          value={description}
-          placeholder="Description"
-        />
+            <TextInput
+              className="bg-gray-50 mb-4 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+              value={description}
+              placeholder="Description"
+              onChangeText={setDescription}
+            />
 
-        <TextInput
-          className="bg-gray-50 border mb-4 mt-4 border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
-          value={location}
-          onChangeText={setLocation}
-          placeholder="Location"
-        />
+            <TextInput
+              className="bg-gray-50 border mb-4 mt-4 border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+              value={location}
+              onChangeText={setLocation}
+              placeholder="Location"
+            />
 
-        <View className="mt-6 mb-6">
-          {imagesUrl.map((url) => (
-            <Image key={url} source={{ uri: url }} style={styles.image} />
-          ))}
+            <View className="mt-6 mb-6">
+              {imagesUrl.map((url) => (
+                <Image key={url} source={{ uri: url }} style={styles.image} />
+              ))}
 
-          <Button
-            title="Pick an image from camera roll GALERY"
-            onPress={pickImage}
-          />
-        </View>
-      </View>
+              <Button
+                title="Pick  images from camera roll GALERY"
+                onPress={pickImage}
+              />
+            </View>
+          </View>
 
-      <View className="mb-28 px-4">
-        <CustomButton
-          title="Add apartment"
-          containerStyles=""
-          textStyles="text-white font-bold"
-          handlePress={handlePress}
-        />
-      </View>
-    </SafeAreaView>
+          <View className="mb-28 px-4">
+            <CustomButton
+              title="Add apartment"
+              containerStyles=""
+              textStyles="text-white font-bold"
+              handlePress={handlePress}
+            />
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 const styles = StyleSheet.create({
