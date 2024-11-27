@@ -236,7 +236,10 @@ We welcome contributions! If you'd like to contribute to this project, please fo
 
 Here's a basic `README.md` template for your apartment booking and management app:
 
-````markdown
+```
+
+```
+
 # Apartment Booking and Management App
 
 This app allows users to add apartments, manage bookings, and chat with apartment owners. It is built using Expo for the frontend and PostgreSQL for the backend.
@@ -267,6 +270,8 @@ Before running this app, ensure you have the following installed:
 - PostgreSQL database
 
 ### Frontend Setup (Expo)
+
+````
 
 1. Clone the repository:
    ```bash
