@@ -234,13 +234,11 @@ We welcome contributions! If you'd like to contribute to this project, please fo
 
 ``` -->
 
-Here's a basic `README.md` template for your apartment booking and management app:
-
+```
+AKAGURIRO APP
 ```
 
-```
-
-# Apartment Booking and Management App
+# Apartment Booking and Management App AKAGURIRO
 
 This app allows users to add apartments, manage bookings, and chat with apartment owners. It is built using Expo for the frontend and PostgreSQL for the backend.
 
@@ -254,10 +252,11 @@ This app allows users to add apartments, manage bookings, and chat with apartmen
 ## Tech Stack
 
 - **Frontend**: Expo (React Native)
-- **Backend**: Node.js, Express.js
+- **Backend**: Node.js
 - **Database**: PostgreSQL
 - **Authentication**: JWT (JSON Web Tokens) for secure user authentication
-- **Real-time Chat**: WebSockets or a chat service (like Firebase, Pusher, etc.)
+- **Real-time Chat**: Stream Chat.
+- **Images**: upload images from firabase.
 
 ## Installation
 
@@ -280,19 +279,19 @@ Before running this app, ensure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/apartment-booking-app.git
-   cd apartment-booking-app
+   git clone https://github.com/irabruce10/akaguriro
+   cd akaguriro
    ```
 
 2. Install dependencies:
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. Run the app:
    ```bash
-   expo start
+   pnpm expo start
    ```
    This will start the development server and open the app in Expo Go or a simulator.
 
@@ -307,19 +306,14 @@ Before running this app, ensure you have the following installed:
 2. Install backend dependencies:
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. Set up PostgreSQL database:
 
    - Create a new PostgreSQL database.
-   - Set up the required tables (`users`, `apartments`, `bookings`, `messages`, etc.).
+   - Set up the required tables (`users`, `apartments`, `bookings`, `chats`, etc.).
    - Update the database configuration in the backend environment variables.
-
-4. Run the backend server:
-   ```bash
-   npm run dev
-   ```
 
 ### Environment Variables
 
@@ -329,8 +323,6 @@ You will need to set the following environment variables in your `.env` file:
 - `DB_USER`: PostgreSQL user
 - `DB_PASSWORD`: PostgreSQL password
 - `DB_NAME`: PostgreSQL database name
-- `JWT_SECRET`: Secret key for JWT authentication
-- `PORT`: Port for the backend server (default: 5000)
 
 ## Usage
 
@@ -373,29 +365,9 @@ You will need to set the following environment variables in your `.env` file:
 - `POST /messages`: Send a message to the apartment owner
 - `GET /messages/:ownerId`: Get all messages between user and owner
 
-## Testing
-
-To run tests, install the necessary dependencies and use a testing framework such as Jest or Mocha.
-
-```bash
-npm install --save-dev jest
-npm test
-```
-
-## Deployment
-
-For deploying the app, follow these steps:
-
-1. **Frontend**: Deploy the Expo app to the App Store and Google Play Store using Expo's build and deployment tools.
-2. **Backend**: Deploy the backend API to platforms like Heroku, AWS, or DigitalOcean.
-
 ## Contributing
 
 We welcome contributions! If you'd like to contribute to this project, please fork the repository and submit a pull request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
