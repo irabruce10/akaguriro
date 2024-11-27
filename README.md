@@ -93,7 +93,7 @@ Email - [Your Email]
 - Expo
 - PostgreSQL -->
 
-# Apartment Booking and Management App AKAGURIRO
+<!-- # Apartment Booking and Management App AKAGURIRO
 
 This app allows users to add apartments, manage bookings, and chat with apartment owners. It is built using Expo for the frontend and PostgreSQL for the backend.
 
@@ -126,12 +126,11 @@ Before running this app, ensure you have the following installed:
 ### Frontend Setup (Expo)
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/irabruce10/akaguriro
    cd akaguriro
    ```
-
-````
 
 2. Install dependencies:
 
@@ -233,6 +232,170 @@ We welcome contributions! If you'd like to contribute to this project, please fo
 
 ```
 
-Feel free to modify and expand on this template as needed for your specific project!
+``` -->
 
+Here's a basic `README.md` template for your apartment booking and management app:
+
+````markdown
+# Apartment Booking and Management App
+
+This app allows users to add apartments, manage bookings, and chat with apartment owners. It is built using Expo for the frontend and PostgreSQL for the backend.
+
+## Features
+
+- **Apartment Listing**: Owners can list their apartments with details such as name, price, location, and availability.
+- **Booking Management**: Users can make reservations for available apartments and manage their bookings.
+- **Chat Functionality**: Users can chat with the apartment owner regarding any queries or information.
+- **User Roles**: Normal users can make reservations and view apartments, while owners can manage their listings and bookings.
+
+## Tech Stack
+
+- **Frontend**: Expo (React Native)
+- **Backend**: Node.js, Express.js
+- **Database**: PostgreSQL
+- **Authentication**: JWT (JSON Web Tokens) for secure user authentication
+- **Real-time Chat**: WebSockets or a chat service (like Firebase, Pusher, etc.)
+
+## Installation
+
+### Prerequisites
+
+Before running this app, ensure you have the following installed:
+
+- Node.js (LTS version)
+- Expo CLI
+- PostgreSQL database
+
+### Frontend Setup (Expo)
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/apartment-booking-app.git
+   cd apartment-booking-app
+   ```
 ````
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Run the app:
+   ```bash
+   expo start
+   ```
+   This will start the development server and open the app in Expo Go or a simulator.
+
+### Backend Setup (Node.js + PostgreSQL)
+
+1. Navigate to the backend directory:
+
+   ```bash
+   cd backend
+   ```
+
+2. Install backend dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Set up PostgreSQL database:
+
+   - Create a new PostgreSQL database.
+   - Set up the required tables (`users`, `apartments`, `bookings`, `messages`, etc.).
+   - Update the database configuration in the backend environment variables.
+
+4. Run the backend server:
+   ```bash
+   npm run dev
+   ```
+
+### Environment Variables
+
+You will need to set the following environment variables in your `.env` file:
+
+- `DB_HOST`: PostgreSQL host (e.g., localhost)
+- `DB_USER`: PostgreSQL user
+- `DB_PASSWORD`: PostgreSQL password
+- `DB_NAME`: PostgreSQL database name
+- `JWT_SECRET`: Secret key for JWT authentication
+- `PORT`: Port for the backend server (default: 5000)
+
+## Usage
+
+### User
+
+1. **Sign Up/Log In**: Create an account or log in to access the features.
+2. **Browse Apartments**: View available apartments listed by owners.
+3. **Make a Reservation**: Select an apartment and reserve it for your desired dates.
+4. **Chat with Owner**: Send messages to the apartment owner about your booking.
+
+### Owner
+
+1. **Sign Up/Log In**: Create an owner account or log in.
+2. **Add Apartment**: List new apartments with details like name, price, and availability.
+3. **Manage Bookings**: View and manage incoming reservations.
+4. **Chat with Users**: Respond to users' messages and address their queries.
+
+## API Endpoints
+
+### Authentication
+
+- `POST /auth/signup`: User registration
+- `POST /auth/login`: User login
+
+### Apartments
+
+- `GET /apartments`: Get a list of all available apartments
+- `POST /apartments`: Add a new apartment (owner only)
+- `PUT /apartments/:id`: Update apartment details (owner only)
+- `DELETE /apartments/:id`: Delete an apartment listing (owner only)
+
+### Bookings
+
+- `POST /bookings`: Create a new booking
+- `GET /bookings`: Get all bookings (user-specific)
+- `DELETE /bookings/:id`: Cancel a booking
+
+### Chat
+
+- `POST /messages`: Send a message to the apartment owner
+- `GET /messages/:ownerId`: Get all messages between user and owner
+
+## Testing
+
+To run tests, install the necessary dependencies and use a testing framework such as Jest or Mocha.
+
+```bash
+npm install --save-dev jest
+npm test
+```
+
+## Deployment
+
+For deploying the app, follow these steps:
+
+1. **Frontend**: Deploy the Expo app to the App Store and Google Play Store using Expo's build and deployment tools.
+2. **Backend**: Deploy the backend API to platforms like Heroku, AWS, or DigitalOcean.
+
+## Contributing
+
+We welcome contributions! If you'd like to contribute to this project, please fork the repository and submit a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Expo documentation for mobile app development.
+- PostgreSQL for the database.
+- Node.js and Express for the backend.
+- Open-source libraries and resources used in the app development.
+
+```
+
+Feel free to modify and expand on this template as needed for your specific project!
+```
