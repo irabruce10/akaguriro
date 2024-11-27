@@ -270,11 +270,7 @@ Before running this app, ensure you have the following installed:
 
 ### Frontend Setup (Expo)
 
-```
-
-
-
-```
+` `
 
 1. Clone the repository:
 
