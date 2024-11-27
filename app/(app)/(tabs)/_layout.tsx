@@ -57,7 +57,7 @@ export default function TabsNavigation() {
         }}
       />
 
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="books"
         options={{
           title: 'Books',
@@ -65,7 +65,7 @@ export default function TabsNavigation() {
             <MaterialCommunityIcons name="bookshelf" size={44} color={color} />
           ),
         }}
-      />
+      /> */}
 
       <Tabs.Screen
         name="profile"

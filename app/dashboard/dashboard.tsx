@@ -1,10 +1,10 @@
 import SearchInput from '../../components/SearchInput';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Image } from 'react-native';
 import React, { useCallback, useState } from 'react';
 
 import ApartItem from '../../components/apartment/ApartItem';
-import { router, useFocusEffect } from 'expo-router';
+import { Link, router, useFocusEffect } from 'expo-router';
 import type { ApartmentsResponseBodyGet } from '../api/apartments/apartments+api';
 import Add from '../../components/apartment/AddApartBtn';
 import EmptyState from '../../components/EmptyState';
@@ -62,6 +62,18 @@ const apartments = () => {
 
   return (
     <SafeAreaView className="bg-primary w-full h-full">
+      <View className="my-6 px-4 ">
+        <View className="flex flex-row justify-between mt-5">
+          <Image
+            source={require('../../assets/AkaLogo.png')}
+            resizeMode="cover"
+            style={{ width: 50, height: 50, top: -20 }}
+          />
+          <Text className="" style={{ top: -12 }}>
+            <Add />
+          </Text>
+        </View>
+      </View>
       <FlatList
         data={apartments}
         renderItem={renderItem}
@@ -72,6 +84,19 @@ const apartments = () => {
               title="No Apartment Found"
               subtitle="Be the first to upload the apartment!"
             />
+          </View>
+        )}
+        ListFooterComponent={() => (
+          <View className="flex-shrink-0 mb-6  ">
+            <View className="flex flex-row  mb-14  text-center items-center ml-10   ">
+              <Link
+                href="/(app)/(tabs)/apartments"
+                style={{ color: 'blue' }}
+                className=" text-center  hover:text-black-800 visited:text-purple-600"
+              >
+                <Text className="text-secondary"> Go Back</Text>
+              </Link>
+            </View>
           </View>
         )}
       />
