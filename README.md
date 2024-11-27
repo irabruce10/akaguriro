@@ -93,7 +93,6 @@ Email - [Your Email]
 - Expo
 - PostgreSQL -->
 
-````markdown
 # Apartment Booking and Management App AKAGURIRO
 
 This app allows users to add apartments, manage bookings, and chat with apartment owners. It is built using Expo for the frontend and PostgreSQL for the backend.
@@ -130,12 +129,13 @@ Before running this app, ensure you have the following installed:
    git clone https://github.com/irabruce10/akaguriro
    cd akaguriro
    ```
+
 ````
 
 2. Install dependencies:
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. Run the app:
@@ -149,7 +149,7 @@ Before running this app, ensure you have the following installed:
 1. Navigate to the backend directory:
 
    ```bash
-   cd backend
+   cd database
    ```
 
 2. Install backend dependencies:
@@ -234,3 +234,4 @@ We welcome contributions! If you'd like to contribute to this project, please fo
 
 Feel free to modify and expand on this template as needed for your specific project!
 ```
+````
