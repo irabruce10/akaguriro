@@ -234,9 +234,7 @@ We welcome contributions! If you'd like to contribute to this project, please fo
 
 ``` -->
 
-```
-AKAGURIRO APP
-```
+`
 
 # Apartment Booking and Management App AKAGURIRO
 
