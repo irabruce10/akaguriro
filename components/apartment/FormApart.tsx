@@ -7,12 +7,15 @@ import {
   Text,
   TextInput,
   View,
+  ScrollView,
+  Image,
+  Button,
+  FlatList,
 } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 import CustomButton from '../CustomButton';
 import { addDoc, collection, onSnapshot } from 'firebase/firestore';
-import { Button, Image, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import {
   ref,
@@ -27,6 +30,7 @@ import type {
 } from '../../app/api/apartments/apartments+api';
 import type { UserResponseBodyGet } from '../../app/api/user+api';
 import type { Apartment } from '../../migrations/00008-createTableApartments';
+import { LoadingAnimation } from '../LoadingSpinner';
 
 export default function FormApart() {
   const [name, setName] = useState('');
@@ -42,6 +46,7 @@ export default function FormApart() {
   const [imagesUrl, setImagesUrl] = useState<string[]>([]);
   const [isStale, setIsStale] = useState(true);
   const [apartments, setApartments] = useState<Apartment[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -131,6 +136,7 @@ export default function FormApart() {
   };
 
   const pickImage = async () => {
+    setLoading(true);
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: false,
       allowsMultipleSelection: true,
@@ -140,13 +146,13 @@ export default function FormApart() {
     });
 
     if (!result.canceled) {
-      // setImage(result.assets[0]?.uri);
       const imageUris = result.assets.map((asset) => asset.uri);
       await uploadImages(imageUris, 'image/jpeg');
       setImages(imageUris);
     } else {
       alert('No image selected');
     }
+    setLoading(false);
   };
 
   // Upload images to Firebase Storage
@@ -161,12 +167,13 @@ export default function FormApart() {
       const uploadTask = uploadBytesResumable(storageRef, blob, {
         contentType: fileType,
       });
-
       uploadTask.on(
         'state_changed',
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setLoading(true);
+
           console.log(`Upload is ${progress}% done`);
         },
         (error) => {
@@ -181,6 +188,7 @@ export default function FormApart() {
             setImagesUrl(urls);
             urls.forEach((url) => saveRecords(fileType, url, new Date()));
             console.log('All images uploaded successfully', imagesUrl);
+            setLoading(false);
           }
         },
       );
@@ -217,89 +225,97 @@ export default function FormApart() {
       console.error('Error deleting image:', error);
     }
   };
+  const renderImage = ({ item }: { item: string }) => (
+    <Image key={item} source={{ uri: item }} style={styles.image} />
+  );
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView className=" w-full  bg-primary ">
-        <ScrollView>
-          <View className=" text-center mt-4">
-            <Text className="text-xl mt-6 mb-6 text-white text-center text-black-400 font-pmedium ">
-              Add your property
-            </Text>
-          </View>
-          <View className="px-16 ">
-            <View>
-              <TextInput
-                className="bg-gray-50 mb-4 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
-                placeholder="Name"
-                value={name}
-                onChangeText={setName}
-              />
-            </View>
-
-            <TextInput
-              className="bg-gray-50 border mb-4 mt-4 border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
-              value={rooms}
-              onChangeText={setRooms}
-              placeholder="Room"
-            />
-
-            <TextInput
-              className="bg-gray-50 border mb-4 mt-4 border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
-              value={maxCapacity}
-              onChangeText={setMaxCapacity}
-              placeholder="Max Capacity"
-            />
-
+    <ScrollView>
+      <View className=" bg-primary w-full h-full ">
+        <View className=" text-center mt-2">
+          <Text className="text-xl text-white text-center text-black-400 font-pmedium ">
+            Add your property
+          </Text>
+        </View>
+        <View className="px-16  ">
+          <View>
             <TextInput
               className="bg-gray-50 mb-4 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
-              value={price}
-              onChangeText={setPrice}
-              placeholder="Price"
+              placeholder="Name"
+              value={name}
+              onChangeText={setName}
             />
+          </View>
 
-            <TextInput
-              className="bg-gray-50 mb-4 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
-              value={description}
-              placeholder="Description"
-              onChangeText={setDescription}
-            />
+          <TextInput
+            className="bg-gray-50 border mb-4 mt-4 border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+            value={rooms}
+            onChangeText={setRooms}
+            placeholder="Room"
+          />
 
-            <TextInput
-              className="bg-gray-50 border mb-4 mt-4 border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
-              value={location}
-              onChangeText={setLocation}
-              placeholder="Location"
-            />
+          <TextInput
+            className="bg-gray-50 border mb-4 mt-4 border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+            value={maxCapacity}
+            onChangeText={setMaxCapacity}
+            placeholder="Max Capacity"
+          />
 
-            <View className="mt-6 mb-6">
-              {imagesUrl.map((url) => (
-                <Image key={url} source={{ uri: url }} style={styles.image} />
-              ))}
+          <TextInput
+            className="bg-gray-50 mb-4 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+            value={price}
+            onChangeText={setPrice}
+            placeholder="Price"
+          />
 
-              <Button
-                title="Pick  images from camera roll GALERY"
-                onPress={pickImage}
+          <TextInput
+            className="bg-gray-50 mb-4 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+            value={description}
+            placeholder="Description"
+            onChangeText={setDescription}
+          />
+
+          <TextInput
+            className="bg-gray-50 border mb-4 mt-4 border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3"
+            value={location}
+            onChangeText={setLocation}
+            placeholder="Location"
+          />
+          <View className="mt-6 mb-6">
+            {loading ? (
+              <LoadingAnimation />
+            ) : (
+              <FlatList
+                data={imagesUrl}
+                numColumns={3}
+                keyExtractor={(item) => item}
+                renderItem={renderImage}
               />
-            </View>
-          </View>
+            )}
 
-          <View className="mb-28 px-4">
-            <CustomButton
-              title="Add apartment"
-              containerStyles=""
-              textStyles="text-white font-bold"
-              handlePress={handlePress}
+            <Button
+              title="Pick images from camera roll GALLERY"
+              onPress={pickImage}
+              color={'gray'}
             />
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+        </View>
+        <View className="mb-28 px-4">
+          <CustomButton
+            title="Add apartment"
+            containerStyles=""
+            textStyles="text-white font-bold"
+            handlePress={handlePress}
+          />
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({
   image: {
-    width: 100,
+    width: '33%',
     height: 100,
+    margin: 1,
   },
 });

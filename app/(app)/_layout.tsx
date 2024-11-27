@@ -5,55 +5,7 @@ import { router, Slot, Stack, useFocusEffect } from 'expo-router';
 import { Chat, OverlayProvider } from 'stream-chat-expo';
 import type { UserStreamResponseBodyGet } from '../api/astreamusers/users+api';
 
-const client = StreamChat.getInstance('fvp2pqwqbcsh');
-//   useEffect(() => {
-//     const connect = async () => {
-//       const response = await fetch('/api/astreamusers/users/');
-//       const body: UserStreamResponseBodyGet = await response.json();
-
-//       if ('error' in body) {
-//         router.replace('/authModal/signin?returnTo=/(tabs)/home');
-//         return;
-//       }
-//       setUserId(String(body.id));
-//       console.log('bodynameaa: ', userName);
-//       setUserName(body.name!);
-//       console.log('bodyname: ', body.name);
-//       console.log('userid', body.id);
-
-//       await client.connectUser(
-//         {
-//           id: String(body.id), // Fixed: Convert number to string
-//           name: body.name,
-//           image: `https://ui-avatars.com/api/?name=${body.name}`,
-
-//           // id: 'user1',
-//           // name: 'user1',
-//           // image: 'https://ui-avatars.com/api/?name=user',
-//         },
-//         client.devToken(String(body.id!)),
-//         // client.devToken('user1'),
-//       );
-//       setIsReady(true);
-
-//       const channel = client.channel('messaging', 'the_park', {
-//         name: 'the-park',
-//       });
-//       await channel.watch();
-//     };
-
-//     connect();
-//     // return () => {
-//     //   if (isReady) client.disconnectUser();
-//     //   setIsReady(false);
-//     // };
-//   }, []);
-
-//   if (!isReady) {
-//     return <ActivityIndicator />;
-//   }
-//   return <Slot />;
-// }
+const client = StreamChat.getInstance('trz2a6qq5m32');
 
 export default function Homelayout() {
   useFocusEffect(
@@ -67,12 +19,11 @@ export default function Homelayout() {
           return;
         }
 
-        console.log(body);
         await client.connectUser(
           {
             id: String(body.id),
             name: body.name,
-            image: 'https://ui-avatars.com/api/?name=user',
+            image: 'https://ui-avatars.com/api/?name={body.name}',
           },
           client.devToken(String(body.id)),
         );
@@ -104,7 +55,6 @@ export default function Homelayout() {
               presentation: 'modal',
               title: '',
               animation: 'slide_from_bottom',
-              headerStyle: { backgroundColor: 'white' },
             }}
           />
         </Stack>

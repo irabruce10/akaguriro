@@ -93,13 +93,15 @@ export default function Apartment() {
   }, []);
 
   const handlePress = async () => {
-    console.log('me', me);
-    console.log('ownerid', ownerId);
-    const channel = client.channel('messaging', {
-      members: [String(me), String(ownerId)],
-    });
-    await channel.watch();
-    router.replace(`/channel/${channel.cid}`);
+    if (me !== ownerId) {
+      console.log('me', me);
+      console.log('ownerid', ownerId);
+      const channel = client.channel('messaging', {
+        members: [String(me), String(ownerId)],
+      });
+      await channel.watch();
+      router.replace(`/channel/${channel.cid}`);
+    }
   };
 
   return (
@@ -211,7 +213,8 @@ export default function Apartment() {
 
             <TouchableOpacity
               onPress={handlePress}
-              className="bg-secondary rounded-xl mt-6 min-h-[62px] justify-center items-center"
+              disabled={me === ownerId}
+              className={`bg-secondary rounded-xl mt-6 min-h-[62px] justify-center items-center ${me === ownerId ? 'hidden' : ''}`}
             >
               <Text className={`text-primary font-psemibold text-lg `}>
                 Message

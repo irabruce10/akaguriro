@@ -7,7 +7,7 @@ import { router, useFocusEffect } from 'expo-router';
 import { StreamChat } from 'stream-chat';
 import type { UserStreamResponseBodyGet } from '../../api/astreamusers/users+api';
 
-const client = StreamChat.getInstance('fvp2pqwqbcsh');
+const client = StreamChat.getInstance('trz2a6qq5m32');
 
 export default function chat() {
   const [userId, setUserId] = useState('');

@@ -15,11 +15,11 @@ const ApartItem = ({ apartment }: Props) => {
   return (
     <Link href={`/(app)/apartmentModal/${id}`} asChild>
       <Pressable>
-        <View className="my-6 px-4 space-y-6  mb-10 mt-10 flex flex-row  ">
+        <View className="my-6 flex flex-row px-4 space-y-6  mb-10 mt-10  ">
           {imagesUrl.length > 0 && (
             <Image
               source={{ uri: imagesUrl[0] }}
-              style={{ width: 250, height: 150 }}
+              style={{ width: 200, height: 150 }}
               className="w-full h-full rounded-xl mt-2"
               resizeMode="cover"
             />

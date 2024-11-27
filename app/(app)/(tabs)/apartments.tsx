@@ -14,6 +14,7 @@ import Add from '../../../components/apartment/AddApartBtn';
 const apartments = () => {
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const filteredAp = search
     ? apartments.filter(
@@ -46,6 +47,7 @@ const apartments = () => {
       getApartments().catch((error) => {
         console.error(error);
       });
+      setLoading(false);
     }, [isStale, router]),
   );
 
@@ -62,8 +64,6 @@ const apartments = () => {
             <Add />
           </Text>
         </View>
-
-        <View className=" "></View>
       </View>
       <View className="mt-x px-4" style={{ top: -20 }}>
         <SearchInput value={search} handleChangeText={setSearch} />
@@ -71,6 +71,7 @@ const apartments = () => {
       <Text className="text-gray-100 px-4  text-lg font-pregular ">
         Latest Apartments
       </Text>
+
       <FlatList
         data={filteredAp}
         renderItem={renderItem}
