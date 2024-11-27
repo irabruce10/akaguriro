@@ -234,8 +234,6 @@ We welcome contributions! If you'd like to contribute to this project, please fo
 
 ``` -->
 
-`
-
 # Apartment Booking and Management App AKAGURIRO
 
 This app allows users to add apartments, manage bookings, and chat with apartment owners. It is built using Expo for the frontend and PostgreSQL for the backend.
