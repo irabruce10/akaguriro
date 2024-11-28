@@ -11,7 +11,7 @@ This app allows users to add apartments, manage bookings, and chat with apartmen
 
 ## Tech Stack
 
-- **Frontend**: Expo (React Native)
+- **Frontend**: Expo (React Native),TypeScript and Tailwind
 - **Backend**: Node.js
 - **Database**: PostgreSQL
 - **Authentication**: JWT (JSON Web Tokens) / bcryptJs for secure user authentication
