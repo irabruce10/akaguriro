@@ -84,9 +84,10 @@ You will need to set the following environment variables in your `.env` file:
 
 1. **Sign Up/Log In**: Create an account or log in to access the features.
 2. **Browse Apartments**: View available apartments listed by owners.
-3. **Make a Reservation**: Select an apartment and reserve it for your desired dates.
-4. **User Dashboard**: Manage your reservation delete and update.
-5. **Chat with Owner**: Send messages to the apartment owner about your booking.
+3. **Search Apartments**: Filter available apartments by Location,name,rooms
+4. **Make a Reservation**: Select an apartment and reserve it for your desired dates.
+5. **User Dashboard**: Manage your reservation delete and update.
+6. **Chat with Owner**: Send messages to the apartment owner about your booking.
 
 ### Owner
 
