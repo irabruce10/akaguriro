@@ -16,7 +16,6 @@ const ApItemDa = ({ apartment }: Props) => {
     <Link href={`/dashboard/${id}`} asChild>
       <Pressable>
         <View className="my-6 px-4 space-y-6">
-          <Text className="text-white">Dash</Text>
           <Text className="text-white">name:{name}</Text>
           <Text className="text-white">Rooms: {rooms}</Text>
           <Text className="text-white">guests: {maxCapacity}</Text>

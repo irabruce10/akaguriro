@@ -74,6 +74,9 @@ const apartments = () => {
           </Text>
         </View>
       </View>
+      <Text className="text-gray-100 px-4  text-lg font-pregular ">
+        Apartments Dashboard
+      </Text>
       <FlatList
         data={apartments}
         renderItem={renderItem}

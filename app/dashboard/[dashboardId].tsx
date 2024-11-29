@@ -167,8 +167,8 @@ export default function Apartment() {
         <>
           <View className="my-6 px-4 space-y-6">
             <Text className="font-pmedium text-sm text-black">user</Text>
-            <Text className="font-pmedium text-sm text-black">
-              Apartment Details :
+            <Text className="text-black-100 px-4 mt-6 mb-6  text-lg font-pregular ">
+              Apartments Dashboard Details
             </Text>
             <View className="flex-row justify-between items-start mb-6">
               {apartment?.imagesUrl.map((imageUrl, index) => (
@@ -191,43 +191,35 @@ export default function Apartment() {
             </Text>
             <Text className="text-black">{apartment?.rooms} rooms </Text>
           </View>
-          <View>
-            <Pressable
-              onPress={() => {
-                setIsEditing(true);
-              }}
-            >
-              <Ionicons name="create-outline" size={36} />
-            </Pressable>
-            <Pressable
-              onPress={async () => {
-                await fetch(`/api/apartments/${dashboardId}`, {
-                  method: 'DELETE',
-                });
-                setIsEditing(false);
-                router.replace('/dashboard/dashboard');
-              }}
-            >
-              <Ionicons name="trash-outline" size={36} />
-            </Pressable>
+          <View
+            className="flex flex-row justify-center"
+            // style={{ top: -42, left: 92 }}
+          >
+            <View className="bg-secondary mr-2  px-4 rounded-xl min-h-[62px] justify-center mt-6  text-xl font-medium  text-center ">
+              <Pressable
+                onPress={() => {
+                  setIsEditing(true);
+                }}
+              >
+                <Ionicons name="create-outline" size={36} />
+              </Pressable>
+            </View>
+            <View className="bg-secondary  px-4 rounded-xl min-h-[62px] justify-center mt-6  text-xl font-medium  text-center ">
+              <Pressable
+                onPress={async () => {
+                  await fetch(`/api/apartments/${dashboardId}`, {
+                    method: 'DELETE',
+                  });
+                  setIsEditing(false);
+                  router.replace('/dashboard/dashboard');
+                }}
+              >
+                <Ionicons name="trash-outline" size={36} />
+              </Pressable>
+            </View>
           </View>
         </>
       )}
     </ScrollView>
   );
 }
-
-// import { StyleSheet, Text, View } from 'react-native';
-// import React from 'react';
-
-// const apartment = () => {
-//   return (
-//     <View>
-//       <Text>apartment</Text>
-//     </View>
-//   );
-// };
-
-// export default apartment;
-
-// const styles = StyleSheet.create({});

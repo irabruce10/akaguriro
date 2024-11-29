@@ -15,7 +15,7 @@ const ApartItem = ({ apartment }: Props) => {
   return (
     <Link href={`/(app)/apartmentModal/${id}`} asChild>
       <Pressable>
-        <View className="my-6 flex flex-row px-4 space-y-6  mb-10 mt-10  ">
+        <View className="my-6 flex flex-row px-4 space-y-6  mb-2 mt-4  ">
           {imagesUrl.length > 0 && (
             <Image
               source={{ uri: imagesUrl[0] }}
@@ -24,8 +24,8 @@ const ApartItem = ({ apartment }: Props) => {
               resizeMode="cover"
             />
           )}
-          <View className="px-9 text-center flex flex-col justify-between p-4 leading-normal ">
-            <Text className="text-white mb-2 text-2xl font-bold tracking-tight  dark:text-white ">
+          <View className="px-4 text-center flex flex-col justify-between p-4 leading-normal ">
+            <Text className="text-white  mb-2 text-xl font-bold tracking-tight  dark:text-white ">
               {name}
             </Text>
             <Text className=" mb-3 font-normal text-gray-500 dark:text-gray-400">
