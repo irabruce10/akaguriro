@@ -217,6 +217,15 @@ export default function Apartment() {
                 <Ionicons name="trash-outline" size={36} />
               </Pressable>
             </View>
+            <View className="bg-secondary  px-4 rounded-xl min-h-[62px] justify-center mt-6 ml-2  text-xl font-medium  text-center ">
+              <Pressable
+                onPress={async () => {
+                  router.replace('/(app)/(tabs)/apartments');
+                }}
+              >
+                <Ionicons name="arrow-back-outline" size={36} />
+              </Pressable>
+            </View>
           </View>
         </>
       )}

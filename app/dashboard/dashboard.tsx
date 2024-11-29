@@ -13,6 +13,8 @@ import type { Apartment } from '../../migrations/00008-createTableApartments';
 import { parse } from 'cookie';
 import type { UserResponseBodyGet } from '../api/user+api';
 import ApItemDa from '../../components/apartment/ApItemDa';
+import { Ionicons } from '@expo/vector-icons';
+import { Pressable } from 'react-native';
 
 const apartments = () => {
   const [apartments, setApartments] = useState<Apartment[]>([]);
@@ -90,15 +92,15 @@ const apartments = () => {
           </View>
         )}
         ListFooterComponent={() => (
-          <View className="flex-shrink-0 mb-6  ">
-            <View className="flex flex-row  mb-14  text-center items-center ml-10   ">
-              <Link
-                href="/(app)/(tabs)/apartments"
-                style={{ color: 'blue' }}
-                className=" text-center  hover:text-black-800 visited:text-purple-600"
+          <View className="flex flex-row  px-28 ">
+            <View className="bg-secondary   rounded-xl min-h-[62px] justify-center mt-6 ml-2  text-xl font-medium  text-center ">
+              <Pressable
+                onPress={async () => {
+                  router.replace('/(app)/(tabs)/apartments');
+                }}
               >
-                <Text className="text-secondary"> Go Back</Text>
-              </Link>
+                <Ionicons name="arrow-back-outline" size={36} />
+              </Pressable>
             </View>
           </View>
         )}
