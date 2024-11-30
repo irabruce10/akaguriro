@@ -1,16 +1,13 @@
-import SearchInput from '../../components/SearchInput';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, Text, FlatList, Image } from 'react-native';
 import React, { useCallback, useState } from 'react';
 
-import ApartItem from '../../components/apartment/ApartItem';
 import { Link, router, useFocusEffect } from 'expo-router';
 import type { ApartmentsResponseBodyGet } from '../api/apartments/apartments+api';
 import Add from '../../components/apartment/AddApartBtn';
 import EmptyState from '../../components/EmptyState';
 import type { Apartment } from '../../migrations/00008-createTableApartments';
 
-import { parse } from 'cookie';
 import type { UserResponseBodyGet } from '../api/user+api';
 import ApItemDa from '../../components/apartment/ApItemDa';
 import { Ionicons } from '@expo/vector-icons';
