@@ -125,6 +125,7 @@ You will need to set the following environment variables in your `.env` file:
 ## Contributing
 
 We welcome contributions! If you'd like to contribute to this project, please fork the repository and submit a pull request.
+Thanks
 
 ## Acknowledgments
 
