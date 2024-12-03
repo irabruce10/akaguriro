@@ -70,6 +70,7 @@ export default function Home() {
               className="text-xl mt-6 text-gray-100 font-pmedium "
             >
               Great Locations: Our apartments are located in prime areas.
+              Rentals close to shopping centers, schools, and parks.
             </Animated.Text>
           </View>
         </View>
