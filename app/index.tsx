@@ -38,7 +38,7 @@ export default function App() {
                 Welcome to Akaguriro!
               </Text>
               <Text style={{ marginTop: 16 }}>
-                One Solution For All Your Needs.
+                One Solution For All Your Needs.dfgf
               </Text>
             </View>
             <TouchableOpacity onPress={() => router.push('/authModal/signin')}>

@@ -57,7 +57,17 @@ export default function TabsNavigation() {
         }}
       />
 
-      {/* <Tabs.Screen
+      <Tabs.Screen
+        name="products"
+        options={{
+          title: 'products',
+          tabBarIcon: ({ size, color }) => (
+            <MaterialCommunityIcons name="bookshelf" size={44} color={color} />
+          ),
+        }}
+      />
+
+{/* <Tabs.Screen
         name="books"
         options={{
           title: 'Books',

@@ -34,7 +34,7 @@ export default function ProductForm() {
             price,
             address,
           };
-          const response = await fetch('/api/products', {
+          const response = await fetch('/api/products/products', {
             method: 'POST',
             body: JSON.stringify(product),
           });

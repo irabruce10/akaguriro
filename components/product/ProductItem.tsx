@@ -14,10 +14,10 @@ export default function ProductItem({ product, setIsStale }: Props) {
     <Link href={`/productModal/${id}`} asChild>
       <Pressable>
         <View>
-          <Text className="text-white">ID: {id}</Text>
-          <Text className="text-white">{name}</Text>
-          <Text className="text-white">Price: {price}</Text>
-          <Text className="text-white">Address: {address}</Text>
+          <Text className="text-black">ID: {id}</Text>
+          <Text className="text-black">name {name}</Text>
+          <Text className="text-black">Price: {price}</Text>
+          <Text className="text-black">Address: {address}</Text>
         </View>
       </Pressable>
     </Link>
