@@ -54,7 +54,7 @@ export default function ProductForm() {
           setName('');
           setPrice('');
           setAddress('');
-          router.push('/(tabs)/home');
+          router.push('/(app)/(tabs)/products' );
         }}
       >
         <Text>Add product</Text>
