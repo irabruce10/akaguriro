@@ -6,3 +6,6 @@ const { createRequestHandler } = require('@expo/server/adapter/vercel');
 module.exports = createRequestHandler({
   build: path.join(__dirname, '../dist/server'),
 });
+// module.exports = createRequestHandler({
+//   build: path.join(__dirname, '../dist/client'),
+// });
