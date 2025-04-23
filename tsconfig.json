@@ -5,6 +5,10 @@
     // Based on expo/tsconfig.base.json
     // https://github.com/expo/expo/blob/main/packages/expo/tsconfig.base.json
     "jsx": "react-native",
+    "module": "ESNext",        // or "NodeNext"
+    "target": "ES2020",        // or later
+    "moduleResolution": "Node",
+    "verbatimModuleSyntax": true
 
 
   },
