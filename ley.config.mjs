@@ -1,4 +1,4 @@
-// ley.config.js (ESM)
+// ley.config.mjs (ESM)
 import { postgresConfig, setEnvironmentVariables } from './util/config.js';
 
 setEnvironmentVariables();
