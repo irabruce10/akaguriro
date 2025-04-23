@@ -1,4 +1,5 @@
-import { postgresConfig, setEnvironmentVariables } from './util/config.js';
+const { postgresConfig, setEnvironmentVariables } = require('./util/config.js');
+
 
 setEnvironmentVariables();
 
