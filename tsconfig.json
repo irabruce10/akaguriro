@@ -6,6 +6,12 @@
     // https://github.com/expo/expo/blob/main/packages/expo/tsconfig.base.json
     "jsx": "react-native",
     "target": "ESNext",
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
 
   },
   "include": [
