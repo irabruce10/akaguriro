@@ -71,6 +71,7 @@
     "eslint": "^9.15.0",
     "eslint-config-upleveled": "^8.11.4",
     "libpg-query": "16.2.0",
+    "metro-resolver": "^0.82.1",
     "nativewind": "^4.1.23",
     "prettier": "^3.3.3",
     "prettier-plugin-embed": "^0.4.15",
