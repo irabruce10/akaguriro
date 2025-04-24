@@ -25,7 +25,7 @@ export default function App() {
           <View className=" w-full justify-center mt-60 items-center h-full px-4">
             <Text className="">
               <Link href="/(app)/(tabs)/home" style={{ color: 'blue' }}>
-                go to home page.
+                go to home page
               </Link>
             </Text>
             <View
