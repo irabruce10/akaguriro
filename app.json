@@ -8,8 +8,9 @@
     "scheme": "akaguriro",
     "userInterfaceStyle": "light",
     "splash": {
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "black"
+      "backgroundColor": "white"
     },
     "ios": {
       "supportsTablet": true
