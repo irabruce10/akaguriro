@@ -8,15 +8,15 @@
   "functions": {
     "api/index.js": {
       "runtime": "@vercel/node@5.1.8",
-      "includeFiles": "dist/server/**"
+      "includeFiles": "dist/**"
     }
   },
 
-  "rewrites": [
-    { "source": "/_expo/(.*)", "destination": "/_expo/$1" },
+  "routes": [
+    { "src": "/_expo/(.*)", "dest": "/_expo/$1" },
 
-    { "source": "/api/(.*)", "destination": "/api/index.js" },
+    { "src": "/api/(.*)", "dest": "/api/index.js" },
 
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "src": "/(.*)", "dest": "/api/index.js" }
   ]
 }
