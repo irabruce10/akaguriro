@@ -1,16 +1,31 @@
 {
-  "buildCommand": "pnpm migrate up && expo export --platform web && sed -i 's/\"type\": \"module\"/\"type\": \"commonjs\"/' package.json",
+  "version": 2,
+
+  "buildCommand": "pnpm migrate up && expo export:web --output dist/client && tsc -p server/tsconfig.json --outDir dist/server",
+
   "outputDirectory": "dist/client",
+
   "functions": {
     "api/index.js": {
       "runtime": "@vercel/node@5.1.8",
       "includeFiles": "dist/server/**"
     }
   },
-  "rewrites": [
+
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/api/index.js"
+      "src": "/api/(.*)",
+      "dest": "/api/index.js"
+    },
+
+    {
+      "src": "/_expo/(.*)",
+      "dest": "/_expo/$1"
+    },
+
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }

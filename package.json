@@ -6,10 +6,11 @@
   "main": "expo-router/entry",
   "scripts": {
     "android": "expo start --android",
+    "web": "expo start --web",
+    "build": "expo export:web --output dist",
     "ios": "expo start --ios",
     "migrate": "ley --require tsx/cjs",
     "start": "expo start",
-    "web": "expo start --web",
     "build:tailwind": "node --experimental-modules node_modules/.bin/tailwindcss -i ./tailwind.config.js -o ./app/tailwind.css"
   },
   "dependencies": {
