@@ -1,32 +1,16 @@
 {
-  "version": 2,
   "buildCommand": "pnpm migrate up && expo export --platform web && sed -i 's/\"type\": \"module\"/\"type\": \"commonjs\"/' package.json",
-
-  "outputDirectory": "dist",
-
+  "outputDirectory": "dist/client",
   "functions": {
     "api/index.js": {
       "runtime": "@vercel/node@5.1.8",
-      "includeFiles": "dist/_expo/functions/**"
+      "includeFiles": "dist/server/**"
     }
   },
-
-  "routes": [
+  "rewrites": [
     {
-      "src": "/_expo/static/(.*)",
-      "dest": "/_expo/static/$1"
-    },
-    {
-      "src": "/favicon\\.ico",
-      "dest": "/favicon.ico"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/index.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/api/index.js"
+      "source": "/(.*)",
+      "destination": "/api/index.js"
     }
   ]
 }
