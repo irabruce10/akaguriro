@@ -16,7 +16,7 @@
   "rewrites": [
     { "source": "/_expo/(.*)", "destination": "/_expo/$1" },
 
-    { "source": "/api/(.*)", "destination": "/api/index.js" },
+    { "source": "/(.*)", "destination": "/api/index.js" },
 
     { "source": "/(.*)", "destination": "/index.html" }
   ]
