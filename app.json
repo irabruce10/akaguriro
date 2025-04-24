@@ -9,8 +9,7 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "white"
+      "resizeMode": "contain"
     },
     "ios": {
       "supportsTablet": true
@@ -22,6 +21,7 @@
       }
     },
     "web": {
+      "favicon": "./assets/favicon.png",
       "bundler": "metro",
       "output": "server"
     },
