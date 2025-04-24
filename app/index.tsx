@@ -55,7 +55,7 @@ export default function App() {
                 <Text
                   style={{ left: -30, textAlign: 'center', fontWeight: '600' }}
                 >
-                  Continue with Email
+                  Continue with Email.
                 </Text>
               </View>
             </TouchableOpacity>
