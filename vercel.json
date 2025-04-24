@@ -1,16 +1,24 @@
 {
-  "buildCommand": "pnpm migrate up && expo export --platform web --output-dir dist/client && tsc -p server/tsconfig.json --outDir dist/server",
+  "version": 2,
+
+  "buildCommand": "pnpm migrate up && expo export:web --output dist/client",
+
   "outputDirectory": "dist/client",
+
   "functions": {
-    "api/index.js": {
-      "runtime": "@vercel/node@3.0.11",
-      "includeFiles": "dist/server/**"
+    "dist/client/_expo/functions/**/*.js": {
+      "runtime": "@vercel/node@5.1.8"
     }
   },
-  "rewrites": [
+
+  "routes": [
+    { "src": "/_expo/(.*)", "dest": "/_expo/$1" },
+
     {
-      "source": "/(.*)",
-      "destination": "/api/index.js"
-    }
+      "src": "/api/(.*)",
+      "dest": "/_expo/functions/api/$1+api.js"
+    },
+
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
