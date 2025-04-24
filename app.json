@@ -7,11 +7,7 @@
     "icon": "./assets/icon.png",
     "scheme": "akaguriro",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "white"
-    },
+
     "ios": {
       "supportsTablet": true
     },
